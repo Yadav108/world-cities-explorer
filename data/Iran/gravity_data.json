@@ -1,0 +1,95 @@
+{
+  "country": "Iran",
+  "cities": [
+    {
+      "city": "Tehran",
+      "lat": 35.6889,
+      "lng": 51.3897,
+      "population": 14148000,
+      "rank": 1
+    },
+    {
+      "city": "Mashhad",
+      "lat": 36.3264,
+      "lng": 59.5433,
+      "population": 3700000,
+      "rank": 2
+    },
+    {
+      "city": "Eşfahān",
+      "lat": 32.6653,
+      "lng": 51.6703,
+      "population": 2219343,
+      "rank": 3
+    },
+    {
+      "city": "Karaj",
+      "lat": 35.8292,
+      "lng": 50.9675,
+      "population": 1973470,
+      "rank": 4
+    },
+    {
+      "city": "Shīrāz",
+      "lat": 29.61,
+      "lng": 52.5425,
+      "population": 1565572,
+      "rank": 5
+    },
+    {
+      "city": "Tabrīz",
+      "lat": 38.0817,
+      "lng": 46.2992,
+      "population": 1558693,
+      "rank": 6
+    },
+    {
+      "city": "Ahvāz",
+      "lat": 31.3047,
+      "lng": 48.6783,
+      "population": 1325000,
+      "rank": 7
+    },
+    {
+      "city": "Qom",
+      "lat": 34.64,
+      "lng": 50.8764,
+      "population": 1201158,
+      "rank": 8
+    },
+    {
+      "city": "Kermānshāh",
+      "lat": 34.3369,
+      "lng": 47.0911,
+      "population": 946651,
+      "rank": 9
+    },
+    {
+      "city": "Kermān",
+      "lat": 30.2625,
+      "lng": 57.0575,
+      "population": 738374,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Tehran",
+      "city_b": "Karaj",
+      "distance_km": 41.2,
+      "gravity": 1.0,
+      "pop_a": 14148000,
+      "pop_b": 1973470,
+      "lat_a": 35.6889,
+      "lng_a": 51.3897,
+      "lat_b": 35.8292,
+      "lng_b": 50.9675
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 1,
+    "strongest_pair": "Tehran → Karaj",
+    "generated_at": "2026-03-12"
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "country": "Canada",
+  "cities": [
+    {
+      "city": "Toronto",
+      "lat": 43.7417,
+      "lng": -79.3733,
+      "population": 5647656,
+      "rank": 1
+    },
+    {
+      "city": "Montréal",
+      "lat": 45.5089,
+      "lng": -73.5617,
+      "population": 3675219,
+      "rank": 2
+    },
+    {
+      "city": "Vancouver",
+      "lat": 49.25,
+      "lng": -123.1,
+      "population": 2426160,
+      "rank": 3
+    },
+    {
+      "city": "Calgary",
+      "lat": 51.05,
+      "lng": -114.0667,
+      "population": 1306784,
+      "rank": 4
+    },
+    {
+      "city": "Edmonton",
+      "lat": 53.5344,
+      "lng": -113.4903,
+      "population": 1151635,
+      "rank": 5
+    },
+    {
+      "city": "Ottawa",
+      "lat": 45.4247,
+      "lng": -75.695,
+      "population": 1068821,
+      "rank": 6
+    },
+    {
+      "city": "Winnipeg",
+      "lat": 49.8844,
+      "lng": -97.1464,
+      "population": 758515,
+      "rank": 7
+    },
+    {
+      "city": "Quebec City",
+      "lat": 46.8139,
+      "lng": -71.2081,
+      "population": 733156,
+      "rank": 8
+    },
+    {
+      "city": "Hamilton",
+      "lat": 43.2567,
+      "lng": -79.8692,
+      "population": 729560,
+      "rank": 9
+    },
+    {
+      "city": "Mississauga",
+      "lat": 43.6,
+      "lng": -79.65,
+      "population": 717961,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Toronto",
+      "city_b": "Mississauga",
+      "distance_km": 27.3,
+      "gravity": 1.0,
+      "pop_a": 5647656,
+      "pop_b": 717961,
+      "lat_a": 43.7417,
+      "lng_a": -79.3733,
+      "lat_b": 43.6,
+      "lng_b": -79.65
+    },
+    {
+      "city_a": "Toronto",
+      "city_b": "Hamilton",
+      "distance_km": 67.1,
+      "gravity": 0.1676,
+      "pop_a": 5647656,
+      "pop_b": 729560,
+      "lat_a": 43.7417,
+      "lng_a": -79.3733,
+      "lat_b": 43.2567,
+      "lng_b": -79.8692
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 2,
+    "strongest_pair": "Toronto → Mississauga",
+    "generated_at": "2026-03-12"
+  }
+}

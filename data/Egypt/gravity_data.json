@@ -1,0 +1,95 @@
+{
+  "country": "Egypt",
+  "cities": [
+    {
+      "city": "Cairo",
+      "lat": 30.0444,
+      "lng": 31.2358,
+      "population": 20296000,
+      "rank": 1
+    },
+    {
+      "city": "Giza",
+      "lat": 29.987,
+      "lng": 31.2118,
+      "population": 5598402,
+      "rank": 2
+    },
+    {
+      "city": "Alexandria",
+      "lat": 31.1975,
+      "lng": 29.8925,
+      "population": 4870000,
+      "rank": 3
+    },
+    {
+      "city": "Shubrā al Khaymah",
+      "lat": 30.1286,
+      "lng": 31.2422,
+      "population": 1025569,
+      "rank": 4
+    },
+    {
+      "city": "Ashmūn",
+      "lat": 30.2974,
+      "lng": 30.9764,
+      "population": 901191,
+      "rank": 5
+    },
+    {
+      "city": "Sinnūris",
+      "lat": 29.4072,
+      "lng": 30.8667,
+      "population": 692701,
+      "rank": 6
+    },
+    {
+      "city": "Dayrūţ",
+      "lat": 27.5564,
+      "lng": 30.8106,
+      "population": 653847,
+      "rank": 7
+    },
+    {
+      "city": "Ţūkh",
+      "lat": 30.3549,
+      "lng": 31.2011,
+      "population": 627290,
+      "rank": 8
+    },
+    {
+      "city": "Al Manşūrah",
+      "lat": 31.05,
+      "lng": 31.3833,
+      "population": 621953,
+      "rank": 9
+    },
+    {
+      "city": "Ḩalwān",
+      "lat": 29.8493,
+      "lng": 31.3327,
+      "population": 619293,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Cairo",
+      "city_b": "Giza",
+      "distance_km": 6.8,
+      "gravity": 1.0,
+      "pop_a": 20296000,
+      "pop_b": 5598402,
+      "lat_a": 30.0444,
+      "lng_a": 31.2358,
+      "lat_b": 29.987,
+      "lng_b": 31.2118
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 1,
+    "strongest_pair": "Cairo → Giza",
+    "generated_at": "2026-03-12"
+  }
+}

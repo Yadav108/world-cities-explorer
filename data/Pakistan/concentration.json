@@ -1,0 +1,64 @@
+{
+  "country": "Pakistan",
+  "total_cities": 278,
+  "total_population": 82008542,
+  "primacy_index": 0.2469,
+  "confidence": "high",
+  "confidence_note": "",
+  "largest_city": {
+    "city": "Karachi",
+    "population": 20249000,
+    "share_pct": 24.7
+  },
+  "top5": [
+    {
+      "rank": 1,
+      "city": "Karachi",
+      "population": 20249000,
+      "share_pct": 24.7
+    },
+    {
+      "rank": 2,
+      "city": "Lahore",
+      "population": 12306000,
+      "share_pct": 15.0
+    },
+    {
+      "rank": 3,
+      "city": "Kotla Qasim Khan",
+      "population": 3219375,
+      "share_pct": 3.9
+    },
+    {
+      "rank": 4,
+      "city": "Faisalabad",
+      "population": 3203846,
+      "share_pct": 3.9
+    },
+    {
+      "rank": 5,
+      "city": "Rawalpindi",
+      "population": 2098231,
+      "share_pct": 2.6
+    }
+  ],
+  "top5_combined_share": 50.1,
+  "narration": {
+    "concentration": {
+      "headline": "Moderately concentrated — one leading city",
+      "body": "Karachi leads Pakistan's urban system with 24.7% of tracked urban population across 278 cities — significant but not overwhelming. Secondary cities retain meaningful economic weight alongside the capital.",
+      "comparison": "Similar to: United Kingdom, Italy, Canada",
+      "contrast": "Unlike: USA, Japan (more distributed) or Thailand, Argentina (more dominant)",
+      "pattern": "transitional",
+      "insight_confidence": "high"
+    },
+    "gravity": {
+      "headline": "Dense gravitational cluster — Rawalpindi & Islamabad",
+      "body": "The strongest gravitational pull exists between Rawalpindi and Islamabad (11 km apart, combined population 3,113,056). Cities form a tight gravitational cluster with top pairs averaging 40 km apart. This dense sub-regional network often functions as a single megalopolitan economy.",
+      "top_pair": "Rawalpindi → Islamabad",
+      "network_type": "clustered",
+      "avg_distance_top5": 39.9
+    },
+    "synthesis": "Pakistan sits between distributed and dominant: Karachi leads with 24.7% but doesn't overwhelm. Gravity clusters tightly around Rawalpindi → Islamabad (40 km avg) — a strong sub-regional core coexists with the national leader, creating a layered urban hierarchy."
+  }
+}

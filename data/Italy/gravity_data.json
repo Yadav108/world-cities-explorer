@@ -1,0 +1,191 @@
+{
+  "country": "Italy",
+  "cities": [
+    {
+      "city": "Rome",
+      "lat": 41.8931,
+      "lng": 12.4828,
+      "population": 2748109,
+      "rank": 1
+    },
+    {
+      "city": "Milan",
+      "lat": 45.4669,
+      "lng": 9.19,
+      "population": 1354196,
+      "rank": 2
+    },
+    {
+      "city": "Naples",
+      "lat": 40.8358,
+      "lng": 14.2486,
+      "population": 913462,
+      "rank": 3
+    },
+    {
+      "city": "Turin",
+      "lat": 45.0792,
+      "lng": 7.6761,
+      "population": 841600,
+      "rank": 4
+    },
+    {
+      "city": "Palermo",
+      "lat": 38.1157,
+      "lng": 13.3613,
+      "population": 630167,
+      "rank": 5
+    },
+    {
+      "city": "Genoa",
+      "lat": 44.4072,
+      "lng": 8.934,
+      "population": 558745,
+      "rank": 6
+    },
+    {
+      "city": "Bologna",
+      "lat": 44.4939,
+      "lng": 11.3428,
+      "population": 387971,
+      "rank": 7
+    },
+    {
+      "city": "Florence",
+      "lat": 43.7714,
+      "lng": 11.2542,
+      "population": 360930,
+      "rank": 8
+    },
+    {
+      "city": "Bari",
+      "lat": 41.1253,
+      "lng": 16.8667,
+      "population": 316015,
+      "rank": 9
+    },
+    {
+      "city": "Catania",
+      "lat": 37.5027,
+      "lng": 15.0873,
+      "population": 311584,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Milan",
+      "city_b": "Turin",
+      "distance_km": 126.1,
+      "gravity": 1.0,
+      "pop_a": 1354196,
+      "pop_b": 841600,
+      "lat_a": 45.4669,
+      "lng_a": 9.19,
+      "lat_b": 45.0792,
+      "lng_b": 7.6761
+    },
+    {
+      "city_a": "Rome",
+      "city_b": "Naples",
+      "distance_km": 188.5,
+      "gravity": 0.985,
+      "pop_a": 2748109,
+      "pop_b": 913462,
+      "lat_a": 41.8931,
+      "lng_a": 12.4828,
+      "lat_b": 40.8358,
+      "lng_b": 14.2486
+    },
+    {
+      "city_a": "Milan",
+      "city_b": "Genoa",
+      "distance_km": 119.5,
+      "gravity": 0.7377,
+      "pop_a": 1354196,
+      "pop_b": 558745,
+      "lat_a": 45.4669,
+      "lng_a": 9.19,
+      "lat_b": 44.4072,
+      "lng_b": 8.934
+    },
+    {
+      "city_a": "Turin",
+      "city_b": "Genoa",
+      "distance_km": 124.3,
+      "gravity": 0.4229,
+      "pop_a": 841600,
+      "pop_b": 558745,
+      "lat_a": 45.0792,
+      "lng_a": 7.6761,
+      "lat_b": 44.4072,
+      "lng_b": 8.934
+    },
+    {
+      "city_a": "Bologna",
+      "city_b": "Florence",
+      "distance_km": 80.6,
+      "gravity": 0.2985,
+      "pop_a": 387971,
+      "pop_b": 360930,
+      "lat_a": 44.4939,
+      "lng_a": 11.3428,
+      "lat_b": 43.7714,
+      "lng_b": 11.2542
+    },
+    {
+      "city_a": "Rome",
+      "city_b": "Florence",
+      "distance_km": 231.6,
+      "gravity": 0.256,
+      "pop_a": 2748109,
+      "pop_b": 360930,
+      "lat_a": 41.8931,
+      "lng_a": 12.4828,
+      "lat_b": 43.7714,
+      "lng_b": 11.2542
+    },
+    {
+      "city_a": "Rome",
+      "city_b": "Milan",
+      "distance_km": 477.4,
+      "gravity": 0.2258,
+      "pop_a": 2748109,
+      "pop_b": 1354196,
+      "lat_a": 41.8931,
+      "lng_a": 12.4828,
+      "lat_b": 45.4669,
+      "lng_b": 9.19
+    },
+    {
+      "city_a": "Milan",
+      "city_b": "Bologna",
+      "distance_km": 200.9,
+      "gravity": 0.1795,
+      "pop_a": 1354196,
+      "pop_b": 387971,
+      "lat_a": 45.4669,
+      "lng_a": 9.19,
+      "lat_b": 44.4939,
+      "lng_b": 11.3428
+    },
+    {
+      "city_a": "Rome",
+      "city_b": "Bologna",
+      "distance_km": 303.6,
+      "gravity": 0.1593,
+      "pop_a": 2748109,
+      "pop_b": 387971,
+      "lat_a": 41.8931,
+      "lng_a": 12.4828,
+      "lat_b": 44.4939,
+      "lng_b": 11.3428
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 9,
+    "strongest_pair": "Milan → Turin",
+    "generated_at": "2026-03-12"
+  }
+}

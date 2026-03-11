@@ -1,0 +1,107 @@
+{
+  "country": "Kenya",
+  "cities": [
+    {
+      "city": "Nairobi",
+      "lat": -1.2864,
+      "lng": 36.8172,
+      "population": 5545000,
+      "rank": 1
+    },
+    {
+      "city": "Mombasa",
+      "lat": -4.05,
+      "lng": 39.6667,
+      "population": 1200000,
+      "rank": 2
+    },
+    {
+      "city": "Kisumu",
+      "lat": -0.1,
+      "lng": 34.75,
+      "population": 409928,
+      "rank": 3
+    },
+    {
+      "city": "Kikuyu",
+      "lat": -1.2463,
+      "lng": 36.6629,
+      "population": 323881,
+      "rank": 4
+    },
+    {
+      "city": "Nakuru",
+      "lat": -0.2833,
+      "lng": 36.0667,
+      "population": 307990,
+      "rank": 5
+    },
+    {
+      "city": "Eldoret",
+      "lat": 0.5167,
+      "lng": 35.2833,
+      "population": 289380,
+      "rank": 6
+    },
+    {
+      "city": "Kakuma",
+      "lat": 3.7167,
+      "lng": 34.8667,
+      "population": 200000,
+      "rank": 7
+    },
+    {
+      "city": "Lunga-Lunga",
+      "lat": -4.55,
+      "lng": 39.12,
+      "population": 198423,
+      "rank": 8
+    },
+    {
+      "city": "Habaswein",
+      "lat": 1.0166,
+      "lng": 39.4912,
+      "population": 174134,
+      "rank": 9
+    },
+    {
+      "city": "Ongata Rongai",
+      "lat": -1.4,
+      "lng": 36.77,
+      "population": 172570,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Nairobi",
+      "city_b": "Kikuyu",
+      "distance_km": 17.7,
+      "gravity": 1.0,
+      "pop_a": 5545000,
+      "pop_b": 323881,
+      "lat_a": -1.2864,
+      "lng_a": 36.8172,
+      "lat_b": -1.2463,
+      "lng_b": 36.6629
+    },
+    {
+      "city_a": "Nairobi",
+      "city_b": "Ongata Rongai",
+      "distance_km": 13.7,
+      "gravity": 0.8946,
+      "pop_a": 5545000,
+      "pop_b": 172570,
+      "lat_a": -1.2864,
+      "lng_a": 36.8172,
+      "lat_b": -1.4,
+      "lng_b": 36.77
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 2,
+    "strongest_pair": "Nairobi → Kikuyu",
+    "generated_at": "2026-03-12"
+  }
+}

@@ -3,634 +3,1260 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🌍 World Cities Explorer</title>
-
-  <!-- Leaflet CSS -->
+  <title>🌐 Urban Analytics</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
+  <link rel="stylesheet" href="nav.css">
   <style>
-    /* ── Reset & base ───────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #0d0d1a;
-      color: #cdd6f4;
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
+    :root {
+      --bg: #0d0d1a; --bg2: #12122a; --border: #1e1e3a; --border2: #2a2a4a;
+      --accent: #00cfff; --accent-b: #ff9f43; --text: #cdd6f4; --text2: #7799bb;
+      --panel-w: 300px; --header-h: 60px;
     }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); height: 100vh; overflow: hidden; }
 
-    /* ── Header ─────────────────────────────────────── */
+    /* Header */
     #header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: 56px;
-      background: #0d0d1a;
-      border-bottom: 1px solid #1e1e3a;
-      display: flex;
-      align-items: center;
-      padding: 0 20px;
-      gap: 14px;
-      z-index: 1000;
+      position: fixed; top: 0; left: 0; right: 0; height: var(--header-h);
+      background: var(--bg2); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 20px; gap: 12px; z-index: 2000;
     }
+    #hdr-title { font-size: 1rem; font-weight: 700; white-space: nowrap; }
+    #hdr-country { color: var(--accent); font-weight: 700; font-size: 0.9rem; }
+    #hdr-status { font-size: 0.75rem; color: var(--text2); }
+    .toggle-wrap { margin-left: auto; display: flex; gap: 8px; }
+    .toggle-btn {
+      background: #1a1a2e; color: #7799bb; border: 1px solid #2a2a4a;
+      border-radius: 20px; padding: 6px 16px; font-size: 0.8rem; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .toggle-btn.active { background: var(--accent); color: #0d0d1a; font-weight: 700; border-color: var(--accent); }
+    .toggle-btn:not(.active):hover { border-color: var(--accent); color: var(--accent); }
 
-    #header h1 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #00cfff;
-      white-space: nowrap;
-      letter-spacing: 0.03em;
-    }
+    /* Map */
+    #map { position: fixed; top: var(--header-h); left: 0; right: var(--panel-w); bottom: 0; }
 
-    #country-input {
-      flex: 1;
-      max-width: 260px;
-      padding: 7px 12px;
-      border-radius: 6px;
-      border: 1px solid #2a2a4a;
-      background: #12122a;
-      color: #e0e0ff;
-      font-size: 0.9rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    #country-input:focus { border-color: #00cfff; }
-    #country-input::placeholder { color: #555577; }
-
-    /* Suggestions dropdown */
-    #suggestions {
-      position: fixed;
-      top: 56px;
-      background: #12122a;
-      border: 1px solid #2a2a4a;
-      border-top: none;
-      border-radius: 0 0 8px 8px;
-      z-index: 2000;
-      display: none;
-      min-width: 200px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-      max-height: 220px;
-      overflow-y: auto;
-    }
-    .suggestion-item {
-      padding: 8px 14px;
-      font-size: 0.88rem;
-      color: #cdd6f4;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-    .suggestion-item:hover,
-    .suggestion-item.active { background: #1e1e3a; color: #00cfff; }
-
-    #explore-btn {
-      padding: 7px 18px;
-      border-radius: 6px;
-      border: none;
-      background: #00cfff;
-      color: #0d0d1a;
-      font-weight: 700;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-    }
-    #explore-btn:hover  { background: #33daff; }
-    #explore-btn:active { transform: scale(0.97); }
-
-    #status {
-      font-size: 0.82rem;
-      color: #7799bb;
-      white-space: nowrap;
-    }
-
-    /* ── Main layout ────────────────────────────────── */
-    #main {
-      display: flex;
-      margin-top: 56px;
-      height: calc(100vh - 56px);
-    }
-
-    /* ── Map ────────────────────────────────────────── */
-    #map {
-      flex: 1;
-      margin-right: 280px;
-      background: #060612;
-    }
-
-    /* ── Right panel ────────────────────────────────── */
+    /* Panel */
     #panel {
-      position: fixed;
-      top: 56px; right: 0;
-      width: 280px;
-      height: calc(100vh - 56px);
-      background: #0d0d1a;
-      border-left: 1px solid #1e1e3a;
-      padding: 18px 16px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
+      position: fixed; top: var(--header-h); right: 0; width: var(--panel-w); bottom: 0;
+      background: var(--bg2); border-left: 1px solid var(--border);
+      overflow-y: auto; z-index: 1000; padding: 16px;
+    }
+    #panel::-webkit-scrollbar { width: 5px; }
+    #panel::-webkit-scrollbar-track { background: var(--bg); }
+    #panel::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+    /* Panel section title */
+    .p-title {
+      font-size: 0.68rem; letter-spacing: 0.1em; color: var(--text2);
+      text-transform: uppercase; margin-bottom: 14px; padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
     }
 
-    #panel h2 {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: #00cfff;
-      margin-bottom: 10px;
+    /* Gravity panel */
+    .pair-row {
+      display: flex; flex-direction: column; gap: 4px;
+      padding: 10px 0; border-bottom: 1px solid var(--border);
+    }
+    .pair-row:last-child { border-bottom: none; }
+    .pair-top { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; }
+    .pair-rank { color: var(--text2); width: 18px; flex-shrink: 0; }
+    .pair-name { flex: 1; color: var(--text); }
+    .pair-score { color: var(--accent-b); font-weight: 700; font-size: 0.75rem; }
+    .pair-bar-bg { height: 4px; background: var(--border2); border-radius: 2px; margin-top: 2px; }
+    .pair-bar-fg { height: 4px; background: var(--accent-b); border-radius: 2px; }
+    .pair-dist { font-size: 0.68rem; color: var(--text2); }
+
+    /* Concentration panel */
+    .conf-badge {
+      display: inline-block; font-size: 0.72rem; font-weight: 700;
+      padding: 3px 10px; border-radius: 12px; margin-bottom: 10px; letter-spacing: 0.04em;
+    }
+    .conf-note { font-size: 0.7rem; color: var(--accent-b); margin-bottom: 14px; line-height: 1.5; }
+    .stat-row {
+      display: flex; justify-content: space-between; font-size: 0.78rem;
+      padding: 6px 0; border-bottom: 1px solid var(--border);
+    }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-label { color: var(--text2); }
+    .stat-val   { color: var(--text); font-weight: 600; }
+    .section-gap { margin-top: 20px; }
+
+    /* Insight card */
+    .insight-card {
+      margin-top: 18px;
+      background: #0a1628; border: 1px solid #1e3a5f;
+      border-left: 3px solid var(--accent);
+      border-radius: 8px; padding: 14px 14px 12px;
+    }
+    .insight-label {
+      font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 8px;
+    }
+    .insight-synthesis {
+      font-size: 0.76rem; color: #b0c4de; line-height: 1.75; margin-bottom: 10px;
+    }
+    .insight-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 9px; }
+    .insight-tag {
+      font-size: 0.62rem; font-weight: 700; padding: 2px 8px;
+      border-radius: 4px; letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .insight-tag.pattern { background: rgba(0,207,255,0.12); color: var(--accent); }
+    .insight-tag.network { background: rgba(255,159,67,0.12); color: var(--accent-b); }
+    .insight-compare { font-size: 0.68rem; color: #4a6a8a; line-height: 1.8; }
+    .insight-compare span { color: #7799bb; }
+
+    /* Gravity insight strip */
+    .gravity-insight-strip {
+      background: #0a1628; border-left: 3px solid var(--accent-b);
+      border-radius: 6px; padding: 10px 12px; margin-bottom: 14px;
+    }
+    .gravity-insight-strip .gi-label {
+      font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent-b); margin-bottom: 4px;
+    }
+    .gravity-insight-strip .gi-headline {
+      font-size: 0.78rem; color: #cdd6f4; line-height: 1.5; margin-bottom: 4px;
+    }
+    .gravity-insight-strip .gi-sub {
+      font-size: 0.66rem; color: #4a6a8a;
     }
 
-    /* Legend */
-    #legend-items { display: flex; flex-direction: column; gap: 8px; }
-
-    .legend-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .legend-circle {
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .legend-label { font-size: 0.82rem; color: #aab0cc; }
-
-    /* Top cities */
-    #top-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-
-    .top-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 8px 10px;
-      border-radius: 7px;
-      background: #12122a;
-      border: 1px solid #1e1e3a;
-    }
-
-    .top-rank {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #00cfff;
-      min-width: 18px;
-      padding-top: 1px;
-    }
-
-    .top-info { flex: 1; }
-    .top-city { font-size: 0.88rem; font-weight: 600; color: #e0e0ff; }
-    .top-pop  { font-size: 0.78rem; color: #7799bb; margin-top: 2px; }
-
-    .capital-badge {
-      font-size: 0.65rem;
-      background: #00cfff22;
-      color: #00cfff;
-      border: 1px solid #00cfff55;
-      border-radius: 4px;
-      padding: 1px 5px;
-      margin-left: 5px;
-      vertical-align: middle;
-    }
-
-    /* ── Tooltip ────────────────────────────────────── */
+    /* Tooltip */
     #tooltip {
-      position: fixed;
-      pointer-events: none;
-      background: rgba(13, 13, 26, 0.93);
-      border: 1px solid #2a2a4a;
-      border-radius: 8px;
-      padding: 9px 13px;
-      font-size: 0.82rem;
-      line-height: 1.55;
-      color: #cdd6f4;
-      display: none;
-      z-index: 9999;
-      max-width: 200px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      position: fixed; background: rgba(13,13,26,0.93); border: 1px solid #1e1e3a;
+      border-radius: 8px; padding: 10px 14px; pointer-events: none; font-size: 0.82rem;
+      color: #cdd6f4; display: none; z-index: 9000; max-width: 240px;
+      line-height: 1.6; backdrop-filter: blur(6px);
     }
-    #tooltip .tt-city { font-weight: 700; color: #00cfff; font-size: 0.9rem; }
+    #tooltip.pinned { pointer-events: all; }
+    #tooltip .tt-title { font-weight: 700; color: var(--accent); margin-bottom: 3px; }
+    #tooltip .tt-title.pair { color: var(--accent-b); }
+    #tooltip .tt-sub { color: var(--text2); font-size: 0.76rem; }
+    #tooltip .tt-val { color: var(--text); font-weight: 600; }
 
-    /* ── Leaflet SVG overlay fix ────────────────────── */
-    .leaflet-overlay-pane svg { overflow: visible; }
-
-    /* ── Empty state ────────────────────────────────── */
-    .empty-msg {
-      color: #555577;
-      font-size: 0.82rem;
-      font-style: italic;
+    /* Loading / error */
+    #status-overlay {
+      position: fixed; top: var(--header-h); left: 0; right: var(--panel-w); bottom: 0;
+      background: rgba(13,13,26,0.85); display: flex; flex-direction: column;
+      align-items: center; justify-content: center; z-index: 1500; gap: 12px;
     }
+    #status-overlay.hidden { display: none; }
+    .spinner { width: 36px; height: 36px; border: 3px solid var(--border2); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #status-msg { color: var(--text2); font-size: 0.85rem; }
 
-    /* ── All-cities scrollable list ─────────────────── */
-    #top-list {
-      max-height: calc(100vh - 340px);
-      overflow-y: auto;
-      scrollbar-width: thin;
-      scrollbar-color: #2a2a4a transparent;
-    }
-    #top-list::-webkit-scrollbar { width: 4px; }
-    #top-list::-webkit-scrollbar-thumb { background: #2a2a4a; border-radius: 4px; }
+    /* Pulse animation */
+    @keyframes pulse { 0% { stroke-dashoffset: 200; } 100% { stroke-dashoffset: 0; } }
 
-    .cities-count {
-      font-size: 0.72rem;
-      color: #555577;
-      margin-bottom: 8px;
+    /* ── NL Query bar ─────────────────────────────── */
+    #nl-bar {
+      position: fixed; top: var(--header-h); left: 0; right: var(--panel-w);
+      background: var(--bg2); border-bottom: 1px solid var(--border);
+      padding: 8px 16px; display: flex; align-items: center; gap: 10px;
+      z-index: 1800; transition: opacity 0.3s;
     }
+    #nl-input {
+      flex: 1; background: var(--bg); border: 1px solid var(--border2);
+      border-radius: 20px; padding: 7px 16px; color: var(--text);
+      font-size: 0.82rem; outline: none; transition: border-color 0.2s;
+    }
+    #nl-input::placeholder { color: var(--text2); }
+    #nl-input:focus { border-color: var(--accent); }
+    #nl-ask-btn {
+      background: var(--accent); color: #0d0d1a; border: none;
+      border-radius: 20px; padding: 7px 18px; font-size: 0.82rem;
+      font-weight: 700; cursor: pointer; white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+    #nl-ask-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    /* NL status bar */
+    #nl-status {
+      position: fixed; top: calc(var(--header-h) + 46px); left: 0; right: var(--panel-w);
+      padding: 5px 20px; font-size: 0.75rem; z-index: 1799; min-height: 26px;
+      display: flex; align-items: center; gap: 8px; background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+    #nl-status.hidden { display: none; }
+    .nl-badge {
+      font-size: 0.68rem; font-weight: 700; padding: 2px 8px;
+      border-radius: 10px; white-space: nowrap; flex-shrink: 0;
+    }
+    .nl-badge.high   { background: rgba(46,213,115,0.15); color: #2ed573; border: 1px solid #2ed57344; }
+    .nl-badge.medium { background: rgba(255,213,42,0.15);  color: #ffd32a; border: 1px solid #ffd32a44; }
+    .nl-badge.low    { background: rgba(255,71,87,0.15);   color: #ff4757; border: 1px solid #ff475744; }
+    #nl-explanation { color: var(--text2); flex: 1; }
+
+    /* Shift map+panel down when NL bar is visible */
+    body.nl-active #map,
+    body.nl-active #status-overlay { top: calc(var(--header-h) + 72px); }
+    body.nl-active #panel          { top: calc(var(--header-h) + 72px); }
+
+    /* ── Math Transparency Layer ──────────────────── */
+    .show-math-btn {
+      font-size: 9px; padding: 2px 6px;
+      background: transparent; border: 1px solid #00cfff44;
+      color: #00cfff88; border-radius: 3px; cursor: pointer;
+      margin-left: 6px; transition: all 0.2s; vertical-align: middle;
+    }
+    .show-math-btn:hover { background: #00cfff22; color: #00cfff; border-color: #00cfff; }
+    .math-panel {
+      background: #060d1a; border: 1px solid #1e3a5f;
+      border-left: 3px solid #00cfff; border-radius: 6px;
+      padding: 12px; margin-top: 8px; font-size: 11px;
+      line-height: 1.9; animation: fadeIn 0.2s ease; position: relative;
+    }
+    .math-title { color: #00cfff; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+    .math-formula {
+      font-family: 'Courier New', monospace; color: #ff9f43;
+      font-size: 13px; margin-bottom: 10px;
+      padding: 6px 8px; background: #0d1f33; border-radius: 4px;
+    }
+    .math-step { display: flex; justify-content: space-between; gap: 12px; padding: 2px 0; border-bottom: 1px solid #0d1f33; }
+    .math-step.highlight { color: #fff; font-weight: 700; border-bottom: none; margin-top: 4px; }
+    .math-label { color: #6b8cae; }
+    .math-value { color: #ccc; text-align: right; }
+    .math-divider { border-top: 1px solid #1e3a5f; margin: 8px 0; }
+    .math-note { color: #4a6a8a; font-size: 10px; margin-top: 8px; line-height: 1.5; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:translateY(0); } }
+    .tt-math-link {
+      display: block; margin-top: 6px; font-size: 10px;
+      color: #00cfff88; cursor: pointer; text-decoration: underline dotted;
+      pointer-events: all;
+    }
+    .tt-math-link:hover { color: #00cfff; }
   </style>
 </head>
 <body>
 
-<!-- ── Header ──────────────────────────────────────── -->
 <header id="header">
-  <h1>🌍 World Cities Explorer</h1>
-  <input id="country-input" type="text" placeholder="e.g. Japan, Brazil, Germany…" autocomplete="off" />
-  <div id="suggestions"></div>
-  <button id="explore-btn">Explore</button>
-  <span id="status">Enter a country to begin</span>
+  <span id="hdr-title">🌐 Urban Analytics</span>
+  <span id="hdr-country"></span>
+  <span id="hdr-status" style="color:var(--text2);font-size:0.75rem;">Loading data…</span>
+  <!-- Country selector shown on GitHub Pages -->
+  <select id="countrySelect" style="display:none; padding:6px 10px; border:1px solid #00cfff44;
+    border-radius:6px; background:#111827; color:#cdd6f4; font-size:0.8rem;
+    width:180px; outline:none; cursor:pointer;">
+    <option value="">Select country…</option>
+  </select>
+  <div class="toggle-wrap">
+    <button class="toggle-btn active" id="btn-gravity"        onclick="switchMode('gravity')">⚡ Gravity</button>
+    <button class="toggle-btn"        id="btn-concentration"  onclick="switchMode('concentration')">📊 Concentration</button>
+    <a href="ranking.html" style="text-decoration:none;">
+      <button class="toggle-btn">🌍 Global Ranking</button>
+    </a>
+  </div>
 </header>
 
-<!-- ── Main ────────────────────────────────────────── -->
-<div id="main">
-  <div id="map"></div>
-
-  <aside id="panel">
-    <div id="legend-section">
-      <h2>Population Scale</h2>
-      <div id="legend-items"><p class="empty-msg">Load a country first</p></div>
-    </div>
-
-    <div id="top-section">
-      <h2>All Cities</h2>
-      <p class="cities-count" id="cities-count"></p>
-      <ul id="top-list"><li class="empty-msg">Load a country first</li></ul>
-    </div>
-  </aside>
+<!-- NL Query bar (shown after data loads) -->
+<div id="nl-bar" style="display:none;">
+  <input id="nl-input" type="text" placeholder='Ask anything — e.g. "which city dominates France?" or "gravity network in Japan"' />
+  <button id="nl-ask-btn" onclick="handleNLQuery()">🧠 Ask</button>
 </div>
+<div id="nl-status" class="hidden"></div>
 
-<!-- ── Tooltip ──────────────────────────────────────── -->
+<div id="map"></div>
+<div id="panel"></div>
 <div id="tooltip"></div>
 
-<!-- ── Scripts (load order: Leaflet → D3 → inline) ── -->
+<div id="status-overlay">
+  <div class="spinner"></div>
+  <div id="status-msg">Loading data…</div>
+</div>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://d3js.org/d3.v7.min.js"></script>
-
 <script>
-// ════════════════════════════════════════════════════
-//  Map initialisation
-// ════════════════════════════════════════════════════
-const map = L.map('map', { zoomControl: true }).setView([20, 0], 2);
+// ════════════════════════════════════════════════
+//  ENVIRONMENT
+// ════════════════════════════════════════════════
+const IS_LOCAL = ['localhost','127.0.0.1'].includes(window.location.hostname);
 
+const AVAILABLE_COUNTRIES = [
+  "Argentina","Australia","Brazil","Canada","China",
+  "Colombia","Egypt","Ethiopia","France","Germany",
+  "India","Indonesia","Iran","Italy","Japan",
+  "Kenya","Mexico","Nigeria","Pakistan","Philippines",
+  "Poland","Russia","South Korea","Spain","Tanzania",
+  "Thailand","Turkey","United Kingdom","United States","Vietnam",
+];
+
+// ════════════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════════════
+let currentMode       = 'gravity';
+let gravityData       = null;
+let concentrationData = null;
+
+// ════════════════════════════════════════════════
+//  MAP SETUP
+// ════════════════════════════════════════════════
+const map = L.map('map', { zoomControl: true }).setView([51.2, 10.4], 6);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-  attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
-  subdomains:  'abcd',
-  maxZoom:     19,
+  attribution: '© OpenStreetMap © CARTO', maxZoom: 18
 }).addTo(map);
 
-// Add Leaflet SVG layer and grab it with D3
 L.svg().addTo(map);
-const svg = d3.select('#map').select('svg');
+const svg = d3.select('#map').select('svg').style('overflow', 'visible');
 const g   = svg.append('g').attr('class', 'leaflet-zoom-hide');
 
-// ════════════════════════════════════════════════════
-//  Scales (updated each load)
-// ════════════════════════════════════════════════════
-let radiusScale = d3.scaleSqrt().range([3, 26]);
-let colorScale  = d3.scaleSequential(d3.interpolateYlOrRd);
+const project = (lng, lat) => map.latLngToLayerPoint(new L.LatLng(lat, lng));
 
-// ════════════════════════════════════════════════════
-//  Reproject circles to current map zoom/pan
-// ════════════════════════════════════════════════════
-function project(d) {
-  return map.latLngToLayerPoint(new L.LatLng(d.lat, d.lng));
-}
-
+// ════════════════════════════════════════════════
+//  REPROJECT  (handles both modes)
+// ════════════════════════════════════════════════
 function reproject() {
-  g.selectAll('circle')
-    .attr('cx', d => project(d).x)
-    .attr('cy', d => project(d).y);
+  g.selectAll('line.gravity-line, line.pulse-line')
+    .attr('x1', d => project(d.lng_a, d.lat_a).x)
+    .attr('y1', d => project(d.lng_a, d.lat_a).y)
+    .attr('x2', d => project(d.lng_b, d.lat_b).x)
+    .attr('y2', d => project(d.lng_b, d.lat_b).y);
+  g.selectAll('circle.city-node')
+    .attr('cx', d => project(d.lng, d.lat).x)
+    .attr('cy', d => project(d.lng, d.lat).y);
+}
+map.on('zoomend moveend viewreset', reproject);
 
-  g.selectAll('text.city-label')
-    .attr('x', d => project(d).x)
-    .attr('y', d => project(d).y - (d.population ? radiusScale(d.population) : 4) - 5);
+// ════════════════════════════════════════════════
+//  TOOLTIP
+// ════════════════════════════════════════════════
+const tip    = document.getElementById('tooltip');
+const fmtPop = d3.format(',');
+const fmtPct = v => v.toFixed(1) + '%';
 
-  updateLabelVisibility();
+function showTip(html, ev) {
+  tip.innerHTML = html;
+  tip.style.display = 'block';
+  // Allow pointer events when tooltip contains a clickable math link
+  tip.style.pointerEvents = html.includes('tt-math-link') ? 'all' : 'none';
+  moveTip(ev);
+}
+function moveTip(ev) {
+  tip.style.left = Math.min(ev.clientX + 14, window.innerWidth  - 230) + 'px';
+  tip.style.top  = Math.min(ev.clientY - 10, window.innerHeight - 130) + 'px';
+}
+function hideTip() { tip.style.display = 'none'; }
+
+// ════════════════════════════════════════════════
+//  COLOUR HELPERS
+// ════════════════════════════════════════════════
+function primacyColor(p)    { return p < 0.15 ? '#00cfff' : p < 0.35 ? '#ff9f43' : '#ff4757'; }
+function primacyCategory(p) { return p < 0.15 ? 'Distributed' : p < 0.35 ? 'Moderate' : 'Dominant'; }
+const RANK_COLORS = ['#ff4757','#ff9f43','#ffd32a','#7bed9f','#70a1ff'];
+
+// ════════════════════════════════════════════════
+//  GRAVITY MAP
+// ════════════════════════════════════════════════
+function drawGravityMap() {
+  const cities = gravityData.cities;
+  const pairs  = gravityData.pairs;
+
+  const [minP, maxP] = d3.extent(cities, d => d.population);
+  const [minG, maxG] = d3.extent(pairs,  d => d.gravity);
+  const radScale   = d3.scaleSqrt().domain([minP, maxP]).range([4, 20]);
+  const wScale     = d3.scaleLinear().domain([minG, maxG]).range([1, 6]);
+  const opacScale  = d3.scaleLinear().domain([minG, maxG]).range([0.2, 0.9]);
+
+  // Base lines
+  g.selectAll('line.gravity-line')
+    .data(pairs).join('line').attr('class', 'gravity-line')
+    .attr('stroke', '#ff9f43')
+    .attr('stroke-width',   d => wScale(d.gravity))
+    .attr('stroke-opacity', d => opacScale(d.gravity))
+    .attr('stroke-linecap', 'round').attr('cursor', 'pointer')
+    .on('mouseover', (ev, d) => {
+      window._currentPair = d;
+      showTip(`
+        <div class="tt-title pair">${d.city_a} → ${d.city_b}</div>
+        <div class="tt-sub">Gravity: <span class="tt-val">${d.gravity.toFixed(4)}</span></div>
+        <div class="tt-sub">Distance: <span class="tt-val">${d.distance_km} km</span></div>
+        <div class="tt-sub">${d.city_a}: <span class="tt-val">${fmtPop(d.pop_a)}</span></div>
+        <div class="tt-sub">${d.city_b}: <span class="tt-val">${fmtPop(d.pop_b)}</span></div>
+        <span class="tt-math-link" onclick="MathTransparency.showHaversine(window._currentPair)">📐 How was ${d.distance_km}km calculated?</span>
+      `, ev);
+    })
+    .on('mousemove', moveTip).on('mouseout', hideTip);
+
+  // Pulse lines
+  g.selectAll('line.pulse-line')
+    .data(pairs).join('line').attr('class', 'pulse-line')
+    .attr('stroke', '#ffffff')
+    .attr('stroke-width',     d => 1 + d.gravity * 3)
+    .attr('stroke-dasharray', '8 192')
+    .attr('stroke-linecap',   'round')
+    .attr('opacity',          d => 0.4 + d.gravity * 0.6)
+    .attr('pointer-events',   'none')
+    .style('animation', d => `pulse ${(3 - d.gravity * 2).toFixed(2)}s linear infinite`);
+
+  // City circles
+  g.selectAll('circle.city-node')
+    .data(cities).join('circle').attr('class', 'city-node')
+    .attr('r',            d => radScale(d.population))
+    .attr('fill',         '#00cfff')
+    .attr('fill-opacity', 0.85)
+    .attr('stroke',       '#0d0d1a').attr('stroke-width', 1.5)
+    .attr('cursor',       'pointer')
+    .on('mouseover', (ev, d) => showTip(`
+      <div class="tt-title">#${d.rank} ${d.city}</div>
+      <div class="tt-sub">Population: <span class="tt-val">${fmtPop(d.population)}</span></div>
+    `, ev))
+    .on('mousemove', moveTip).on('mouseout', hideTip);
+
+  reproject();
+  const lats = cities.map(c => c.lat), lngs = cities.map(c => c.lng);
+  map.fitBounds([[d3.min(lats), d3.min(lngs)], [d3.max(lats), d3.max(lngs)]], { padding: [50, 50] });
 }
 
-const MIN_LABEL_ZOOM = 5;
+// ════════════════════════════════════════════════
+//  CONCENTRATION MAP  (circles from gravity coords)
+// ════════════════════════════════════════════════
+function drawConcentrationMap() {
+  // Look up lat/lng from gravityData.cities by name
+  const coordMap = {};
+  gravityData.cities.forEach(c => { coordMap[c.city] = c; });
 
-function updateLabelVisibility() {
-  const visible = map.getZoom() >= MIN_LABEL_ZOOM;
-  g.selectAll('text.city-label').style('display', visible ? null : 'none');
+  const top5 = concentrationData.top5
+    .map(d => ({ ...d, ...(coordMap[d.city] || {}) }))
+    .filter(d => d.lat != null);
+
+  const [minS, maxS] = d3.extent(top5, d => d.share_pct);
+  const radScale = d3.scaleSqrt().domain([minS, maxS]).range([6, 28]);
+
+  g.selectAll('circle.city-node')
+    .data(top5).join('circle').attr('class', 'city-node')
+    .attr('r',            d => radScale(d.share_pct))
+    .attr('fill',         (_, i) => RANK_COLORS[i] || '#cdd6f4')
+    .attr('fill-opacity', 0.88)
+    .attr('stroke',       '#0d0d1a').attr('stroke-width', 1.5)
+    .attr('cursor',       'pointer')
+    .on('mouseover', (ev, d) => showTip(`
+      <div class="tt-title" style="color:${RANK_COLORS[d.rank-1]}">#${d.rank} ${d.city}</div>
+      <div class="tt-sub">Share: <span class="tt-val">${fmtPct(d.share_pct)}</span></div>
+      <div class="tt-sub">Population: <span class="tt-val">${fmtPop(d.population)}</span></div>
+    `, ev))
+    .on('mousemove', moveTip).on('mouseout', hideTip);
+
+  reproject();
 }
 
-map.on('zoomend viewreset moveend', reproject);
+// ════════════════════════════════════════════════
+//  GRAVITY PANEL
+// ════════════════════════════════════════════════
+function drawGravityPanel() {
+  const p     = d3.select('#panel');
+  const pairs = gravityData.pairs;
 
-// ════════════════════════════════════════════════════
-//  Tooltip
-// ════════════════════════════════════════════════════
-const tooltip = document.getElementById('tooltip');
-const fmt      = d3.format(',');
+  p.append('div').attr('class', 'p-title').text('Gravity Pairs');
 
-// Abbreviated population label (e.g. 37.8M, 850K, 4200)
-function fmtLabel(pop) {
-  if (!pop) return '';
-  if (pop >= 1e6) return (pop / 1e6).toFixed(1) + 'M';
-  if (pop >= 1e3) return Math.round(pop / 1e3) + 'K';
-  return String(pop);
-}
-
-function showTooltip(event, d) {
-  tooltip.innerHTML =
-    `<div class="tt-city">${d.city}</div>` +
-    `<div>Population: ${d.population ? fmt(d.population) : 'N/A'}</div>` +
-    (d.capital === 'primary' ? '<div>🏛 Capital city</div>' : '');
-  tooltip.style.display = 'block';
-  moveTooltip(event);
-}
-
-function moveTooltip(event) {
-  const offset = 14;
-  const tw = tooltip.offsetWidth, th = tooltip.offsetHeight;
-  let x = event.clientX + offset;
-  let y = event.clientY + offset;
-  if (x + tw > window.innerWidth)  x = event.clientX - tw - offset;
-  if (y + th > window.innerHeight) y = event.clientY - th - offset;
-  tooltip.style.left = x + 'px';
-  tooltip.style.top  = y + 'px';
-}
-
-function hideTooltip() {
-  tooltip.style.display = 'none';
-}
-
-// ════════════════════════════════════════════════════
-//  Render circles (D3 enter/update/exit)
-// ════════════════════════════════════════════════════
-function renderCircles(data) {
-  const popExtent = d3.extent(data, d => d.population);
-  radiusScale.domain(popExtent);
-  colorScale.domain(popExtent);
-
-  // ── EXIT ──────────────────────────────────────────
-  g.selectAll('circle')
-    .data(data, d => d.city + d.lat + d.lng)
-    .exit()
-    .transition().duration(300)
-    .attr('r', 0)
-    .remove();
-
-  // Remove old labels before re-rendering
-  g.selectAll('text.city-label').remove();
-
-  // ── ENTER ─────────────────────────────────────────
-  const entered = g.selectAll('circle')
-    .data(data, d => d.city + d.lat + d.lng)
-    .enter()
-    .append('circle')
-    .attr('cx', d => project(d).x)
-    .attr('cy', d => project(d).y)
-    .attr('r', 0)
-    .attr('fill-opacity', 0.82)
-    .attr('cursor', 'pointer')
-    .on('mouseover', showTooltip)
-    .on('mousemove', moveTooltip)
-    .on('mouseout',  hideTooltip);
-
-  // ── ENTER + UPDATE merge → final styling + transition ──
-  entered.merge(g.selectAll('circle'))
-    .attr('fill',         d => d.population ? colorScale(d.population) : '#4a4a6a')
-    .attr('stroke',       d => d.capital === 'primary' ? '#ffffff' : 'none')
-    .attr('stroke-width', d => d.capital === 'primary' ? 1.5 : 0)
-    .transition().duration(500)
-    .attr('r', d => d.population ? radiusScale(d.population) : 4);
-
-  // ── Population labels (appear at zoom >= MIN_LABEL_ZOOM) ──
-  g.selectAll('text.city-label')
-    .data(data, d => d.city + d.lat + d.lng)
-    .enter()
-    .append('text')
-    .attr('class', 'city-label')
-    .attr('x', d => project(d).x)
-    .attr('y', d => project(d).y - (d.population ? radiusScale(d.population) : 4) - 5)
-    .attr('text-anchor', 'middle')
-    .attr('font-size', '10px')
-    .attr('font-family', "'Segoe UI', Arial, sans-serif")
-    .attr('font-weight', '600')
-    .attr('fill', '#e0e0ff')
-    .attr('paint-order', 'stroke')
-    .attr('stroke', '#0d0d1a')
-    .attr('stroke-width', 2.5)
-    .attr('stroke-linejoin', 'round')
-    .attr('pointer-events', 'none')
-    .text(d => fmtLabel(d.population));
-
-  updateLabelVisibility();
-}
-
-// ════════════════════════════════════════════════════
-//  Legend
-// ════════════════════════════════════════════════════
-function renderLegend(data) {
-  const container = document.getElementById('legend-items');
-  container.innerHTML = '';
-
-  const popExtent = d3.extent(data, d => d.population);
-  const steps = [0.05, 0.25, 0.50, 0.75, 1.00];
-
-  steps.forEach(t => {
-    const pop = popExtent[0] + t * (popExtent[1] - popExtent[0]);
-    const r   = radiusScale(pop);
-    const col = colorScale(pop);
-    const dia = Math.round(r * 2);
-
-    const row = document.createElement('div');
-    row.className = 'legend-row';
-    row.innerHTML =
-      `<div class="legend-circle" style="width:${dia}px;height:${dia}px;background:${col};opacity:0.85;"></div>` +
-      `<span class="legend-label">${fmt(Math.round(pop))}</span>`;
-    container.appendChild(row);
-  });
-}
-
-// ════════════════════════════════════════════════════
-//  All cities list (sorted by population)
-// ════════════════════════════════════════════════════
-function renderCitiesList(data) {
-  const ul    = document.getElementById('top-list');
-  const count = document.getElementById('cities-count');
-  ul.innerHTML = '';
-
-  const sorted = [...data].sort((a, b) => b.population - a.population);
-  count.textContent = `${sorted.length} cities — sorted by population`;
-
-  sorted.forEach((d, i) => {
-    const li = document.createElement('li');
-    li.className = 'top-item';
-    li.innerHTML =
-      `<span class="top-rank">#${i + 1}</span>` +
-      `<div class="top-info">
-        <div class="top-city">${d.city}${d.capital === 'primary' ? '<span class="capital-badge">Capital</span>' : ''}</div>
-        <div class="top-pop">${d.population ? fmt(d.population) : 'N/A'}</div>
-      </div>`;
-    ul.appendChild(li);
-  });
-}
-
-// ════════════════════════════════════════════════════
-//  Fit map to data bounds
-// ════════════════════════════════════════════════════
-function fitBounds(data) {
-  if (!data.length) return;
-  const lats = data.map(d => d.lat);
-  const lngs = data.map(d => d.lng);
-  map.fitBounds(
-    [[Math.min(...lats), Math.min(...lngs)],
-     [Math.max(...lats), Math.max(...lngs)]],
-    { padding: [40, 40] }
-  );
-}
-
-// ════════════════════════════════════════════════════
-//  In-memory world data (loaded once from CSV)
-// ════════════════════════════════════════════════════
-let allCitiesData  = null;   // full parsed CSV
-let countryNames   = [];     // unique sorted country list
-
-async function initData() {
-  const status = document.getElementById('status');
-  const input  = document.getElementById('country-input');
-  const btn    = document.getElementById('explore-btn');
-
-  status.textContent = '⏳ Loading world cities data…';
-  input.disabled = true;
-  btn.disabled   = true;
-
-  try {
-    const raw = await d3.csv('worldcities.csv');
-
-    allCitiesData = raw
-      .filter(r => r.lat && r.lng && r.lat.trim() !== '' && r.lng.trim() !== '')
-      .map(r => ({
-        city:       (r.city       || '').trim(),
-        lat:        parseFloat(r.lat),
-        lng:        parseFloat(r.lng),
-        country:    (r.country    || '').trim(),
-        population: parseInt(r.population) || 0,
-        capital:    (r.capital    || '').trim(),
-      }))
-      .filter(r => !isNaN(r.lat) && !isNaN(r.lng));
-
-    countryNames = [...new Set(allCitiesData.map(d => d.country))].sort();
-
-    status.textContent = `✅ ${allCitiesData.length.toLocaleString()} cities across ${countryNames.length} countries — type to explore`;
-    input.disabled = false;
-    btn.disabled   = false;
-    input.focus();
-  } catch (e) {
-    status.textContent = '❌ worldcities.csv not found — place it in this folder and restart the server.';
-  }
-}
-
-// ════════════════════════════════════════════════════
-//  Autocomplete suggestions
-// ════════════════════════════════════════════════════
-const suggestionsEl = document.getElementById('suggestions');
-let activeIdx = -1;
-
-function showSuggestions(query) {
-  if (!query || !allCitiesData) { hideSuggestions(); return; }
-  const lower = query.toLowerCase();
-  const matches = countryNames.filter(c => c.toLowerCase().startsWith(lower)).slice(0, 8);
-
-  if (!matches.length) { hideSuggestions(); return; }
-
-  // Position under the input
-  const inputEl = document.getElementById('country-input');
-  const rect     = inputEl.getBoundingClientRect();
-  suggestionsEl.style.left  = rect.left + 'px';
-  suggestionsEl.style.width = rect.width + 'px';
-
-  suggestionsEl.innerHTML = matches
-    .map((c, i) => `<div class="suggestion-item" data-idx="${i}" data-name="${c}">${c}</div>`)
-    .join('');
-  suggestionsEl.style.display = 'block';
-  activeIdx = -1;
-
-  suggestionsEl.querySelectorAll('.suggestion-item').forEach(el => {
-    el.addEventListener('mousedown', e => {
-      e.preventDefault();
-      document.getElementById('country-input').value = el.dataset.name;
-      hideSuggestions();
-      loadCountry();
-    });
-  });
-}
-
-function hideSuggestions() {
-  suggestionsEl.style.display = 'none';
-  activeIdx = -1;
-}
-
-function navigateSuggestions(dir) {
-  const items = suggestionsEl.querySelectorAll('.suggestion-item');
-  if (!items.length) return;
-  items.forEach(el => el.classList.remove('active'));
-  activeIdx = (activeIdx + dir + items.length) % items.length;
-  items[activeIdx].classList.add('active');
-  document.getElementById('country-input').value = items[activeIdx].dataset.name;
-}
-
-// ════════════════════════════════════════════════════
-//  Load / switch country
-// ════════════════════════════════════════════════════
-function loadCountry() {
-  const input  = document.getElementById('country-input').value.trim();
-  const status = document.getElementById('status');
-
-  hideSuggestions();
-
-  if (!input) { status.textContent = '⚠ Please enter a country name.'; return; }
-  if (!allCitiesData) { status.textContent = '⏳ Still loading data, please wait…'; return; }
-
-  const lower    = input.toLowerCase();
-  const filtered = allCitiesData.filter(d => d.country.toLowerCase() === lower);
-
-  if (!filtered.length) {
-    const partials = countryNames.filter(c => c.toLowerCase().includes(lower)).slice(0, 5);
-    status.textContent = partials.length
-      ? `No exact match for "${input}". Did you mean: ${partials.join(', ')}?`
-      : `No cities found for "${input}". Check spelling.`;
+  if (!pairs || pairs.length === 0) {
+    p.append('div').style('color','var(--text2)').style('font-size','0.8rem')
+      .style('padding','20px 0').text('No gravity pairs — need at least 2 cities with population data.');
     return;
   }
 
-  // Clear old circles + labels
-  g.selectAll('circle').remove();
-  g.selectAll('text.city-label').remove();
+  // Summary line
+  const strongest = pairs[0];
+  p.append('div').style('font-size','0.72rem').style('color','var(--text2)')
+   .style('margin-bottom','14px')
+   .html(`${pairs.length} pairs &nbsp;·&nbsp; Strongest: <span style="color:var(--accent-b);font-weight:700">${strongest.city_a} → ${strongest.city_b}</span>`);
 
-  status.textContent = `✅ ${filtered.length} cities — ${filtered[0].country}`;
+  pairs.forEach((d, i) => {
+    const row = p.append('div').attr('class', 'pair-row');
+    const top = row.append('div').attr('class', 'pair-top');
+    top.append('span').attr('class', 'pair-rank').text(`${i+1}`);
+    top.append('span').attr('class', 'pair-name').text(`${d.city_a} → ${d.city_b}`);
+    top.append('span').attr('class', 'pair-score').text(d.gravity.toFixed(3));
 
-  renderCircles(filtered);
-  renderLegend(filtered);
-  renderCitiesList(filtered);
-  fitBounds(filtered);
+    // Show Math button — Newton gravity formula
+    const mathBtn = top.append('button').attr('class', 'show-math-btn').text('Show Math');
+    mathBtn.on('click', () => {
+      const panelId = `gravity-math-${i}`;
+      const existing = document.getElementById(panelId);
+      if (existing) { existing.remove(); return; }
+      const panel = document.createElement('div');
+      panel.id = panelId;
+      panel.innerHTML = MathTransparency.buildGravityPanel(d);
+      mathBtn.node().closest('.pair-row').appendChild(panel);
+    });
+
+    const bg = row.append('div').attr('class', 'pair-bar-bg');
+    bg.append('div').attr('class', 'pair-bar-fg').style('width', (d.gravity * 140) + 'px');
+    row.append('div').attr('class', 'pair-dist').text(`${d.distance_km} km  ·  ${fmtPop(d.pop_a)} / ${fmtPop(d.pop_b)}`);
+  });
+
+  // Gravity insight strip — prepended above pairs list if narration exists
+  if (concentrationData?.narration) {
+    drawGravityInsight(concentrationData.narration);
+  }
 }
 
-// ════════════════════════════════════════════════════
-//  Event listeners
-// ════════════════════════════════════════════════════
-const countryInputEl = document.getElementById('country-input');
+// ════════════════════════════════════════════════
+//  CONCENTRATION PANEL  (arc gauge + bar chart)
+// ════════════════════════════════════════════════
+function drawConcentrationPanel() {
+  const p    = d3.select('#panel');
+  const data = concentrationData;
+  const color = primacyColor(data.primacy_index);
 
-countryInputEl.addEventListener('input', e => showSuggestions(e.target.value));
-countryInputEl.addEventListener('keydown', e => {
-  if (e.key === 'ArrowDown') { e.preventDefault(); navigateSuggestions(1); }
-  else if (e.key === 'ArrowUp') { e.preventDefault(); navigateSuggestions(-1); }
-  else if (e.key === 'Enter')  { loadCountry(); }
-  else if (e.key === 'Escape') { hideSuggestions(); }
+  p.append('div').attr('class', 'p-title').text('Primacy Index');
+
+  // Confidence badge
+  const badgeMeta = {
+    high:   { bg:'rgba(46,213,115,0.15)', c:'#2ed573', t:'★★★ High Confidence'   },
+    medium: { bg:'rgba(255,159,67,0.15)', c:'#ff9f43', t:'★★☆ Medium Confidence' },
+    low:    { bg:'rgba(255,71,87,0.15)',  c:'#ff4757', t:'★☆☆ Low Confidence'    },
+  }[data.confidence];
+  p.append('div').attr('class','conf-badge')
+   .style('background', badgeMeta.bg).style('color', badgeMeta.c)
+   .style('border', `1px solid ${badgeMeta.c}44`)
+   .text(badgeMeta.t);
+  if (data.confidence_note)
+    p.append('div').attr('class','conf-note').text('⚠️ ' + data.confidence_note);
+
+  // Arc gauge SVG
+  const gaugeSvg = p.append('svg')
+    .attr('width', '100%').attr('viewBox','0 0 260 145')
+    .style('overflow','visible').style('display','block');
+
+  const arc = d3.arc().innerRadius(70).outerRadius(100).startAngle(-Math.PI/2);
+  const cx = 130, cy = 118;
+  const ag = gaugeSvg.append('g').attr('transform', `translate(${cx},${cy})`);
+
+  // Track
+  ag.append('path').datum({ endAngle: Math.PI/2 }).attr('d', arc).attr('fill','#1e1e3a');
+
+  // Tick marks
+  [0,0.25,0.5,0.75,1].forEach(v => {
+    const a = -Math.PI/2 + v*Math.PI;
+    ag.append('line')
+      .attr('x1',Math.cos(a)*102).attr('y1',Math.sin(a)*102)
+      .attr('x2',Math.cos(a)*112).attr('y2',Math.sin(a)*112)
+      .attr('stroke','#2a2a4a').attr('stroke-width',1.5);
+  });
+
+  // Foreground arc — animated
+  const endAngle = -Math.PI/2 + data.primacy_index * Math.PI;
+  ag.append('path').datum({ endAngle: -Math.PI/2 })
+    .attr('d', arc).attr('fill', color)
+    .transition().duration(900).ease(d3.easeCubicOut)
+    .attrTween('d', function(d) {
+      const interp = d3.interpolate(d.endAngle, endAngle);
+      return t => { d.endAngle = interp(t); return arc(d); };
+    });
+
+  // Labels
+  ag.append('text').attr('text-anchor','middle').attr('dy','-0.2em')
+    .attr('fill','#cdd6f4').attr('font-size','1.8rem').attr('font-weight',800)
+    .text(fmtPct(data.primacy_index * 100));
+  ag.append('text').attr('text-anchor','middle').attr('dy','1.2em')
+    .attr('fill','#7799bb').attr('font-size','0.72rem')
+    .text('in ' + data.largest_city.city);
+  ag.append('text').attr('text-anchor','middle').attr('dy','2.6em')
+    .attr('fill', color).attr('font-size','0.78rem').attr('font-weight',700)
+    .attr('letter-spacing','0.07em')
+    .text(primacyCategory(data.primacy_index).toUpperCase());
+  ag.append('text').attr('x',-112).attr('y',14)
+    .attr('fill','#555577').attr('font-size','0.6rem').text('0%');
+  ag.append('text').attr('x',98).attr('y',14)
+    .attr('fill','#555577').attr('font-size','0.6rem').text('100%');
+
+  // Show Math button — Primacy Index formula
+  const primacyMathRow = p.append('div')
+    .style('text-align','center').style('margin-top','-4px').style('margin-bottom','4px');
+  const primacyBtn = primacyMathRow.append('button')
+    .attr('class','show-math-btn').text('📐 Show Math');
+  primacyBtn.on('click', () => {
+    const existing = document.getElementById('primacy-math-panel');
+    if (existing) { existing.remove(); primacyBtn.text('📐 Show Math'); return; }
+    const panel = document.createElement('div');
+    panel.id = 'primacy-math-panel';
+    panel.innerHTML = MathTransparency.buildPrimacyPanel(data);
+    primacyMathRow.node().insertAdjacentElement('afterend', panel);
+    primacyBtn.text('Hide Math');
+  });
+  p.append('div').attr('class','section-gap');
+  [
+    ['Total cities',    data.total_cities],
+    ['Total urban pop', fmtPop(data.total_population)],
+    ['Top 5 share',     fmtPct(data.top5_combined_share)],
+  ].forEach(([label, val]) => {
+    const row = p.append('div').attr('class','stat-row');
+    row.append('span').attr('class','stat-label').text(label);
+    row.append('span').attr('class','stat-val').text(val);
+  });
+
+  // ── Top 5 bar chart
+  p.append('div').attr('class','p-title section-gap').text('Top 5 Cities by Share');
+
+  const barW = 230, rowH = 44, padLeft = 0;
+  const labelW = 80, pctW = 44;
+  const innerW = labelW + barW - pctW;
+
+  const barSvg = p.append('svg')
+    .attr('width','100%')
+    .attr('viewBox', `0 0 ${barW} ${data.top5.length * rowH}`)
+    .style('overflow','visible');
+
+  const xScale = d3.scaleLinear()
+    .domain([0, data.top5[0].share_pct])
+    .range([0, barW - labelW - pctW]);
+
+  data.top5.forEach((d, i) => {
+    const gy = barSvg.append('g').attr('transform', `translate(0,${i*rowH + 4})`);
+    const c  = RANK_COLORS[i];
+
+    gy.append('text').attr('x',0).attr('y',14)
+      .attr('fill','#555577').attr('font-size','0.65rem').text(`#${i+1}`);
+    gy.append('text').attr('x',20).attr('y',14)
+      .attr('fill','#cdd6f4').attr('font-size','0.75rem')
+      .text(d.city.length > 11 ? d.city.slice(0,10)+'…' : d.city);
+
+    gy.append('rect').attr('x',labelW).attr('y',2)
+      .attr('width', barW-labelW-pctW).attr('height',18)
+      .attr('rx',3).attr('fill','#1e1e3a');
+
+    gy.append('rect').attr('x',labelW).attr('y',2)
+      .attr('width',0).attr('height',18)
+      .attr('rx',3).attr('fill',c).attr('opacity',0.85)
+      .transition().duration(700).delay(i*80).ease(d3.easeCubicOut)
+      .attr('width', xScale(d.share_pct));
+
+    gy.append('text').attr('x', labelW + xScale(d.share_pct) + 5).attr('y',14)
+      .attr('fill','#7799bb').attr('font-size','0.68rem')
+      .text(fmtPct(d.share_pct));
+
+    gy.append('text').attr('x',labelW).attr('y',32)
+      .attr('fill','#555577').attr('font-size','0.62rem')
+      .text(fmtPop(d.population));
+  });
+
+  // Insight card — appended after bar chart if narration exists
+  if (concentrationData.narration) {
+    drawInsightCard(concentrationData.narration);
+  }
+}
+
+// ════════════════════════════════════════════════
+//  INSIGHT CARD  (Prompt 11)
+// ════════════════════════════════════════════════
+function drawInsightCard(narration) {
+  const panel = document.getElementById('panel');
+
+  const card = document.createElement('div');
+  card.className = 'insight-card';
+
+  card.innerHTML = `
+    <div class="insight-label">🧠 Insight</div>
+    <div class="insight-synthesis">${narration.synthesis}</div>
+    <div class="insight-tags">
+      <span class="insight-tag pattern">Pattern: ${narration.concentration.pattern.toUpperCase()}</span>
+      <span class="insight-tag network">Network: ${narration.gravity.network_type.toUpperCase()}</span>
+    </div>
+    <div class="insight-compare">
+      <span>${narration.concentration.comparison}</span><br>
+      <span>${narration.concentration.contrast}</span>
+    </div>
+  `;
+
+  panel.appendChild(card);
+}
+
+function drawGravityInsight(narration) {
+  const panel = document.getElementById('panel');
+  const strip = document.createElement('div');
+  strip.className = 'gravity-insight-strip';
+  strip.innerHTML = `
+    <div class="gi-label">🧠 Gravity Insight</div>
+    <div class="gi-headline">${narration.gravity.headline}</div>
+    <div class="gi-sub">Avg top-5 distance: ${narration.gravity.avg_distance_top5.toFixed(1)} km
+      &nbsp;·&nbsp; Network type: ${narration.gravity.network_type}</div>
+  `;
+  panel.prepend(strip);
+}
+
+// ════════════════════════════════════════════════
+//  RENDER ORCHESTRATION
+// ════════════════════════════════════════════════
+function renderMap() {
+  g.selectAll('*').remove();
+  if (currentMode === 'gravity') drawGravityMap();
+  else drawConcentrationMap();
+}
+
+function renderPanel() {
+  d3.select('#panel').html('');
+  if (currentMode === 'gravity') drawGravityPanel();
+  else drawConcentrationPanel();
+}
+
+function switchMode(mode) {
+  currentMode = mode;
+  document.getElementById('btn-gravity').classList.toggle('active', mode === 'gravity');
+  document.getElementById('btn-concentration').classList.toggle('active', mode === 'concentration');
+  if (gravityData && concentrationData) { renderMap(); renderPanel(); }
+}
+
+// ════════════════════════════════════════════════
+//  NATURAL LANGUAGE QUERY  (Transformers.js — runs entirely in browser)
+// ════════════════════════════════════════════════
+
+// Country list for extraction — longest-first to avoid "Niger" matching inside "Nigeria"
+const COUNTRY_LIST = [
+  'United States','United Kingdom','United Arab Emirates','Saudi Arabia','South Africa',
+  'South Korea','North Korea','New Zealand','Costa Rica','Dominican Republic',
+  'El Salvador','Bosnia and Herzegovina','Central African Republic','Sri Lanka',
+  'Burkina Faso','Afghanistan','Albania','Algeria','Andorra','Angola','Argentina',
+  'Armenia','Australia','Austria','Azerbaijan','Bahrain','Bangladesh','Belarus',
+  'Belgium','Benin','Bolivia','Botswana','Brazil','Bulgaria','Cambodia','Cameroon',
+  'Canada','Chad','Chile','China','Colombia','Congo','Croatia','Cuba',
+  'Czech Republic','Denmark','Ecuador','Egypt','Ethiopia','Finland','France',
+  'Georgia','Germany','Ghana','Greece','Guatemala','Haiti','Honduras','Hungary',
+  'India','Indonesia','Iran','Iraq','Ireland','Israel','Italy','Jamaica','Japan',
+  'Jordan','Kazakhstan','Kenya','Kuwait','Kyrgyzstan','Laos','Latvia','Lebanon',
+  'Libya','Lithuania','Luxembourg','Malaysia','Mali','Mexico','Moldova','Mongolia',
+  'Morocco','Mozambique','Myanmar','Nepal','Netherlands','Nicaragua','Niger',
+  'Nigeria','Norway','Oman','Pakistan','Palestine','Panama','Paraguay','Peru',
+  'Philippines','Poland','Portugal','Qatar','Romania','Russia','Rwanda','Senegal',
+  'Serbia','Singapore','Slovakia','Slovenia','Somalia','Spain','Sudan','Sweden',
+  'Switzerland','Syria','Taiwan','Tajikistan','Tanzania','Thailand','Tunisia',
+  'Turkey','Turkmenistan','Uganda','Ukraine','Uruguay','Uzbekistan','Venezuela',
+  'Vietnam','Yemen','Zambia','Zimbabwe'
+];
+
+const COUNTRY_ALIASES = {
+  'usa': 'United States', 'u.s.a': 'United States', 'america': 'United States',
+  'uk': 'United Kingdom', 'britain': 'United Kingdom', 'england': 'United Kingdom',
+  'uae': 'United Arab Emirates', 'korea': 'South Korea',
+  'czechia': 'Czech Republic', 'holland': 'Netherlands',
+};
+
+function extractCountry(text) {
+  const lower = text.toLowerCase();
+  for (const [alias, name] of Object.entries(COUNTRY_ALIASES)) {
+    if (new RegExp(`\\b${alias}\\b`, 'i').test(lower)) return name;
+  }
+  for (const country of COUNTRY_LIST) {
+    if (lower.includes(country.toLowerCase())) return country;
+  }
+  return null;
+}
+
+// ── Hybrid classifier: keywords first, ML model fallback ────────
+const GRAVITY_KEYWORDS      = ['gravity','network','connect','attract','link','pull','pairs','between cities','city pairs'];
+const CONCENTRATION_KEYWORDS = ['dominat','primacy','concentrat','which city','spread','distributed','urban hierarch','biggest city','most powerful','urban structure','one city'];
+
+function keywordClassify(query) {
+  const q = query.toLowerCase();
+  const gScore = GRAVITY_KEYWORDS.filter(k => q.includes(k)).length;
+  const cScore = CONCENTRATION_KEYWORDS.filter(k => q.includes(k)).length;
+  if (gScore === 0 && cScore === 0) return null;           // no keywords → use ML
+  const isConc   = cScore > gScore;
+  const strength = Math.max(gScore, cScore);
+  const conf     = Math.min(0.97, 0.88 + (strength - 1) * 0.04);
+  return { mode: isConc ? 'concentration' : 'gravity', confidence: conf };
+}
+
+// ── Transformers.js pipeline (lazy-loaded, cached) ──────────────
+let _classifierPromise = null;
+
+async function getClassifier() {
+  if (_classifierPromise) return _classifierPromise;
+
+  _classifierPromise = (async () => {
+    setNLStatus('📥 Loading AI model (first use only, ~20 MB)…', null);
+
+    const { pipeline, env } = await import(
+      'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2'
+    );
+    env.allowLocalModels = false;
+
+    return pipeline(
+      'zero-shot-classification',
+      'Xenova/nli-deberta-v3-small',
+      {
+        progress_callback(info) {
+          if (info.status === 'downloading' && info.total > 0) {
+            const pct = Math.round((info.loaded / info.total) * 100);
+            setNLStatus(`📥 Downloading AI model: ${pct}%`, null);
+          }
+        },
+      }
+    );
+  })();
+
+  return _classifierPromise;
+}
+
+// ── Status helpers ────────────────────────────────────────────────
+function setNLStatus(explanation, confidence) {
+  const bar = document.getElementById('nl-status');
+  bar.classList.remove('hidden');
+  bar.innerHTML = '';
+
+  if (confidence !== null) {
+    let tier, label;
+    if      (confidence >= 0.85) { tier = 'high';   label = '🟢 High'; }
+    else if (confidence >= 0.70) { tier = 'medium'; label = '🟡 Moderate'; }
+    else                         { tier = 'low';    label = '🔴 Low'; }
+    const badge = document.createElement('span');
+    badge.className = `nl-badge ${tier}`;
+    badge.textContent = `${label} — ${Math.round(confidence * 100)}%`;
+    bar.appendChild(badge);
+  }
+
+  const txt = document.createElement('span');
+  txt.id = 'nl-explanation';
+  txt.textContent = explanation;
+  bar.appendChild(txt);
+}
+
+// ── Main NL handler ───────────────────────────────────────────────
+async function handleNLQuery() {
+  const input = document.getElementById('nl-input');
+  const btn   = document.getElementById('nl-ask-btn');
+  const query = input.value.trim();
+  if (!query) return;
+
+  btn.disabled = true;
+  btn.textContent = '⏳';
+
+  try {
+    // 1. Try keyword matching first (instant, no model needed)
+    let classification = keywordClassify(query);
+
+    // 2. Fall back to ML model for ambiguous queries
+    if (!classification) {
+      const clf = await getClassifier();
+      setNLStatus('🧠 Parsing intent…', null);
+      const result = await clf(query, [
+        'gravity connections and attraction between cities',
+        'urban primacy concentration and city dominance',
+      ]);
+      const isConc = result.labels[0].includes('primacy');
+      classification = { mode: isConc ? 'concentration' : 'gravity', confidence: result.scores[0] };
+    }
+
+    const { mode, confidence } = classification;
+    const country = extractCountry(query);
+
+    const modeDesc = mode === 'concentration'
+      ? 'urban primacy — how much one city dominates'
+      : 'gravity network — city connections by mass and distance';
+    const explanation = country
+      ? `Showing ${modeDesc} for ${country}`
+      : `Showing ${modeDesc} for current country`;
+
+    await executeIntent({ country, mode, confidence, explanation });
+
+  } catch (e) {
+    setNLStatus(`❌ ${e.message}`, null);
+  }
+
+  btn.disabled = false;
+  btn.textContent = '🧠 Ask';
+}
+
+// ── Execute parsed intent (auto-switches country via server.py or data/) ──
+async function executeIntent(intent) {
+  const { country, mode, confidence, explanation } = intent;
+  const btn = document.getElementById('nl-ask-btn');
+
+  if (confidence < 0.55) {
+    setNLStatus(
+      `⚠️ Not confident enough${country ? ` — did you mean "${country}"?` : ''}. Try rephrasing.`,
+      confidence
+    );
+    return;
+  }
+
+  const loadedCountry = gravityData?.country?.toLowerCase();
+  const targetCountry = country?.toLowerCase();
+  const needsSwitch   = targetCountry && targetCountry !== loadedCountry;
+
+  if (needsSwitch) {
+    setNLStatus(`🔄 Switching to ${country}…`, null);
+    btn.disabled = true; btn.textContent = '⏳';
+
+    try {
+      let gd, cd;
+      if (IS_LOCAL) {
+        // Local: run pipeline via server.py, then load root JSONs
+        const res = await fetch(`/run-pipeline?country=${encodeURIComponent(country)}`);
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.error || `Server returned ${res.status}. Is server.py running?`);
+        }
+        const ts = Date.now();
+        [gd, cd] = await Promise.all([
+          d3.json(`gravity_data.json?t=${ts}`),
+          d3.json(`concentration.json?t=${ts}`),
+        ]);
+      } else {
+        // GH Pages: load from pre-generated data/ folder
+        [gd, cd] = await loadFromData(country);
+      }
+
+      gravityData       = gd;
+      concentrationData = cd;
+      const meta = gd.meta || {};
+      document.getElementById('hdr-country').textContent = gd.country;
+      document.getElementById('hdr-status').textContent  =
+        `${meta.total_cities ?? gd.cities?.length ?? '?'} cities · ${meta.total_pairs ?? gd.pairs?.length ?? '?'} pairs`;
+      const sel = document.getElementById('countrySelect');
+      if (sel) sel.value = gd.country;
+
+    } catch (e) {
+      setNLStatus(
+        `❌ ${e.message}${IS_LOCAL ? ' — Make sure server.py is running' : ''}`,
+        confidence
+      );
+      btn.disabled = false; btn.textContent = '🧠 Ask';
+      return;
+    }
+
+    btn.disabled = false; btn.textContent = '🧠 Ask';
+  }
+
+  setNLStatus(explanation, confidence);
+  if (mode === 'concentration') switchMode('concentration');
+  else                          switchMode('gravity');
+}
+
+// ════════════════════════════════════════════════
+//  DATA LOAD  (URL-param aware, local + GH Pages)
+// ════════════════════════════════════════════════
+const overlay   = document.getElementById('status-overlay');
+const statusMsg = document.getElementById('status-msg');
+
+function _applyData(gd, cd) {
+  gravityData       = gd;
+  concentrationData = cd;
+  document.getElementById('hdr-country').textContent = gd.country || '—';
+  const meta = gd.meta || {};
+  document.getElementById('hdr-status').textContent  =
+    `${meta.total_cities ?? gd.cities?.length ?? '?'} cities · ${meta.total_pairs ?? gd.pairs?.length ?? '?'} pairs`;
+  overlay.classList.add('hidden');
+  document.getElementById('nl-bar').style.display = 'flex';
+  document.body.classList.add('nl-active');
+  // Update dropdown to reflect loaded country
+  const sel = document.getElementById('countrySelect');
+  if (sel && gd.country) sel.value = gd.country;
+  switchMode('gravity');
+}
+
+// Load from data/<Country>/ folder (works on both local and GitHub Pages)
+async function loadFromData(country) {
+  const folder = `data/${country.replace(/ /g, '_')}`;
+  const ts = IS_LOCAL ? `?t=${Date.now()}` : '';
+  const [gd, cd] = await Promise.all([
+    d3.json(`${folder}/gravity_data.json${ts}`),
+    d3.json(`${folder}/concentration.json${ts}`),
+  ]);
+  return [gd, cd];
+}
+
+function _showRetry() {
+  const existing = document.getElementById('retry-btn');
+  if (existing) return;
+  const btn = document.createElement('button');
+  btn.id = 'retry-btn';
+  btn.textContent = '🔄 Retry';
+  btn.style.cssText = `
+    margin-top:14px; padding:7px 20px; background:#00cfff22;
+    color:#00cfff; border:1px solid #00cfff44; border-radius:20px;
+    cursor:pointer; font-size:0.82rem; display:block;
+  `;
+  btn.onclick = () => {
+    btn.remove();
+    document.querySelector('.spinner').style.display = '';
+    statusMsg.textContent = 'Loading data…';
+    statusMsg.style.color = '';
+    initialLoad();
+  };
+  overlay.appendChild(btn);
+}
+
+async function initialLoad() {
+  const params     = new URLSearchParams(window.location.search);
+  const urlCountry = params.get('country');
+  const urlMode    = params.get('mode');   // 'gravity' | 'concentration'
+
+  // honour ?mode= param before data loads (sets active toggle)
+  if (urlMode === 'gravity' || urlMode === 'concentration') {
+    currentMode = urlMode;
+    document.getElementById('btn-gravity').classList.toggle('active', urlMode === 'gravity');
+    document.getElementById('btn-concentration').classList.toggle('active', urlMode === 'concentration');
+  }
+
+  // ── GH Pages: load everything from data/ folder ─────────────
+  if (!IS_LOCAL) {
+    const country = urlCountry || 'Germany';
+    statusMsg.textContent = `Loading ${country}…`;
+    try {
+      const [gd, cd] = await loadFromData(country);
+      _applyData(gd, cd);
+    } catch (e) {
+      console.error('GH Pages load error:', e);
+      statusMsg.textContent = `Data not available for "${country}" — select another country`;
+      statusMsg.style.color = '#ff4757';
+      document.querySelector('.spinner').style.display = 'none';
+      _showRetry();
+    }
+    return;
+  }
+
+  // ── Local: if ?country= in URL, run pipeline first ───────────
+  if (urlCountry) {
+    statusMsg.textContent = `⏳ Running pipeline for ${urlCountry}…`;
+    statusMsg.style.color = '#ff9f43';
+    try {
+      const res = await fetch(`/run-pipeline?country=${encodeURIComponent(urlCountry)}`);
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || `Pipeline failed (HTTP ${res.status}) — is server.py running?`);
+      }
+      statusMsg.textContent = `📊 Loading data…`;
+      const ts = Date.now();
+      const [gd, cd] = await Promise.all([
+        d3.json(`gravity_data.json?t=${ts}`),
+        d3.json(`concentration.json?t=${ts}`),
+      ]);
+      _applyData(gd, cd);
+    } catch (e) {
+      console.error('Pipeline error:', e);
+      statusMsg.textContent = `❌ ${e.message}`;
+      statusMsg.style.color = '#ff4757';
+      document.querySelector('.spinner').style.display = 'none';
+      _showRetry();
+    }
+    return;
+  }
+
+  // ── Local: load root JSONs (existing files from last pipeline run) ──
+  try {
+    const [gd, cd] = await Promise.all([
+      d3.json('gravity_data.json'),
+      d3.json('concentration.json')
+    ]);
+    _applyData(gd, cd);
+  } catch (e) {
+    console.error('Data load error:', e);
+    const isNetwork = e instanceof TypeError;
+    if (isNetwork) {
+      statusMsg.textContent = '⚠️ Cannot reach server — open via http://localhost:8000, not file://';
+    } else {
+      statusMsg.textContent = `⚠️ ${e.message || 'Data files not found'} — run: python generate_gravity.py`;
+    }
+    statusMsg.style.color = '#ff4757';
+    document.querySelector('.spinner').style.display = 'none';
+    _showRetry();
+  }
+}
+
+// ── Populate country dropdown + init on GH Pages ────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  // Populate select
+  const sel = document.getElementById('countrySelect');
+  AVAILABLE_COUNTRIES.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c; opt.textContent = c;
+    sel.appendChild(opt);
+  });
+
+  // Show dropdown on GH Pages
+  if (!IS_LOCAL) sel.style.display = 'inline-block';
+
+  // Dropdown change → load country
+  sel.addEventListener('change', async () => {
+    const country = sel.value;
+    if (!country) return;
+    overlay.classList.remove('hidden');
+    document.querySelector('.spinner').style.display = '';
+    statusMsg.textContent = `Loading ${country}…`;
+    statusMsg.style.color = '';
+    const existing = document.getElementById('retry-btn');
+    if (existing) existing.remove();
+    try {
+      const [gd, cd] = await loadFromData(country);
+      _applyData(gd, cd);
+    } catch (e) {
+      statusMsg.textContent = `Data not available for "${country}"`;
+      statusMsg.style.color = '#ff4757';
+      document.querySelector('.spinner').style.display = 'none';
+    }
+  });
+
+  // NL query Enter key
+  document.getElementById('nl-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') handleNLQuery();
+  });
 });
-countryInputEl.addEventListener('blur', () => setTimeout(hideSuggestions, 150));
 
-document.getElementById('explore-btn').addEventListener('click', loadCountry);
+initialLoad();
+</script>
 
-// Boot — load CSV on page open
-initData();
+<!-- ════════════════════════════════════════════════
+     MATH TRANSPARENCY LAYER  (Prompt 15)
+     Self-contained module — reads existing data, renders math panels.
+     ════════════════════════════════════════════════ -->
+<script>
+const MathTransparency = {
+
+  fmt(n) {
+    if (n == null || isNaN(n)) return '—';
+    return Number(n).toLocaleString('en-US');
+  },
+
+  buildPrimacyPanel(data) {
+    const largest = data.largest_city;
+    const total   = data.total_population;
+    const primacy = data.primacy_index;
+    return `
+      <div class="math-panel">
+        <div class="math-title">📐 Primacy Index — How it's calculated</div>
+        <div class="math-formula">P = P<sub>largest</sub> / Σ P<sub>all cities</sub></div>
+        <div class="math-step">
+          <span class="math-label">P<sub>largest</sub></span>
+          <span class="math-value">${largest.city} = ${this.fmt(largest.population)}</span>
+        </div>
+        <div class="math-step">
+          <span class="math-label">Σ P<sub>all</sub></span>
+          <span class="math-value">${this.fmt(total)} (${data.total_cities} cities)</span>
+        </div>
+        <div class="math-divider"></div>
+        <div class="math-step">
+          <span class="math-label">Calculation</span>
+          <span class="math-value">${this.fmt(largest.population)} / ${this.fmt(total)}</span>
+        </div>
+        <div class="math-step highlight">
+          <span class="math-label">Result</span>
+          <span class="math-value">${primacy.toFixed(4)} → ${(primacy * 100).toFixed(1)}%</span>
+        </div>
+        <div class="math-note">
+          Threshold: &lt;0.15 distributed · 0.15–0.35 moderate · &gt;0.35 dominant
+        </div>
+      </div>`;
+  },
+
+  buildGravityPanel(pair) {
+    const raw = (pair.pop_a * pair.pop_b) / Math.pow(pair.distance_km, 2);
+    return `
+      <div class="math-panel">
+        <div class="math-title">📐 Newton Gravity Model</div>
+        <div class="math-formula">G = (P<sub>a</sub> × P<sub>b</sub>) / d²</div>
+        <div class="math-step">
+          <span class="math-label">P<sub>a</sub> (${pair.city_a})</span>
+          <span class="math-value">${this.fmt(pair.pop_a)}</span>
+        </div>
+        <div class="math-step">
+          <span class="math-label">P<sub>b</sub> (${pair.city_b})</span>
+          <span class="math-value">${this.fmt(pair.pop_b)}</span>
+        </div>
+        <div class="math-step">
+          <span class="math-label">d (distance)</span>
+          <span class="math-value">${pair.distance_km.toFixed(1)} km</span>
+        </div>
+        <div class="math-step">
+          <span class="math-label">d²</span>
+          <span class="math-value">${this.fmt(Math.round(Math.pow(pair.distance_km, 2)))}</span>
+        </div>
+        <div class="math-divider"></div>
+        <div class="math-step">
+          <span class="math-label">Raw G</span>
+          <span class="math-value">${this.fmt(Math.round(raw))}</span>
+        </div>
+        <div class="math-step highlight">
+          <span class="math-label">Normalized</span>
+          <span class="math-value">${pair.gravity.toFixed(4)}</span>
+        </div>
+        <div class="math-note">
+          Normalization: (G − G<sub>min</sub>) / (G<sub>max</sub> − G<sub>min</sub>)
+        </div>
+      </div>`;
+  },
+
+  buildHaversinePanel(pair) {
+    const toRad = d => d * Math.PI / 180;
+    const dLat  = toRad(pair.lat_b - pair.lat_a);
+    const dLng  = toRad(pair.lng_b - pair.lng_a);
+    const a     = Math.sin(dLat / 2) ** 2 +
+                  Math.cos(toRad(pair.lat_a)) * Math.cos(toRad(pair.lat_b)) *
+                  Math.sin(dLng / 2) ** 2;
+    const c     = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return `
+      <div class="math-panel">
+        <div class="math-title">📐 Haversine Formula — Great Circle Distance</div>
+        <div class="math-formula">d = 2R · atan2(√a, √(1−a))</div>
+        <div class="math-step">
+          <span class="math-label">${pair.city_a} coords</span>
+          <span class="math-value">${pair.lat_a.toFixed(4)}°, ${pair.lng_a.toFixed(4)}°</span>
+        </div>
+        <div class="math-step">
+          <span class="math-label">${pair.city_b} coords</span>
+          <span class="math-value">${pair.lat_b.toFixed(4)}°, ${pair.lng_b.toFixed(4)}°</span>
+        </div>
+        <div class="math-step">
+          <span class="math-label">Δlat</span>
+          <span class="math-value">${(pair.lat_b - pair.lat_a).toFixed(4)}° → ${dLat.toFixed(4)} rad</span>
+        </div>
+        <div class="math-step">
+          <span class="math-label">Δlng</span>
+          <span class="math-value">${(pair.lng_b - pair.lng_a).toFixed(4)}° → ${dLng.toFixed(4)} rad</span>
+        </div>
+        <div class="math-step">
+          <span class="math-label">a</span>
+          <span class="math-value">${a.toFixed(6)}</span>
+        </div>
+        <div class="math-step">
+          <span class="math-label">c</span>
+          <span class="math-value">${c.toFixed(6)} rad</span>
+        </div>
+        <div class="math-step">
+          <span class="math-label">R (Earth)</span>
+          <span class="math-value">6,371 km</span>
+        </div>
+        <div class="math-divider"></div>
+        <div class="math-step highlight">
+          <span class="math-label">Distance</span>
+          <span class="math-value">${pair.distance_km.toFixed(2)} km</span>
+        </div>
+        <div class="math-note">
+          Why not Euclidean? Straight-line ignores Earth's curvature.
+          Haversine gives the shortest path along the surface.
+        </div>
+      </div>`;
+  },
+
+  // Floating overlay — persists after tooltip hides, closeable with ✕
+  showHaversine(pair) {
+    const existing = document.getElementById('haversine-overlay');
+    if (existing) { existing.remove(); return; }
+    const overlay = document.createElement('div');
+    overlay.id = 'haversine-overlay';
+    overlay.style.cssText =
+      'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);' +
+      'z-index:9999;width:360px;box-shadow:0 4px 24px rgba(0,0,0,0.7);';
+    overlay.innerHTML = this.buildHaversinePanel(pair) +
+      '<button onclick="document.getElementById(\'haversine-overlay\').remove()" ' +
+      'style="position:absolute;top:10px;right:10px;background:transparent;border:none;' +
+      'color:#6b8cae;font-size:15px;cursor:pointer;line-height:1;">✕</button>';
+    document.body.appendChild(overlay);
+  }
+};
+</script>
+<script src="nav.js"></script>
+<script>Nav.augmentHeader();</script>
+<script src="country-switcher.js"></script>
+<script>
+// ── Initialize CountrySwitcher ────────────────────────────────
+// Called after DOMContentLoaded so #header exists.
+// Uses _applyData from the main script block.
+document.addEventListener('DOMContentLoaded', () => {
+  CountrySwitcher.init(({ gravity, concentration, country }) => {
+    _applyData(gravity, concentration);
+    // _applyData handles overlay hide, status update, and switchMode
+  });
+});
 </script>
 </body>
 </html>

@@ -1,0 +1,64 @@
+{
+  "country": "Vietnam",
+  "total_cities": 180,
+  "total_population": 54572431,
+  "primacy_index": 0.2774,
+  "confidence": "high",
+  "confidence_note": "",
+  "largest_city": {
+    "city": "Ho Chi Minh City",
+    "population": 15136000,
+    "share_pct": 27.7
+  },
+  "top5": [
+    {
+      "rank": 1,
+      "city": "Ho Chi Minh City",
+      "population": 15136000,
+      "share_pct": 27.7
+    },
+    {
+      "rank": 2,
+      "city": "Hanoi",
+      "population": 8587100,
+      "share_pct": 15.7
+    },
+    {
+      "rank": 3,
+      "city": "Haiphong",
+      "population": 2310280,
+      "share_pct": 4.2
+    },
+    {
+      "rank": 4,
+      "city": "Biên Hòa",
+      "population": 1575000,
+      "share_pct": 2.9
+    },
+    {
+      "rank": 5,
+      "city": "Cần Thơ",
+      "population": 1237300,
+      "share_pct": 2.3
+    }
+  ],
+  "top5_combined_share": 52.8,
+  "narration": {
+    "concentration": {
+      "headline": "Strong urban primacy — capital drives the country",
+      "body": "Ho Chi Minh City dominates Vietnam's urban hierarchy with 27.7% of tracked urban population across 180 cities. The gap between Ho Chi Minh City and the second city is substantial, reflecting a historically centralised national structure.",
+      "comparison": "Similar to: France, Mexico, South Korea",
+      "contrast": "Unlike: Germany, Switzerland (distributed)",
+      "pattern": "monocentric",
+      "insight_confidence": "high"
+    },
+    "gravity": {
+      "headline": "Dense gravitational cluster — Ho Chi Minh City & Thủ Đức",
+      "body": "The strongest gravitational pull exists between Ho Chi Minh City and Thủ Đức (9 km apart, combined population 16,149,795). Cities form a tight gravitational cluster with top pairs averaging 16 km apart. This dense sub-regional network often functions as a single megalopolitan economy.",
+      "top_pair": "Ho Chi Minh City → Thủ Đức",
+      "network_type": "clustered",
+      "avg_distance_top5": 15.9
+    },
+    "synthesis": "Vietnam shows clear urban primacy: Ho Chi Minh City accounts for 27.7% of tracked population. The gravity network (Ho Chi Minh City → Thủ Đức, avg 16 km) reinforces this — economic mass concentrates in and around the dominant city, with secondary cities playing supporting rather than competing roles."
+  }
+}

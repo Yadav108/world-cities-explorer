@@ -1,0 +1,119 @@
+{
+  "country": "India",
+  "cities": [
+    {
+      "city": "Delhi",
+      "lat": 28.61,
+      "lng": 77.23,
+      "population": 32226000,
+      "rank": 1
+    },
+    {
+      "city": "Mumbai",
+      "lat": 19.0761,
+      "lng": 72.8775,
+      "population": 24973000,
+      "rank": 2
+    },
+    {
+      "city": "Kolkāta",
+      "lat": 22.5675,
+      "lng": 88.37,
+      "population": 21747000,
+      "rank": 3
+    },
+    {
+      "city": "Bangalore",
+      "lat": 12.9789,
+      "lng": 77.5917,
+      "population": 15386000,
+      "rank": 4
+    },
+    {
+      "city": "Chennai",
+      "lat": 13.0825,
+      "lng": 80.275,
+      "population": 12395000,
+      "rank": 5
+    },
+    {
+      "city": "Hyderābād",
+      "lat": 17.3617,
+      "lng": 78.4747,
+      "population": 10494000,
+      "rank": 6
+    },
+    {
+      "city": "Pune",
+      "lat": 18.5203,
+      "lng": 73.8567,
+      "population": 8231000,
+      "rank": 7
+    },
+    {
+      "city": "Ahmedabad",
+      "lat": 23.0225,
+      "lng": 72.5714,
+      "population": 8009000,
+      "rank": 8
+    },
+    {
+      "city": "Sūrat",
+      "lat": 21.205,
+      "lng": 72.84,
+      "population": 6538000,
+      "rank": 9
+    },
+    {
+      "city": "Prayagraj",
+      "lat": 25.4358,
+      "lng": 81.8464,
+      "population": 5954391,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Mumbai",
+      "city_b": "Pune",
+      "distance_km": 120.2,
+      "gravity": 1.0,
+      "pop_a": 24973000,
+      "pop_b": 8231000,
+      "lat_a": 19.0761,
+      "lng_a": 72.8775,
+      "lat_b": 18.5203,
+      "lng_b": 73.8567
+    },
+    {
+      "city_a": "Mumbai",
+      "city_b": "Sūrat",
+      "distance_km": 236.8,
+      "gravity": 0.2026,
+      "pop_a": 24973000,
+      "pop_b": 6538000,
+      "lat_a": 19.0761,
+      "lng_a": 72.8775,
+      "lat_b": 21.205,
+      "lng_b": 72.84
+    },
+    {
+      "city_a": "Bangalore",
+      "city_b": "Chennai",
+      "distance_km": 290.9,
+      "gravity": 0.1562,
+      "pop_a": 15386000,
+      "pop_b": 12395000,
+      "lat_a": 12.9789,
+      "lng_a": 77.5917,
+      "lat_b": 13.0825,
+      "lng_b": 80.275
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 3,
+    "strongest_pair": "Mumbai → Pune",
+    "generated_at": "2026-03-12"
+  }
+}

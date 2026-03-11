@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🌍 Global Urban Primacy Ranking</title>
+  <link rel="stylesheet" href="nav.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d0d1a; --bg2: #12122a; --border: #1e1e3a; --border2: #2a2a4a;
+      --accent: #00cfff; --accent-b: #ff9f43; --text: #cdd6f4; --text2: #7799bb;
+      --header-h: 52px; --strip-h: 64px;
+    }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text);
+           height: 100vh; overflow: hidden; }
+
+    /* ── Header ─────────────────────────────────────────────── */
+    #header {
+      position: fixed; top: 0; left: 0; right: 0; height: var(--header-h);
+      background: var(--bg2); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 20px; gap: 14px; z-index: 2000;
+    }
+    #hdr-title { font-size: 0.95rem; font-weight: 700; white-space: nowrap; }
+    #hdr-subtitle { font-size: 0.72rem; color: var(--text2); }
+    #search-wrap { margin-left: auto; position: relative; }
+    #search-input {
+      background: var(--bg); border: 1px solid var(--border2);
+      border-radius: 20px; padding: 6px 14px; color: var(--text);
+      font-size: 0.78rem; outline: none; width: 200px; transition: border-color 0.2s;
+    }
+    #search-input:focus { border-color: var(--accent); }
+    #search-input::placeholder { color: var(--text2); }
+
+    /* ── Map container ──────────────────────────────────────── */
+    #map-container {
+      position: fixed; top: var(--header-h); left: 0; right: 0;
+      bottom: var(--strip-h); overflow: hidden;
+    }
+    #map-container svg { display: block; }
+
+    /* ── Country paths ──────────────────────────────────────── */
+    .country-path {
+      stroke: #0d0d1a; stroke-width: 0.4; cursor: pointer;
+      transition: stroke 0.15s, stroke-width 0.15s;
+    }
+    .country-path:hover { stroke: #ffffff; stroke-width: 1.2; }
+    .country-path.highlighted { stroke: #ffffff; stroke-width: 1.8; }
+
+    /* ── Legend ─────────────────────────────────────────────── */
+    #legend {
+      position: absolute; bottom: 16px; left: 18px;
+      background: rgba(13,13,26,0.88); border: 1px solid var(--border2);
+      border-radius: 8px; padding: 10px 14px; backdrop-filter: blur(4px);
+    }
+    #legend-title { font-size: 0.62rem; color: var(--text2); letter-spacing: 0.1em;
+                    text-transform: uppercase; margin-bottom: 7px; }
+    #legend-bar { width: 180px; height: 10px; border-radius: 4px;
+                  background: linear-gradient(to right, #4575b4, #91bfdb, #ffffbf, #fc8d59, #d73027); }
+    #legend-labels { display: flex; justify-content: space-between;
+                     font-size: 0.6rem; color: var(--text2); margin-top: 4px; }
+
+    /* ── Tooltip ────────────────────────────────────────────── */
+    #tooltip {
+      position: fixed; background: rgba(13,13,26,0.95); border: 1px solid #1e1e3a;
+      border-radius: 9px; padding: 11px 15px; pointer-events: none;
+      font-size: 0.8rem; color: #cdd6f4; display: none; z-index: 9000;
+      min-width: 190px; line-height: 1.7; backdrop-filter: blur(6px);
+    }
+    .tt-country { font-weight: 700; color: var(--accent); font-size: 0.9rem; margin-bottom: 4px; }
+    .tt-row { display: flex; justify-content: space-between; gap: 16px; }
+    .tt-label { color: var(--text2); font-size: 0.74rem; }
+    .tt-val   { font-weight: 600; }
+    .tt-badge {
+      display: inline-block; font-size: 0.62rem; font-weight: 700;
+      padding: 1px 7px; border-radius: 4px; margin-top: 5px;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .badge-polycentric  { background: rgba(69,117,180,0.2); color: #4575b4; }
+    .badge-transitional { background: rgba(255,213,42,0.2); color: #ffd32a; }
+    .badge-monocentric  { background: rgba(215,48,39,0.2);  color: #d73027; }
+
+    /* ── Bottom rank strip ──────────────────────────────────── */
+    #rank-strip {
+      position: fixed; bottom: 0; left: 0; right: 0; height: var(--strip-h);
+      background: var(--bg2); border-top: 1px solid var(--border);
+      display: flex; align-items: center; overflow-x: auto; overflow-y: hidden;
+      padding: 0 12px; gap: 6px; z-index: 2000;
+    }
+    #rank-strip::-webkit-scrollbar { height: 4px; }
+    #rank-strip::-webkit-scrollbar-track { background: var(--bg); }
+    #rank-strip::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+    .rank-item {
+      flex-shrink: 0; background: var(--bg); border: 1px solid var(--border2);
+      border-radius: 6px; padding: 5px 10px; cursor: pointer;
+      transition: border-color 0.15s; min-width: 120px;
+    }
+    .rank-item:hover { border-color: var(--accent); }
+    .rank-item.active { border-color: var(--accent); background: rgba(0,207,255,0.08); }
+    .ri-rank  { font-size: 0.6rem; color: var(--text2); }
+    .ri-name  { font-size: 0.72rem; font-weight: 600; color: var(--text); white-space: nowrap; }
+    .ri-score { font-size: 0.68rem; font-weight: 700; }
+
+    /* ── Loading overlay ────────────────────────────────────── */
+    #overlay {
+      position: fixed; inset: 0; background: var(--bg);
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; z-index: 5000; gap: 14px;
+    }
+    #overlay.hidden { display: none; }
+    .spinner { width: 36px; height: 36px; border: 3px solid var(--border2);
+               border-top-color: var(--accent); border-radius: 50%;
+               animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #overlay-msg { color: var(--text2); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+<header id="header">
+  <span id="hdr-title">🌍 Global Urban Primacy Ranking</span>
+  <span id="hdr-subtitle">Hover to inspect · Click to analyze in full app</span>
+  <div id="search-wrap">
+    <input id="search-input" type="text" placeholder="Search country…" oninput="searchCountry(this.value)" />
+  </div>
+</header>
+
+<div id="map-container"></div>
+
+<div id="tooltip"></div>
+
+<div id="rank-strip"></div>
+
+<div id="overlay">
+  <div class="spinner"></div>
+  <div id="overlay-msg">Loading world map &amp; rankings…</div>
+</div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+// ════════════════════════════════════════════════
+//  GLOBALS
+// ════════════════════════════════════════════════
+const tip     = document.getElementById('tooltip');
+const fmtPop  = d3.format(',');
+const fmtPct  = v => (v * 100).toFixed(1) + '%';
+
+let rankingData = [];
+let primacyMap  = {};   // geojson_name → ranking entry
+let svgSel, pathSel;
+
+// ── Color scale: blue (distributed) → red (dominant) ──────────
+const colorScale = d3.scaleSequential(d3.interpolateRdYlBu)
+  .domain([0.65, 0]);   // reversed: high primacy = red, low = blue
+
+function primacyColor(p) { return p != null ? colorScale(p) : '#1a1a2e'; }
+
+function patternBadgeClass(pattern) {
+  return { polycentric: 'badge-polycentric', transitional: 'badge-transitional',
+           monocentric: 'badge-monocentric' }[pattern] || '';
+}
+
+// ════════════════════════════════════════════════
+//  MAP RENDER
+// ════════════════════════════════════════════════
+function renderMap(geo) {
+  const container = document.getElementById('map-container');
+  const W = container.clientWidth;
+  const H = container.clientHeight;
+
+  svgSel = d3.select('#map-container').append('svg')
+    .attr('width', W).attr('height', H);
+
+  const projection = d3.geoNaturalEarth1()
+    .scale(Math.min(W / 5.8, H / 3.0))
+    .translate([W / 2, H / 2]);
+
+  const pathGen = d3.geoPath().projection(projection);
+
+  // Ocean background
+  svgSel.append('rect')
+    .attr('width', W).attr('height', H)
+    .attr('fill', '#080818');
+
+  // Country paths
+  pathSel = svgSel.selectAll('path.country-path')
+    .data(geo.features)
+    .join('path')
+    .attr('class', 'country-path')
+    .attr('d', pathGen)
+    .style('fill', d => {
+      const entry = primacyMap[d.properties.name];
+      return entry ? primacyColor(entry.primacy_index) : '#1a1a2e';
+    })
+    .on('mouseover', onMouseOver)
+    .on('mousemove',  onMouseMove)
+    .on('mouseout',   onMouseOut)
+    .on('click',      onClick);
+
+  // Legend
+  renderLegend();
+}
+
+// ════════════════════════════════════════════════
+//  LEGEND
+// ════════════════════════════════════════════════
+function renderLegend() {
+  const container = document.getElementById('map-container');
+  const div = document.createElement('div');
+  div.id = 'legend';
+  div.innerHTML = `
+    <div id="legend-title">Primacy Index</div>
+    <div id="legend-bar"></div>
+    <div id="legend-labels">
+      <span>0.0<br><span style="color:#4575b4">Distributed</span></span>
+      <span>0.15</span>
+      <span>0.30</span>
+      <span>0.45</span>
+      <span>0.6+<br><span style="color:#d73027">Dominant</span></span>
+    </div>
+  `;
+  container.appendChild(div);
+}
+
+// ════════════════════════════════════════════════
+//  TOOLTIP
+// ════════════════════════════════════════════════
+function onMouseOver(event, d) {
+  const entry = primacyMap[d.properties.name];
+  if (!entry) {
+    tip.innerHTML = `<div class="tt-country">${d.properties.name}</div>
+      <div style="font-size:0.72rem;color:var(--text2)">No data</div>`;
+  } else {
+    const badgeClass = patternBadgeClass(entry.pattern);
+    tip.innerHTML = `
+      <div class="tt-country">${entry.country}</div>
+      <div class="tt-row">
+        <span class="tt-label">Rank</span>
+        <span class="tt-val">#${entry.rank} of ${rankingData.length}</span>
+      </div>
+      <div class="tt-row">
+        <span class="tt-label">Primacy Index</span>
+        <span class="tt-val" style="color:${primacyColor(entry.primacy_index)}">${fmtPct(entry.primacy_index)}</span>
+      </div>
+      <div class="tt-row">
+        <span class="tt-label">Largest City</span>
+        <span class="tt-val">${entry.largest_city}</span>
+      </div>
+      <div class="tt-row">
+        <span class="tt-label">City Population</span>
+        <span class="tt-val">${fmtPop(entry.largest_city_pop)}</span>
+      </div>
+      <div class="tt-row">
+        <span class="tt-label">Cities tracked</span>
+        <span class="tt-val">${entry.total_cities}</span>
+      </div>
+      <div><span class="tt-badge ${badgeClass}">${entry.pattern}</span></div>
+      <div style="font-size:0.66rem;color:var(--text2);margin-top:4px">Click to analyze →</div>
+    `;
+  }
+  tip.style.display = 'block';
+  onMouseMove(event);
+}
+
+function onMouseMove(event) {
+  tip.style.left = Math.min(event.clientX + 14, window.innerWidth  - 220) + 'px';
+  tip.style.top  = Math.min(event.clientY - 10, window.innerHeight - 260) + 'px';
+}
+
+function onMouseOut() { tip.style.display = 'none'; }
+
+// ════════════════════════════════════════════════
+//  CLICK — open index.html with country
+// ════════════════════════════════════════════════
+function onClick(event, d) {
+  const entry = primacyMap[d.properties.name];
+  if (!entry) return;
+  window.open(`index.html?country=${encodeURIComponent(entry.country)}`, '_blank');
+}
+
+// ════════════════════════════════════════════════
+//  RANK STRIP
+// ════════════════════════════════════════════════
+function renderRankStrip() {
+  const strip = document.getElementById('rank-strip');
+  // Top 50 countries
+  const top50 = rankingData.slice(0, 50);
+
+  top50.forEach(d => {
+    const item  = document.createElement('div');
+    item.className = 'rank-item';
+    item.id = `ri-${d.rank}`;
+
+    const scoreColor = d.primacy_index >= 0.35 ? '#d73027'
+                     : d.primacy_index >= 0.15 ? '#ffd32a' : '#4575b4';
+
+    item.innerHTML = `
+      <div class="ri-rank">#${d.rank}</div>
+      <div class="ri-name">${d.country}</div>
+      <div class="ri-score" style="color:${scoreColor}">${fmtPct(d.primacy_index)}</div>
+    `;
+
+    item.title = 'Click to highlight · Double-click to analyze';
+
+    item.addEventListener('click', () => {
+      // Highlight country on map
+      pathSel.classed('highlighted', false);
+      pathSel.filter(f => f.properties.name === d.geojson_name)
+             .classed('highlighted', true)
+             .raise();
+
+      // Mark active in strip
+      document.querySelectorAll('.rank-item').forEach(el => el.classList.remove('active'));
+      item.classList.add('active');
+    });
+
+    // Double-click → open full analysis
+    item.addEventListener('dblclick', () => {
+      window.open(`index.html?country=${encodeURIComponent(d.country)}`, '_blank');
+    });
+
+    strip.appendChild(item);
+  });
+
+  // "…and N more" label
+  if (rankingData.length > 50) {
+    const more = document.createElement('div');
+    more.style.cssText = 'flex-shrink:0;font-size:0.7rem;color:var(--text2);padding:0 10px;white-space:nowrap;';
+    more.textContent = `+${rankingData.length - 50} more countries`;
+    strip.appendChild(more);
+  }
+}
+
+// ════════════════════════════════════════════════
+//  SEARCH
+// ════════════════════════════════════════════════
+function searchCountry(q) {
+  if (!q.trim() || !pathSel) {
+    pathSel?.classed('highlighted', false);
+    return;
+  }
+  const lower = q.toLowerCase();
+  pathSel.classed('highlighted', false);
+  pathSel.filter(d => {
+    const entry = primacyMap[d.properties.name];
+    const name  = (entry?.country || d.properties.name || '').toLowerCase();
+    return name.includes(lower);
+  }).classed('highlighted', true).raise();
+}
+
+// ════════════════════════════════════════════════
+//  DATA LOAD
+// ════════════════════════════════════════════════
+const overlay    = document.getElementById('overlay');
+const overlayMsg = document.getElementById('overlay-msg');
+
+Promise.all([
+  d3.json('world.geojson'),
+  d3.json('global_ranking.json'),
+]).then(([geo, ranking]) => {
+
+  rankingData = ranking;
+
+  // Build primacy lookup keyed by geojson_name (matches GeoJSON properties.name)
+  ranking.forEach(d => { primacyMap[d.geojson_name] = d; });
+
+  // Stats for subtitle
+  const avg = (ranking.reduce((s, d) => s + d.primacy_index, 0) / ranking.length * 100).toFixed(1);
+  document.getElementById('hdr-subtitle').textContent =
+    `${ranking.length} countries · avg primacy ${avg}% · hover to inspect · click to analyze`;
+
+  renderMap(geo);
+  renderRankStrip();
+
+  overlay.classList.add('hidden');
+
+}).catch(err => {
+  overlayMsg.textContent = `⚠️ ${err.message} — run: python download_geojson.py && python generate_gravity.py global`;
+  overlayMsg.style.color = '#ff4757';
+  document.querySelector('.spinner').style.display = 'none';
+});
+</script>
+<script src="nav.js"></script>
+<script>Nav.augmentHeader();</script>
+</body>
+</html>

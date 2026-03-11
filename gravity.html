@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🌐 Gravity Network Explorer</title>
+  <!-- Redirect to unified app -->
+  <script>window.location.replace('index.html?mode=gravity');</script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0d0d1a;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    #map { width: 100%; height: 100vh; }
+
+    /* ── Tooltip ─────────────────────────────────────── */
+    #tooltip {
+      position: fixed;
+      background: rgba(13, 13, 26, 0.92);
+      border: 1px solid #1e1e3a;
+      border-radius: 8px;
+      padding: 10px 14px;
+      pointer-events: none;
+      font-size: 0.82rem;
+      color: #cdd6f4;
+      max-width: 220px;
+      line-height: 1.6;
+      display: none;
+      z-index: 9000;
+      backdrop-filter: blur(6px);
+    }
+    #tooltip .tt-title {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #00cfff;
+      margin-bottom: 4px;
+    }
+    #tooltip .tt-title.pair { color: #ff9f43; }
+    #tooltip .tt-row { color: #7799bb; }
+    #tooltip .tt-val { color: #cdd6f4; font-weight: 600; }
+
+    /* ── Legend ──────────────────────────────────────── */
+    #legend {
+      position: fixed;
+      bottom: 24px;
+      left: 16px;
+      background: rgba(13, 13, 26, 0.88);
+      border: 1px solid #1e1e3a;
+      border-radius: 10px;
+      padding: 14px 18px;
+      z-index: 1000;
+      font-size: 0.78rem;
+      color: #7799bb;
+      min-width: 160px;
+      backdrop-filter: blur(6px);
+    }
+    #legend h4 {
+      color: #cdd6f4;
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+      letter-spacing: 0.04em;
+    }
+    .legend-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .legend-circle {
+      border-radius: 50%;
+      background: #00cfff;
+      flex-shrink: 0;
+    }
+    .legend-line {
+      height: 3px;
+      background: #ff9f43;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .legend-label { color: #7799bb; }
+
+    /* ── Pulse animation ─────────────────────────────── */
+    @keyframes pulse {
+      0%   { stroke-dashoffset: 200; }
+      100% { stroke-dashoffset: 0;   }
+    }
+
+    /* ── Header pill ─────────────────────────────────── */
+    #header {
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(13, 13, 26, 0.88);
+      border: 1px solid #1e1e3a;
+      border-radius: 24px;
+      padding: 8px 22px;
+      z-index: 1000;
+      font-size: 0.88rem;
+      color: #cdd6f4;
+      backdrop-filter: blur(6px);
+      white-space: nowrap;
+    }
+    #header span { color: #00cfff; font-weight: 700; }
+    #header .sep { color: #1e1e3a; margin: 0 8px; }
+    #header .pairs-accent { color: #ff9f43; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+<div id="map"></div>
+<div id="tooltip"></div>
+
+<div id="header">
+  🌐 Gravity Network —
+  <span id="hdr-country">Loading…</span>
+  <span class="sep">|</span>
+  <span id="hdr-cities">–</span> cities
+  <span class="sep">|</span>
+  <span class="pairs-accent" id="hdr-pairs">–</span> gravity pairs
+</div>
+
+<div id="legend">
+  <h4>Legend</h4>
+  <div class="legend-row">
+    <div class="legend-circle" style="width:8px;height:8px;"></div>
+    <span class="legend-label">Small city</span>
+  </div>
+  <div class="legend-row">
+    <div class="legend-circle" style="width:20px;height:20px;"></div>
+    <span class="legend-label">Large city</span>
+  </div>
+  <div class="legend-row" style="margin-top:6px;">
+    <div class="legend-line" style="width:30px;opacity:0.3;"></div>
+    <span class="legend-label">Weak gravity</span>
+  </div>
+  <div class="legend-row">
+    <div class="legend-line" style="width:30px;height:6px;"></div>
+    <span class="legend-label">Strong gravity</span>
+  </div>
+</div>
+
+<!-- Scripts at bottom — L must exist before D3 code runs -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+<script>
+  // ── Map setup ─────────────────────────────────────────
+  const map = L.map('map', { zoomControl: true }).setView([51.2, 10.4], 6);
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '© OpenStreetMap © CARTO',
+    maxZoom: 18,
+  }).addTo(map);
+
+  // ── SVG overlay via Leaflet ───────────────────────────
+  L.svg().addTo(map);
+  const svg = d3.select('#map').select('svg').style('overflow', 'visible');
+  const g   = svg.append('g').attr('class', 'leaflet-zoom-hide');
+
+  // Project lat/lng → Leaflet pixel point
+  const project = (lng, lat) => map.latLngToLayerPoint(new L.LatLng(lat, lng));
+
+  // ── Scales (set after data loads) ─────────────────────
+  let radiusScale, strokeScale, opacityScale;
+
+  // ── Tooltip helper ────────────────────────────────────
+  const tip = document.getElementById('tooltip');
+
+  function showTip(html, event) {
+    tip.innerHTML  = html;
+    tip.style.display = 'block';
+    moveTip(event);
+  }
+
+  function moveTip(event) {
+    const x = Math.min(event.clientX + 14, window.innerWidth  - 230);
+    const y = Math.min(event.clientY - 10, window.innerHeight - 120);
+    tip.style.left = x + 'px';
+    tip.style.top  = y + 'px';
+  }
+
+  function hideTip() { tip.style.display = 'none'; }
+
+  // ── Reproject all elements on zoom / pan ─────────────
+  function reproject() {
+    g.selectAll('line.gravity-line')
+      .attr('x1', d => project(d.lng_a, d.lat_a).x)
+      .attr('y1', d => project(d.lng_a, d.lat_a).y)
+      .attr('x2', d => project(d.lng_b, d.lat_b).x)
+      .attr('y2', d => project(d.lng_b, d.lat_b).y);
+
+    g.selectAll('line.pulse-line')
+      .attr('x1', d => project(d.lng_a, d.lat_a).x)
+      .attr('y1', d => project(d.lng_a, d.lat_a).y)
+      .attr('x2', d => project(d.lng_b, d.lat_b).x)
+      .attr('y2', d => project(d.lng_b, d.lat_b).y);
+
+    g.selectAll('circle.city-node')
+      .attr('cx', d => project(d.lng, d.lat).x)
+      .attr('cy', d => project(d.lng, d.lat).y);
+  }
+
+  map.on('zoomend moveend viewreset', reproject);
+
+  // ── Format helpers ────────────────────────────────────
+  const fmtPop = d3.format(',');
+
+  // ── Load data and render ──────────────────────────────
+  d3.json('gravity_data.json').then(data => {
+
+    // Update header
+    document.getElementById('hdr-country').textContent = data.country;
+    document.getElementById('hdr-cities').textContent  = data.meta.total_cities;
+    document.getElementById('hdr-pairs').textContent   = data.meta.total_pairs;
+
+    const cities = data.cities;
+    const pairs  = data.pairs;
+
+    // ── Build scales ──────────────────────────────────
+    const [minPop, maxPop] = d3.extent(cities, d => d.population);
+    radiusScale = d3.scaleSqrt().domain([minPop, maxPop]).range([4, 20]);
+
+    const [minG, maxG] = d3.extent(pairs, d => d.gravity);
+    strokeScale  = d3.scaleLinear().domain([minG, maxG]).range([1, 6]);
+    opacityScale = d3.scaleLinear().domain([minG, maxG]).range([0.2, 0.9]);
+
+    // ── Draw gravity lines (behind circles) ───────────
+    g.selectAll('line.gravity-line')
+      .data(pairs)
+      .join('line')
+        .attr('class', 'gravity-line')
+        .attr('stroke',        '#ff9f43')
+        .attr('stroke-width',  d => strokeScale(d.gravity))
+        .attr('stroke-opacity',d => opacityScale(d.gravity))
+        .attr('stroke-linecap','round')
+        .attr('cursor',        'pointer')
+        .on('mouseover', (event, d) => showTip(`
+          <div class="tt-title pair">${d.city_a} → ${d.city_b}</div>
+          <div class="tt-row">Gravity score: <span class="tt-val">${d.gravity.toFixed(4)}</span></div>
+          <div class="tt-row">Distance: <span class="tt-val">${d.distance_km} km</span></div>
+          <div class="tt-row">${d.city_a} pop: <span class="tt-val">${fmtPop(d.pop_a)}</span></div>
+          <div class="tt-row">${d.city_b} pop: <span class="tt-val">${fmtPop(d.pop_b)}</span></div>
+        `, event))
+        .on('mousemove', moveTip)
+        .on('mouseout',  hideTip);
+
+    // ── Draw pulse lines (on top of base lines) ───────
+    // Stronger gravity → shorter duration → faster pulse
+    g.selectAll('line.pulse-line')
+      .data(pairs)
+      .join('line')
+        .attr('class',            'pulse-line')
+        .attr('stroke',           '#ffffff')
+        .attr('stroke-width',     d => 1 + d.gravity * 3)
+        .attr('stroke-dasharray', '8 192')
+        .attr('stroke-linecap',   'round')
+        .attr('opacity',          d => 0.4 + d.gravity * 0.6)
+        .attr('pointer-events',   'none')        // clicks pass through to base lines
+        .style('animation', d => {
+          const duration = (3 - d.gravity * 2).toFixed(2); // 1s (strong) → 3s (weak)
+          return `pulse ${duration}s linear infinite`;
+        });
+
+    // ── Draw city circles (on top of lines) ───────────
+    g.selectAll('circle.city-node')
+      .data(cities)
+      .join('circle')
+        .attr('class',          'city-node')
+        .attr('r',              d => radiusScale(d.population))
+        .attr('fill',           '#00cfff')
+        .attr('fill-opacity',   0.85)
+        .attr('stroke',         '#0d0d1a')
+        .attr('stroke-width',   1.5)
+        .attr('cursor',         'pointer')
+        .on('mouseover', (event, d) => showTip(`
+          <div class="tt-title">#${d.rank} ${d.city}</div>
+          <div class="tt-row">Population: <span class="tt-val">${fmtPop(d.population)}</span></div>
+          <div class="tt-row">Coordinates: <span class="tt-val">${d.lat}, ${d.lng}</span></div>
+        `, event))
+        .on('mousemove', moveTip)
+        .on('mouseout',  hideTip);
+
+    // ── Initial projection ────────────────────────────
+    reproject();
+
+    // ── Fit map to city bounds ────────────────────────
+    const lats = cities.map(c => c.lat);
+    const lngs = cities.map(c => c.lng);
+    map.fitBounds(
+      [[d3.min(lats), d3.min(lngs)], [d3.max(lats), d3.max(lngs)]],
+      { padding: [50, 50] }
+    );
+
+  }).catch(() => {
+    document.getElementById('hdr-country').textContent = '⚠️ gravity_data.json not found';
+    document.getElementById('hdr-country').style.color = '#ff6b6b';
+  });
+</script>
+</body>
+</html>

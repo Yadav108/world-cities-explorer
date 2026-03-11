@@ -1,0 +1,64 @@
+{
+  "country": "Egypt",
+  "total_cities": 187,
+  "total_population": 57754921,
+  "primacy_index": 0.3514,
+  "confidence": "high",
+  "confidence_note": "",
+  "largest_city": {
+    "city": "Cairo",
+    "population": 20296000,
+    "share_pct": 35.1
+  },
+  "top5": [
+    {
+      "rank": 1,
+      "city": "Cairo",
+      "population": 20296000,
+      "share_pct": 35.1
+    },
+    {
+      "rank": 2,
+      "city": "Giza",
+      "population": 5598402,
+      "share_pct": 9.7
+    },
+    {
+      "rank": 3,
+      "city": "Alexandria",
+      "population": 4870000,
+      "share_pct": 8.4
+    },
+    {
+      "rank": 4,
+      "city": "Shubrā al Khaymah",
+      "population": 1025569,
+      "share_pct": 1.8
+    },
+    {
+      "rank": 5,
+      "city": "Ashmūn",
+      "population": 901191,
+      "share_pct": 1.6
+    }
+  ],
+  "top5_combined_share": 56.6,
+  "narration": {
+    "concentration": {
+      "headline": "Primate city dominance — one city overwhelms all others",
+      "body": "Cairo accounts for a striking 35.1% of tracked urban population across 187 cities in Egypt. This level of primacy (35%) is characteristic of rapidly urbanising or historically centralised economies where one city concentrates political, economic and cultural power.",
+      "comparison": "Similar to: Thailand, Argentina, Peru",
+      "contrast": "Unlike: Germany, United States (distributed)",
+      "pattern": "monocentric",
+      "insight_confidence": "high"
+    },
+    "gravity": {
+      "headline": "Dense gravitational cluster — Cairo & Giza",
+      "body": "The strongest gravitational pull exists between Cairo and Giza (7 km apart, combined population 25,894,402). Cities form a tight gravitational cluster with top pairs averaging 7 km apart. This dense sub-regional network often functions as a single megalopolitan economy.",
+      "top_pair": "Cairo → Giza",
+      "network_type": "clustered",
+      "avg_distance_top5": 6.8
+    },
+    "synthesis": "Egypt exhibits strong primate city dominance: Cairo holds 35.1% of tracked urban population — a striking concentration. The gravity network confirms this: connections involving Cairo dominate, with Cairo → Giza among secondary links. This pattern is characteristic of historically centralised or rapidly urbanising economies."
+  }
+}

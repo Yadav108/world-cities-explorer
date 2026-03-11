@@ -1,0 +1,64 @@
+{
+  "country": "Argentina",
+  "total_cities": 502,
+  "total_population": 47859582,
+  "primacy_index": 0.3491,
+  "confidence": "high",
+  "confidence_note": "",
+  "largest_city": {
+    "city": "Buenos Aires",
+    "population": 16710000,
+    "share_pct": 34.9
+  },
+  "top5": [
+    {
+      "rank": 1,
+      "city": "Buenos Aires",
+      "population": 16710000,
+      "share_pct": 34.9
+    },
+    {
+      "rank": 2,
+      "city": "Córdoba",
+      "population": 2106734,
+      "share_pct": 4.4
+    },
+    {
+      "rank": 3,
+      "city": "Rosario",
+      "population": 1276000,
+      "share_pct": 2.7
+    },
+    {
+      "rank": 4,
+      "city": "Santiago del Estero",
+      "population": 911506,
+      "share_pct": 1.9
+    },
+    {
+      "rank": 5,
+      "city": "La Plata",
+      "population": 904789,
+      "share_pct": 1.9
+    }
+  ],
+  "top5_combined_share": 45.8,
+  "narration": {
+    "concentration": {
+      "headline": "Strong urban primacy — capital drives the country",
+      "body": "Buenos Aires dominates Argentina's urban hierarchy with 34.9% of tracked urban population across 502 cities. The gap between Buenos Aires and the second city is substantial, reflecting a historically centralised national structure.",
+      "comparison": "Similar to: France, Mexico, South Korea",
+      "contrast": "Unlike: Germany, Switzerland (distributed)",
+      "pattern": "monocentric",
+      "insight_confidence": "high"
+    },
+    "gravity": {
+      "headline": "Dense gravitational cluster — Buenos Aires & Lanús",
+      "body": "The strongest gravitational pull exists between Buenos Aires and Lanús (11 km apart, combined population 17,169,263). Cities form a tight gravitational cluster with top pairs averaging 11 km apart. This dense sub-regional network often functions as a single megalopolitan economy.",
+      "top_pair": "Buenos Aires → Lanús",
+      "network_type": "clustered",
+      "avg_distance_top5": 10.9
+    },
+    "synthesis": "Argentina shows clear urban primacy: Buenos Aires accounts for 34.9% of tracked population. The gravity network (Buenos Aires → Lanús, avg 11 km) reinforces this — economic mass concentrates in and around the dominant city, with secondary cities playing supporting rather than competing roles."
+  }
+}

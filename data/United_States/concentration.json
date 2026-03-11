@@ -1,0 +1,64 @@
+{
+  "country": "United States",
+  "total_cities": 5344,
+  "total_population": 379426737,
+  "primacy_index": 0.0496,
+  "confidence": "high",
+  "confidence_note": "",
+  "largest_city": {
+    "city": "New York",
+    "population": 18832416,
+    "share_pct": 5.0
+  },
+  "top5": [
+    {
+      "rank": 1,
+      "city": "New York",
+      "population": 18832416,
+      "share_pct": 5.0
+    },
+    {
+      "rank": 2,
+      "city": "Los Angeles",
+      "population": 11885717,
+      "share_pct": 3.1
+    },
+    {
+      "rank": 3,
+      "city": "Chicago",
+      "population": 8489066,
+      "share_pct": 2.2
+    },
+    {
+      "rank": 4,
+      "city": "Miami",
+      "population": 6113982,
+      "share_pct": 1.6
+    },
+    {
+      "rank": 5,
+      "city": "Houston",
+      "population": 6046392,
+      "share_pct": 1.6
+    }
+  ],
+  "top5_combined_share": 13.5,
+  "narration": {
+    "concentration": {
+      "headline": "Highly distributed urban network",
+      "body": "No single city overwhelms United States's urban landscape. New York holds 5.0% of tracked urban population across 5344 cities — characteristic of federal or historically polycentric countries with multiple strong economic centers.",
+      "comparison": "Similar to: United States, Germany, Switzerland",
+      "contrast": "Unlike: France, Thailand, Argentina",
+      "pattern": "polycentric",
+      "insight_confidence": "high"
+    },
+    "gravity": {
+      "headline": "Dense gravitational cluster — New York & Philadelphia",
+      "body": "The strongest gravitational pull exists between New York and Philadelphia (128 km apart, combined population 24,529,004). Cities form a tight gravitational cluster with top pairs averaging 128 km apart. This dense sub-regional network often functions as a single megalopolitan economy.",
+      "top_pair": "New York → Philadelphia",
+      "network_type": "clustered",
+      "avg_distance_top5": 127.8
+    },
+    "synthesis": "United States presents a classic polycentric structure: no primate city, with New York holding just 5.0% of tracked urban population. Gravity is strongest within a tight sub-regional cluster (New York → Philadelphia, 128 km average separation) rather than radiating from a single capital — typical of federal economies with distributed industrial heritage."
+  }
+}

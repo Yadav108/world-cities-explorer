@@ -1,0 +1,239 @@
+{
+  "country": "Spain",
+  "cities": [
+    {
+      "city": "Madrid",
+      "lat": 40.4169,
+      "lng": -3.7033,
+      "population": 6211000,
+      "rank": 1
+    },
+    {
+      "city": "Barcelona",
+      "lat": 41.3833,
+      "lng": 2.1833,
+      "population": 4800000,
+      "rank": 2
+    },
+    {
+      "city": "Valencia",
+      "lat": 39.47,
+      "lng": -0.3764,
+      "population": 1595000,
+      "rank": 3
+    },
+    {
+      "city": "Sevilla",
+      "lat": 37.39,
+      "lng": -5.99,
+      "population": 1100000,
+      "rank": 4
+    },
+    {
+      "city": "Málaga",
+      "lat": 36.7194,
+      "lng": -4.42,
+      "population": 967250,
+      "rank": 5
+    },
+    {
+      "city": "Bilbao",
+      "lat": 43.2569,
+      "lng": -2.9236,
+      "population": 775000,
+      "rank": 6
+    },
+    {
+      "city": "Zaragoza",
+      "lat": 41.65,
+      "lng": -0.8833,
+      "population": 686986,
+      "rank": 7
+    },
+    {
+      "city": "Murcia",
+      "lat": 37.9861,
+      "lng": -1.1303,
+      "population": 672773,
+      "rank": 8
+    },
+    {
+      "city": "Las Palmas",
+      "lat": 28.1258,
+      "lng": -15.4353,
+      "population": 635000,
+      "rank": 9
+    },
+    {
+      "city": "Palma",
+      "lat": 39.5667,
+      "lng": 2.65,
+      "population": 550000,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Madrid",
+      "city_b": "Barcelona",
+      "distance_km": 506.2,
+      "gravity": 1.0,
+      "pop_a": 6211000,
+      "pop_b": 4800000,
+      "lat_a": 40.4169,
+      "lng_a": -3.7033,
+      "lat_b": 41.3833,
+      "lng_b": 2.1833
+    },
+    {
+      "city_a": "Madrid",
+      "city_b": "Valencia",
+      "distance_km": 302.5,
+      "gravity": 0.9303,
+      "pop_a": 6211000,
+      "pop_b": 1595000,
+      "lat_a": 40.4169,
+      "lng_a": -3.7033,
+      "lat_b": 39.47,
+      "lng_b": -0.3764
+    },
+    {
+      "city_a": "Barcelona",
+      "city_b": "Valencia",
+      "distance_km": 303.6,
+      "gravity": 0.7135,
+      "pop_a": 4800000,
+      "pop_b": 1595000,
+      "lat_a": 41.3833,
+      "lng_a": 2.1833,
+      "lat_b": 39.47,
+      "lng_b": -0.3764
+    },
+    {
+      "city_a": "Barcelona",
+      "city_b": "Palma",
+      "distance_km": 205.8,
+      "gravity": 0.5353,
+      "pop_a": 4800000,
+      "pop_b": 550000,
+      "lat_a": 41.3833,
+      "lng_a": 2.1833,
+      "lat_b": 39.5667,
+      "lng_b": 2.65
+    },
+    {
+      "city_a": "Madrid",
+      "city_b": "Zaragoza",
+      "distance_km": 273.4,
+      "gravity": 0.4903,
+      "pop_a": 6211000,
+      "pop_b": 686986,
+      "lat_a": 40.4169,
+      "lng_a": -3.7033,
+      "lat_b": 41.65,
+      "lng_b": -0.8833
+    },
+    {
+      "city_a": "Barcelona",
+      "city_b": "Zaragoza",
+      "distance_km": 257.0,
+      "gravity": 0.4286,
+      "pop_a": 4800000,
+      "pop_b": 686986,
+      "lat_a": 41.3833,
+      "lng_a": 2.1833,
+      "lat_b": 41.65,
+      "lng_b": -0.8833
+    },
+    {
+      "city_a": "Madrid",
+      "city_b": "Bilbao",
+      "distance_km": 322.3,
+      "gravity": 0.3978,
+      "pop_a": 6211000,
+      "pop_b": 775000,
+      "lat_a": 40.4169,
+      "lng_a": -3.7033,
+      "lat_b": 43.2569,
+      "lng_b": -2.9236
+    },
+    {
+      "city_a": "Madrid",
+      "city_b": "Sevilla",
+      "distance_km": 390.4,
+      "gravity": 0.3848,
+      "pop_a": 6211000,
+      "pop_b": 1100000,
+      "lat_a": 40.4169,
+      "lng_a": -3.7033,
+      "lat_b": 37.39,
+      "lng_b": -5.99
+    },
+    {
+      "city_a": "Sevilla",
+      "city_b": "Málaga",
+      "distance_km": 158.0,
+      "gravity": 0.3658,
+      "pop_a": 1100000,
+      "pop_b": 967250,
+      "lat_a": 37.39,
+      "lng_a": -5.99,
+      "lat_b": 36.7194,
+      "lng_b": -4.42
+    },
+    {
+      "city_a": "Madrid",
+      "city_b": "Málaga",
+      "distance_km": 415.8,
+      "gravity": 0.2981,
+      "pop_a": 6211000,
+      "pop_b": 967250,
+      "lat_a": 40.4169,
+      "lng_a": -3.7033,
+      "lat_b": 36.7194,
+      "lng_b": -4.42
+    },
+    {
+      "city_a": "Madrid",
+      "city_b": "Murcia",
+      "distance_km": 349.6,
+      "gravity": 0.2934,
+      "pop_a": 6211000,
+      "pop_b": 672773,
+      "lat_a": 40.4169,
+      "lng_a": -3.7033,
+      "lat_b": 37.9861,
+      "lng_b": -1.1303
+    },
+    {
+      "city_a": "Valencia",
+      "city_b": "Murcia",
+      "distance_km": 177.5,
+      "gravity": 0.2923,
+      "pop_a": 1595000,
+      "pop_b": 672773,
+      "lat_a": 39.47,
+      "lng_a": -0.3764,
+      "lat_b": 37.9861,
+      "lng_b": -1.1303
+    },
+    {
+      "city_a": "Valencia",
+      "city_b": "Zaragoza",
+      "distance_km": 246.2,
+      "gravity": 0.1548,
+      "pop_a": 1595000,
+      "pop_b": 686986,
+      "lat_a": 39.47,
+      "lng_a": -0.3764,
+      "lat_b": 41.65,
+      "lng_b": -0.8833
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 13,
+    "strongest_pair": "Madrid → Barcelona",
+    "generated_at": "2026-03-12"
+  }
+}

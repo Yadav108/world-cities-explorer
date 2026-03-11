@@ -1,0 +1,131 @@
+{
+  "country": "Indonesia",
+  "cities": [
+    {
+      "city": "Jakarta",
+      "lat": -6.175,
+      "lng": 106.8275,
+      "population": 33756000,
+      "rank": 1
+    },
+    {
+      "city": "Surabaya",
+      "lat": -7.2458,
+      "lng": 112.7378,
+      "population": 6556000,
+      "rank": 2
+    },
+    {
+      "city": "Medan",
+      "lat": 3.5894,
+      "lng": 98.6739,
+      "population": 3632000,
+      "rank": 3
+    },
+    {
+      "city": "Malang",
+      "lat": -7.98,
+      "lng": 112.62,
+      "population": 2795209,
+      "rank": 4
+    },
+    {
+      "city": "Bekasi",
+      "lat": -6.2333,
+      "lng": 107.0,
+      "population": 2381053,
+      "rank": 5
+    },
+    {
+      "city": "Depok",
+      "lat": -6.394,
+      "lng": 106.8225,
+      "population": 2330333,
+      "rank": 6
+    },
+    {
+      "city": "Tangerang",
+      "lat": -6.1703,
+      "lng": 106.6403,
+      "population": 2237006,
+      "rank": 7
+    },
+    {
+      "city": "Semarang",
+      "lat": -6.99,
+      "lng": 110.4225,
+      "population": 1621384,
+      "rank": 8
+    },
+    {
+      "city": "Palembang",
+      "lat": -2.9861,
+      "lng": 104.7556,
+      "population": 1535952,
+      "rank": 9
+    },
+    {
+      "city": "Sangereng",
+      "lat": -6.2889,
+      "lng": 106.7181,
+      "population": 1404785,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Jakarta",
+      "city_b": "Bekasi",
+      "distance_km": 20.1,
+      "gravity": 1.0,
+      "pop_a": 33756000,
+      "pop_b": 2381053,
+      "lat_a": -6.175,
+      "lng_a": 106.8275,
+      "lat_b": -6.2333,
+      "lng_b": 107.0
+    },
+    {
+      "city_a": "Jakarta",
+      "city_b": "Tangerang",
+      "distance_km": 20.7,
+      "gravity": 0.8893,
+      "pop_a": 33756000,
+      "pop_b": 2237006,
+      "lat_a": -6.175,
+      "lng_a": 106.8275,
+      "lat_b": -6.1703,
+      "lng_b": 106.6403
+    },
+    {
+      "city_a": "Jakarta",
+      "city_b": "Sangereng",
+      "distance_km": 17.5,
+      "gravity": 0.7805,
+      "pop_a": 33756000,
+      "pop_b": 1404785,
+      "lat_a": -6.175,
+      "lng_a": 106.8275,
+      "lat_b": -6.2889,
+      "lng_b": 106.7181
+    },
+    {
+      "city_a": "Jakarta",
+      "city_b": "Depok",
+      "distance_km": 24.4,
+      "gravity": 0.6691,
+      "pop_a": 33756000,
+      "pop_b": 2330333,
+      "lat_a": -6.175,
+      "lng_a": 106.8275,
+      "lat_b": -6.394,
+      "lng_b": 106.8225
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 4,
+    "strongest_pair": "Jakarta → Bekasi",
+    "generated_at": "2026-03-12"
+  }
+}

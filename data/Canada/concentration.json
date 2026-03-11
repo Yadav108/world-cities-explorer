@@ -1,0 +1,64 @@
+{
+  "country": "Canada",
+  "total_cities": 485,
+  "total_population": 39796499,
+  "primacy_index": 0.1419,
+  "confidence": "high",
+  "confidence_note": "",
+  "largest_city": {
+    "city": "Toronto",
+    "population": 5647656,
+    "share_pct": 14.2
+  },
+  "top5": [
+    {
+      "rank": 1,
+      "city": "Toronto",
+      "population": 5647656,
+      "share_pct": 14.2
+    },
+    {
+      "rank": 2,
+      "city": "Montréal",
+      "population": 3675219,
+      "share_pct": 9.2
+    },
+    {
+      "rank": 3,
+      "city": "Vancouver",
+      "population": 2426160,
+      "share_pct": 6.1
+    },
+    {
+      "rank": 4,
+      "city": "Calgary",
+      "population": 1306784,
+      "share_pct": 3.3
+    },
+    {
+      "rank": 5,
+      "city": "Edmonton",
+      "population": 1151635,
+      "share_pct": 2.9
+    }
+  ],
+  "top5_combined_share": 35.7,
+  "narration": {
+    "concentration": {
+      "headline": "Highly distributed urban network",
+      "body": "No single city overwhelms Canada's urban landscape. Toronto holds 14.2% of tracked urban population across 485 cities — characteristic of federal or historically polycentric countries with multiple strong economic centers.",
+      "comparison": "Similar to: United States, Germany, Switzerland",
+      "contrast": "Unlike: France, Thailand, Argentina",
+      "pattern": "polycentric",
+      "insight_confidence": "high"
+    },
+    "gravity": {
+      "headline": "Dense gravitational cluster — Toronto & Mississauga",
+      "body": "The strongest gravitational pull exists between Toronto and Mississauga (27 km apart, combined population 6,365,617). Cities form a tight gravitational cluster with top pairs averaging 47 km apart. This dense sub-regional network often functions as a single megalopolitan economy.",
+      "top_pair": "Toronto → Mississauga",
+      "network_type": "clustered",
+      "avg_distance_top5": 47.2
+    },
+    "synthesis": "Canada presents a classic polycentric structure: no primate city, with Toronto holding just 14.2% of tracked urban population. Gravity is strongest within a tight sub-regional cluster (Toronto → Mississauga, 47 km average separation) rather than radiating from a single capital — typical of federal economies with distributed industrial heritage."
+  }
+}

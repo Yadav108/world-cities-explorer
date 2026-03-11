@@ -1,102 +1,121 @@
 #!/usr/bin/env bash
 # pipeline.sh — Filter worldcities.csv by country and output cities.json
+# Usage: bash pipeline.sh        (Git Bash on Windows, or any POSIX shell)
 
-echo "========================================"
-echo "  World Cities Data Pipeline (Bash)"
-echo "========================================"
-echo ""
-read -p "Enter country name: " country
-
-if [[ -z "$country" ]]; then
-  echo "Error: Country name cannot be empty."
-  exit 1
-fi
+set -euo pipefail
 
 INPUT="worldcities.csv"
+OUTPUT="cities.json"
+
+echo "================================================"
+echo "  World Cities Data Pipeline (Bash)"
+echo "================================================"
+echo ""
+
+# ── Pre-flight checks ────────────────────────────────
+if ! command -v awk &>/dev/null; then
+  echo "❌  awk not found. Install Git Bash or WSL."
+  exit 1
+fi
 
 if [[ ! -f "$INPUT" ]]; then
-  echo "Error: $INPUT not found in current directory."
+  echo "❌  '$INPUT' not found in: $(pwd)"
+  echo "    Download it from: https://simplemaps.com/data/world-cities"
   exit 1
 fi
 
+read -rp "Enter country name: " country
 echo ""
-echo "Processing '$country'..."
 
-# Use awk to parse CSV, match country (col 5), and build JSON array
-result=$(awk -v country="$country" '
-BEGIN {
-  FS=","
-  count=0
-  printf "["
-}
-NR==1 { next }  # skip header
-{
-  # Strip surrounding double-quotes from each field
-  for (i=1; i<=NF; i++) {
-    gsub(/^"/, "", $i)
-    gsub(/"$/, "", $i)
-  }
+if [[ -z "$country" ]]; then
+  echo "❌  Country name cannot be empty."
+  exit 1
+fi
 
-  city     = $1
-  lat      = $3
-  lng      = $4
-  ctry     = $5
-  pop      = $10
-  capital  = $9
+echo "Processing '$country'…"
 
-  # Case-insensitive country match
-  if (tolower(ctry) != tolower(country)) next
-
-  # Skip rows with missing lat/lng
-  if (lat == "" || lng == "") next
-
-  # Default missing population to 0
-  if (pop == "" || pop == "NULL") pop = 0
-
-  # Escape double-quotes in city/capital for JSON safety
-  gsub(/"/, "\\\"", city)
-  gsub(/"/, "\\\"", capital)
-
-  if (count > 0) printf ","
-  printf "\n  {\"city\":\"%s\",\"lat\":%s,\"lng\":%s,\"population\":%s,\"capital\":\"%s\"}",
-    city, lat, lng, pop, capital
-  count++
-}
-END {
-  printf "\n]\n"
-  print count > "/dev/stderr"
-}
-' "$INPUT")
-
-count=$(echo "$result" | awk 'BEGIN{FS=","} NR==1{next} /^\s*\{/{c++} END{print c}')
-
-# Capture stderr (the count line from awk)
-count=$(awk -v country="$country" '
-BEGIN { FS=","; count=0 }
+# ── Two-pass awk ─────────────────────────────────────
+# Pass 1: count matching rows (for empty-result detection before writing)
+count=$(awk -v ctry="$country" '
+BEGIN { FS=","; n=0 }
 NR==1 { next }
 {
-  for (i=1; i<=NF; i++) { gsub(/^"/, "", $i); gsub(/"$/, "", $i) }
-  if (tolower($5) != tolower(country)) next
-  if ($3 == "" || $4 == "") next
-  count++
+  # Strip surrounding double-quotes
+  for (i=1; i<=NF; i++) { gsub(/^[[:space:]]*"/, "", $i); gsub(/"[[:space:]]*$/, "", $i) }
+  if (tolower($5) != tolower(ctry)) next
+  if ($3=="" || $4=="") next
+  n++
 }
-END { print count }
+END { print n }
 ' "$INPUT")
 
-echo "$result" > cities.json
-
-echo ""
 if [[ "$count" -eq 0 ]]; then
-  echo "⚠  No cities found for '$country'."
-  echo "   Check spelling or try a partial name in pipeline.py"
+  echo ""
+  echo "⚠️   No exact match for '$country'."
+  echo "    Partial matches in dataset:"
+  awk -v ctry="$country" '
+  BEGIN { FS=","; found=0 }
+  NR==1 { next }
+  {
+    for (i=1; i<=NF; i++) { gsub(/^"/, "", $i); gsub(/"$/, "", $i) }
+    if (index(tolower($5), tolower(ctry)) > 0) {
+      if (!seen[$5]++) { print "      •", $5; found++ }
+      if (found >= 10) exit
+    }
+  }
+  END { if (!found) print "    (none — check spelling)" }
+  ' "$INPUT"
   exit 1
 fi
 
-echo "✅ Found $count cities for '$country'"
-echo "   Saved to cities.json"
+# Pass 2: build JSON
+awk -v ctry="$country" '
+BEGIN {
+  FS=","
+  n=0
+  printf "["
+}
+NR==1 { next }
+{
+  for (i=1; i<=NF; i++) { gsub(/^[[:space:]]*"/, "", $i); gsub(/"[[:space:]]*$/, "", $i) }
+
+  city    = $1
+  lat     = $3
+  lng     = $4
+  col5    = $5
+  pop     = $10
+  capital = $9
+
+  if (tolower(col5) != tolower(ctry)) next
+  if (lat=="" || lng=="") next
+
+  # Validate lat/lng are numeric
+  if (lat+0 == 0 && lat != "0") next
+  if (lng+0 == 0 && lng != "0") next
+
+  # Default missing / non-numeric population to 0
+  if (pop=="" || pop=="NULL" || pop+0 != pop+0) pop = 0
+  if (pop < 0) pop = 0
+
+  # JSON-escape city and capital strings
+  gsub(/\\/, "\\\\", city);    gsub(/"/, "\\\"", city)
+  gsub(/\\/, "\\\\", capital); gsub(/"/, "\\\"", capital)
+
+  if (n > 0) printf ","
+  printf "\n  {\"city\":\"%s\",\"lat\":%s,\"lng\":%s,\"population\":%d,\"capital\":\"%s\"}",
+    city, lat, lng, int(pop), tolower(capital)
+  n++
+}
+END { printf "\n]\n" }
+' "$INPUT" > "$OUTPUT"
+
+# ── Summary ───────────────────────────────────────────
 echo ""
-echo "----------------------------------------"
+echo "✅  $count cities exported for '$country'"
+echo "    Output file : $OUTPUT"
+echo ""
+echo "------------------------------------------------"
 echo "  Next steps:"
 echo "    python -m http.server 8080"
 echo "    Then open: http://localhost:8080"
-echo "----------------------------------------"
+echo "------------------------------------------------"

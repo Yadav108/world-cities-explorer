@@ -1,0 +1,95 @@
+{
+  "country": "Turkey",
+  "cities": [
+    {
+      "city": "Istanbul",
+      "lat": 41.0136,
+      "lng": 28.955,
+      "population": 14441000,
+      "rank": 1
+    },
+    {
+      "city": "Ankara",
+      "lat": 39.93,
+      "lng": 32.85,
+      "population": 5864049,
+      "rank": 2
+    },
+    {
+      "city": "Bursa",
+      "lat": 40.1833,
+      "lng": 29.05,
+      "population": 3101833,
+      "rank": 3
+    },
+    {
+      "city": "İzmir",
+      "lat": 38.42,
+      "lng": 27.14,
+      "population": 2965900,
+      "rank": 4
+    },
+    {
+      "city": "Konya",
+      "lat": 37.8667,
+      "lng": 32.4833,
+      "population": 2320241,
+      "rank": 5
+    },
+    {
+      "city": "Gaziantep",
+      "lat": 37.0628,
+      "lng": 37.3792,
+      "population": 2130432,
+      "rank": 6
+    },
+    {
+      "city": "Diyarbakır",
+      "lat": 37.91,
+      "lng": 40.24,
+      "population": 1791373,
+      "rank": 7
+    },
+    {
+      "city": "Adana",
+      "lat": 37.0,
+      "lng": 35.3213,
+      "population": 1765981,
+      "rank": 8
+    },
+    {
+      "city": "Kayseri",
+      "lat": 38.7225,
+      "lng": 35.4875,
+      "population": 1434357,
+      "rank": 9
+    },
+    {
+      "city": "Samsun",
+      "lat": 41.2903,
+      "lng": 36.3336,
+      "population": 1356079,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Istanbul",
+      "city_b": "Bursa",
+      "distance_km": 92.7,
+      "gravity": 1.0,
+      "pop_a": 14441000,
+      "pop_b": 3101833,
+      "lat_a": 41.0136,
+      "lng_a": 28.955,
+      "lat_b": 40.1833,
+      "lng_b": 29.05
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 1,
+    "strongest_pair": "Istanbul → Bursa",
+    "generated_at": "2026-03-12"
+  }
+}

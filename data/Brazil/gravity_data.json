@@ -1,0 +1,95 @@
+{
+  "country": "Brazil",
+  "cities": [
+    {
+      "city": "São Paulo",
+      "lat": -23.5504,
+      "lng": -46.6339,
+      "population": 23086000,
+      "rank": 1
+    },
+    {
+      "city": "Rio de Janeiro",
+      "lat": -22.9111,
+      "lng": -43.2056,
+      "population": 12592000,
+      "rank": 2
+    },
+    {
+      "city": "Belo Horizonte",
+      "lat": -19.9281,
+      "lng": -43.9419,
+      "population": 5328000,
+      "rank": 3
+    },
+    {
+      "city": "Fortaleza",
+      "lat": -3.7275,
+      "lng": -38.5275,
+      "population": 4167996,
+      "rank": 4
+    },
+    {
+      "city": "Salvador",
+      "lat": -12.9831,
+      "lng": -38.4928,
+      "population": 2417678,
+      "rank": 5
+    },
+    {
+      "city": "Curitiba",
+      "lat": -25.4297,
+      "lng": -49.2719,
+      "population": 1773718,
+      "rank": 6
+    },
+    {
+      "city": "Recife",
+      "lat": -8.0539,
+      "lng": -34.8808,
+      "population": 1488920,
+      "rank": 7
+    },
+    {
+      "city": "Porto Alegre",
+      "lat": -30.0328,
+      "lng": -51.23,
+      "population": 1332845,
+      "rank": 8
+    },
+    {
+      "city": "Guarulhos",
+      "lat": -23.4667,
+      "lng": -46.5333,
+      "population": 1324781,
+      "rank": 9
+    },
+    {
+      "city": "Belém",
+      "lat": -1.4558,
+      "lng": -48.5039,
+      "population": 1280614,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "São Paulo",
+      "city_b": "Guarulhos",
+      "distance_km": 13.9,
+      "gravity": 1.0,
+      "pop_a": 23086000,
+      "pop_b": 1324781,
+      "lat_a": -23.5504,
+      "lng_a": -46.6339,
+      "lat_b": -23.4667,
+      "lng_b": -46.5333
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 1,
+    "strongest_pair": "São Paulo → Guarulhos",
+    "generated_at": "2026-03-12"
+  }
+}

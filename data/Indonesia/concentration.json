@@ -1,0 +1,64 @@
+{
+  "country": "Indonesia",
+  "total_cities": 296,
+  "total_population": 105083586,
+  "primacy_index": 0.3212,
+  "confidence": "high",
+  "confidence_note": "",
+  "largest_city": {
+    "city": "Jakarta",
+    "population": 33756000,
+    "share_pct": 32.1
+  },
+  "top5": [
+    {
+      "rank": 1,
+      "city": "Jakarta",
+      "population": 33756000,
+      "share_pct": 32.1
+    },
+    {
+      "rank": 2,
+      "city": "Surabaya",
+      "population": 6556000,
+      "share_pct": 6.2
+    },
+    {
+      "rank": 3,
+      "city": "Medan",
+      "population": 3632000,
+      "share_pct": 3.5
+    },
+    {
+      "rank": 4,
+      "city": "Malang",
+      "population": 2795209,
+      "share_pct": 2.7
+    },
+    {
+      "rank": 5,
+      "city": "Bekasi",
+      "population": 2381053,
+      "share_pct": 2.3
+    }
+  ],
+  "top5_combined_share": 46.8,
+  "narration": {
+    "concentration": {
+      "headline": "Strong urban primacy — capital drives the country",
+      "body": "Jakarta dominates Indonesia's urban hierarchy with 32.1% of tracked urban population across 296 cities. The gap between Jakarta and the second city is substantial, reflecting a historically centralised national structure.",
+      "comparison": "Similar to: France, Mexico, South Korea",
+      "contrast": "Unlike: Germany, Switzerland (distributed)",
+      "pattern": "monocentric",
+      "insight_confidence": "high"
+    },
+    "gravity": {
+      "headline": "Dense gravitational cluster — Jakarta & Bekasi",
+      "body": "The strongest gravitational pull exists between Jakarta and Bekasi (20 km apart, combined population 36,137,053). Cities form a tight gravitational cluster with top pairs averaging 21 km apart. This dense sub-regional network often functions as a single megalopolitan economy.",
+      "top_pair": "Jakarta → Bekasi",
+      "network_type": "clustered",
+      "avg_distance_top5": 20.7
+    },
+    "synthesis": "Indonesia shows clear urban primacy: Jakarta accounts for 32.1% of tracked population. The gravity network (Jakarta → Bekasi, avg 21 km) reinforces this — economic mass concentrates in and around the dominant city, with secondary cities playing supporting rather than competing roles."
+  }
+}

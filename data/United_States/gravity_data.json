@@ -1,0 +1,95 @@
+{
+  "country": "United States",
+  "cities": [
+    {
+      "city": "New York",
+      "lat": 40.6943,
+      "lng": -73.9249,
+      "population": 18832416,
+      "rank": 1
+    },
+    {
+      "city": "Los Angeles",
+      "lat": 34.1141,
+      "lng": -118.4068,
+      "population": 11885717,
+      "rank": 2
+    },
+    {
+      "city": "Chicago",
+      "lat": 41.8375,
+      "lng": -87.6866,
+      "population": 8489066,
+      "rank": 3
+    },
+    {
+      "city": "Miami",
+      "lat": 25.784,
+      "lng": -80.2101,
+      "population": 6113982,
+      "rank": 4
+    },
+    {
+      "city": "Houston",
+      "lat": 29.786,
+      "lng": -95.3885,
+      "population": 6046392,
+      "rank": 5
+    },
+    {
+      "city": "Dallas",
+      "lat": 32.7935,
+      "lng": -96.7667,
+      "population": 5843632,
+      "rank": 6
+    },
+    {
+      "city": "Philadelphia",
+      "lat": 40.0077,
+      "lng": -75.1339,
+      "population": 5696588,
+      "rank": 7
+    },
+    {
+      "city": "Atlanta",
+      "lat": 33.7628,
+      "lng": -84.422,
+      "population": 5211164,
+      "rank": 8
+    },
+    {
+      "city": "Washington",
+      "lat": 38.9047,
+      "lng": -77.0163,
+      "population": 5146120,
+      "rank": 9
+    },
+    {
+      "city": "Boston",
+      "lat": 42.3188,
+      "lng": -71.0852,
+      "population": 4355184,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "New York",
+      "city_b": "Philadelphia",
+      "distance_km": 127.8,
+      "gravity": 1.0,
+      "pop_a": 18832416,
+      "pop_b": 5696588,
+      "lat_a": 40.6943,
+      "lng_a": -73.9249,
+      "lat_b": 40.0077,
+      "lng_b": -75.1339
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 1,
+    "strongest_pair": "New York → Philadelphia",
+    "generated_at": "2026-03-12"
+  }
+}

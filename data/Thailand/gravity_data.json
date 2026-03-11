@@ -1,0 +1,95 @@
+{
+  "country": "Thailand",
+  "cities": [
+    {
+      "city": "Bangkok",
+      "lat": 13.7525,
+      "lng": 100.4942,
+      "population": 18007000,
+      "rank": 1
+    },
+    {
+      "city": "Chiang Mai",
+      "lat": 18.7953,
+      "lng": 98.9986,
+      "population": 1198000,
+      "rank": 2
+    },
+    {
+      "city": "Nakhon Ratchasima",
+      "lat": 14.9806,
+      "lng": 102.1,
+      "population": 466098,
+      "rank": 3
+    },
+    {
+      "city": "Khon Kaen",
+      "lat": 16.4333,
+      "lng": 102.8333,
+      "population": 412758,
+      "rank": 4
+    },
+    {
+      "city": "Hat Yai",
+      "lat": 7.0167,
+      "lng": 100.4667,
+      "population": 406513,
+      "rank": 5
+    },
+    {
+      "city": "Chon Buri",
+      "lat": 13.3611,
+      "lng": 100.985,
+      "population": 342959,
+      "rank": 6
+    },
+    {
+      "city": "Phatthaya",
+      "lat": 12.9357,
+      "lng": 100.889,
+      "population": 328961,
+      "rank": 7
+    },
+    {
+      "city": "Si Racha",
+      "lat": 13.174,
+      "lng": 100.93,
+      "population": 327172,
+      "rank": 8
+    },
+    {
+      "city": "Phitsanulok",
+      "lat": 16.8158,
+      "lng": 100.2636,
+      "population": 281929,
+      "rank": 9
+    },
+    {
+      "city": "Pak Kret",
+      "lat": 13.9125,
+      "lng": 100.4978,
+      "population": 190272,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Bangkok",
+      "city_b": "Pak Kret",
+      "distance_km": 17.8,
+      "gravity": 1.0,
+      "pop_a": 18007000,
+      "pop_b": 190272,
+      "lat_a": 13.7525,
+      "lng_a": 100.4942,
+      "lat_b": 13.9125,
+      "lng_b": 100.4978
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 1,
+    "strongest_pair": "Bangkok → Pak Kret",
+    "generated_at": "2026-03-12"
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "country": "Japan",
+  "cities": [
+    {
+      "city": "Tokyo",
+      "lat": 35.687,
+      "lng": 139.7495,
+      "population": 37785000,
+      "rank": 1
+    },
+    {
+      "city": "Ōsaka",
+      "lat": 34.6939,
+      "lng": 135.5022,
+      "population": 15126000,
+      "rank": 2
+    },
+    {
+      "city": "Nagoya",
+      "lat": 35.1833,
+      "lng": 136.9,
+      "population": 9197000,
+      "rank": 3
+    },
+    {
+      "city": "Yokohama",
+      "lat": 35.4442,
+      "lng": 139.6381,
+      "population": 3757630,
+      "rank": 4
+    },
+    {
+      "city": "Fukuoka",
+      "lat": 33.59,
+      "lng": 130.4017,
+      "population": 2286000,
+      "rank": 5
+    },
+    {
+      "city": "Sapporo",
+      "lat": 43.0619,
+      "lng": 141.3544,
+      "population": 1959313,
+      "rank": 6
+    },
+    {
+      "city": "Kawasaki",
+      "lat": 35.5167,
+      "lng": 139.7,
+      "population": 1531646,
+      "rank": 7
+    },
+    {
+      "city": "Kōbe",
+      "lat": 34.69,
+      "lng": 135.1956,
+      "population": 1521707,
+      "rank": 8
+    },
+    {
+      "city": "Kyōto",
+      "lat": 35.0117,
+      "lng": 135.7683,
+      "population": 1463723,
+      "rank": 9
+    },
+    {
+      "city": "Saitama",
+      "lat": 35.8614,
+      "lng": 139.6456,
+      "population": 1325843,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Tokyo",
+      "city_b": "Yokohama",
+      "distance_km": 28.8,
+      "gravity": 1.0,
+      "pop_a": 37785000,
+      "pop_b": 3757630,
+      "lat_a": 35.687,
+      "lng_a": 139.7495,
+      "lat_b": 35.4442,
+      "lng_b": 139.6381
+    },
+    {
+      "city_a": "Tokyo",
+      "city_b": "Kawasaki",
+      "distance_km": 19.5,
+      "gravity": 0.894,
+      "pop_a": 37785000,
+      "pop_b": 1531646,
+      "lat_a": 35.687,
+      "lng_a": 139.7495,
+      "lat_b": 35.5167,
+      "lng_b": 139.7
+    },
+    {
+      "city_a": "Tokyo",
+      "city_b": "Saitama",
+      "distance_km": 21.5,
+      "gravity": 0.6316,
+      "pop_a": 37785000,
+      "pop_b": 1325843,
+      "lat_a": 35.687,
+      "lng_a": 139.7495,
+      "lat_b": 35.8614,
+      "lng_b": 139.6456
+    },
+    {
+      "city_a": "Yokohama",
+      "city_b": "Kawasaki",
+      "distance_km": 9.8,
+      "gravity": 0.3492,
+      "pop_a": 3757630,
+      "pop_b": 1531646,
+      "lat_a": 35.4442,
+      "lng_a": 139.6381,
+      "lat_b": 35.5167,
+      "lng_b": 139.7
+    },
+    {
+      "city_a": "Ōsaka",
+      "city_b": "Kōbe",
+      "distance_km": 28.0,
+      "gravity": 0.1713,
+      "pop_a": 15126000,
+      "pop_b": 1521707,
+      "lat_a": 34.6939,
+      "lng_a": 135.5022,
+      "lat_b": 34.69,
+      "lng_b": 135.1956
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 5,
+    "strongest_pair": "Tokyo → Yokohama",
+    "generated_at": "2026-03-12"
+  }
+}

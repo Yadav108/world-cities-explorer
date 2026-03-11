@@ -1,0 +1,64 @@
+{
+  "country": "Turkey",
+  "total_cities": 711,
+  "total_population": 107562012,
+  "primacy_index": 0.1343,
+  "confidence": "high",
+  "confidence_note": "",
+  "largest_city": {
+    "city": "Istanbul",
+    "population": 14441000,
+    "share_pct": 13.4
+  },
+  "top5": [
+    {
+      "rank": 1,
+      "city": "Istanbul",
+      "population": 14441000,
+      "share_pct": 13.4
+    },
+    {
+      "rank": 2,
+      "city": "Ankara",
+      "population": 5864049,
+      "share_pct": 5.5
+    },
+    {
+      "rank": 3,
+      "city": "Bursa",
+      "population": 3101833,
+      "share_pct": 2.9
+    },
+    {
+      "rank": 4,
+      "city": "İzmir",
+      "population": 2965900,
+      "share_pct": 2.8
+    },
+    {
+      "rank": 5,
+      "city": "Konya",
+      "population": 2320241,
+      "share_pct": 2.2
+    }
+  ],
+  "top5_combined_share": 26.8,
+  "narration": {
+    "concentration": {
+      "headline": "Highly distributed urban network",
+      "body": "No single city overwhelms Turkey's urban landscape. Istanbul holds 13.4% of tracked urban population across 711 cities — characteristic of federal or historically polycentric countries with multiple strong economic centers.",
+      "comparison": "Similar to: United States, Germany, Switzerland",
+      "contrast": "Unlike: France, Thailand, Argentina",
+      "pattern": "polycentric",
+      "insight_confidence": "high"
+    },
+    "gravity": {
+      "headline": "Dense gravitational cluster — Istanbul & Bursa",
+      "body": "The strongest gravitational pull exists between Istanbul and Bursa (93 km apart, combined population 17,542,833). Cities form a tight gravitational cluster with top pairs averaging 93 km apart. This dense sub-regional network often functions as a single megalopolitan economy.",
+      "top_pair": "Istanbul → Bursa",
+      "network_type": "clustered",
+      "avg_distance_top5": 92.7
+    },
+    "synthesis": "Turkey presents a classic polycentric structure: no primate city, with Istanbul holding just 13.4% of tracked urban population. Gravity is strongest within a tight sub-regional cluster (Istanbul → Bursa, 93 km average separation) rather than radiating from a single capital — typical of federal economies with distributed industrial heritage."
+  }
+}

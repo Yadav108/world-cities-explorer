@@ -1,0 +1,64 @@
+{
+  "country": "Australia",
+  "total_cities": 274,
+  "total_population": 22841412,
+  "primacy_index": 0.2203,
+  "confidence": "high",
+  "confidence_note": "",
+  "largest_city": {
+    "city": "Melbourne",
+    "population": 5031195,
+    "share_pct": 22.0
+  },
+  "top5": [
+    {
+      "rank": 1,
+      "city": "Melbourne",
+      "population": 5031195,
+      "share_pct": 22.0
+    },
+    {
+      "rank": 2,
+      "city": "Sydney",
+      "population": 4840600,
+      "share_pct": 21.2
+    },
+    {
+      "rank": 3,
+      "city": "Brisbane",
+      "population": 2706966,
+      "share_pct": 11.9
+    },
+    {
+      "rank": 4,
+      "city": "Perth",
+      "population": 2141834,
+      "share_pct": 9.4
+    },
+    {
+      "rank": 5,
+      "city": "Adelaide",
+      "population": 1387290,
+      "share_pct": 6.1
+    }
+  ],
+  "top5_combined_share": 70.6,
+  "narration": {
+    "concentration": {
+      "headline": "Moderately concentrated — one leading city",
+      "body": "Melbourne leads Australia's urban system with 22.0% of tracked urban population across 274 cities — significant but not overwhelming. Secondary cities retain meaningful economic weight alongside the capital.",
+      "comparison": "Similar to: United Kingdom, Italy, Canada",
+      "contrast": "Unlike: USA, Japan (more distributed) or Thailand, Argentina (more dominant)",
+      "pattern": "transitional",
+      "insight_confidence": "high"
+    },
+    "gravity": {
+      "headline": "Dense gravitational cluster — Melbourne & Cranbourne",
+      "body": "The strongest gravitational pull exists between Melbourne and Cranbourne (42 km apart, combined population 5,491,686). Cities form a tight gravitational cluster with top pairs averaging 62 km apart. This dense sub-regional network often functions as a single megalopolitan economy.",
+      "top_pair": "Melbourne → Cranbourne",
+      "network_type": "clustered",
+      "avg_distance_top5": 61.5
+    },
+    "synthesis": "Australia sits between distributed and dominant: Melbourne leads with 22.0% but doesn't overwhelm. Gravity clusters tightly around Melbourne → Cranbourne (62 km avg) — a strong sub-regional core coexists with the national leader, creating a layered urban hierarchy."
+  }
+}

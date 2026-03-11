@@ -1,0 +1,64 @@
+{
+  "country": "Kenya",
+  "total_cities": 80,
+  "total_population": 12342536,
+  "primacy_index": 0.4493,
+  "confidence": "high",
+  "confidence_note": "",
+  "largest_city": {
+    "city": "Nairobi",
+    "population": 5545000,
+    "share_pct": 44.9
+  },
+  "top5": [
+    {
+      "rank": 1,
+      "city": "Nairobi",
+      "population": 5545000,
+      "share_pct": 44.9
+    },
+    {
+      "rank": 2,
+      "city": "Mombasa",
+      "population": 1200000,
+      "share_pct": 9.7
+    },
+    {
+      "rank": 3,
+      "city": "Kisumu",
+      "population": 409928,
+      "share_pct": 3.3
+    },
+    {
+      "rank": 4,
+      "city": "Kikuyu",
+      "population": 323881,
+      "share_pct": 2.6
+    },
+    {
+      "rank": 5,
+      "city": "Nakuru",
+      "population": 307990,
+      "share_pct": 2.5
+    }
+  ],
+  "top5_combined_share": 63.0,
+  "narration": {
+    "concentration": {
+      "headline": "Primate city dominance — one city overwhelms all others",
+      "body": "Nairobi accounts for a striking 44.9% of tracked urban population across 80 cities in Kenya. This level of primacy (45%) is characteristic of rapidly urbanising or historically centralised economies where one city concentrates political, economic and cultural power.",
+      "comparison": "Similar to: Thailand, Argentina, Peru",
+      "contrast": "Unlike: Germany, United States (distributed)",
+      "pattern": "monocentric",
+      "insight_confidence": "high"
+    },
+    "gravity": {
+      "headline": "Dense gravitational cluster — Nairobi & Kikuyu",
+      "body": "The strongest gravitational pull exists between Nairobi and Kikuyu (18 km apart, combined population 5,868,881). Cities form a tight gravitational cluster with top pairs averaging 16 km apart. This dense sub-regional network often functions as a single megalopolitan economy.",
+      "top_pair": "Nairobi → Kikuyu",
+      "network_type": "clustered",
+      "avg_distance_top5": 15.7
+    },
+    "synthesis": "Kenya exhibits strong primate city dominance: Nairobi holds 44.9% of tracked urban population — a striking concentration. The gravity network confirms this: connections involving Nairobi dominate, with Nairobi → Kikuyu among secondary links. This pattern is characteristic of historically centralised or rapidly urbanising economies."
+  }
+}

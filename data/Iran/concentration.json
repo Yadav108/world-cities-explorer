@@ -1,0 +1,64 @@
+{
+  "country": "Iran",
+  "total_cities": 499,
+  "total_population": 61456966,
+  "primacy_index": 0.2302,
+  "confidence": "high",
+  "confidence_note": "",
+  "largest_city": {
+    "city": "Tehran",
+    "population": 14148000,
+    "share_pct": 23.0
+  },
+  "top5": [
+    {
+      "rank": 1,
+      "city": "Tehran",
+      "population": 14148000,
+      "share_pct": 23.0
+    },
+    {
+      "rank": 2,
+      "city": "Mashhad",
+      "population": 3700000,
+      "share_pct": 6.0
+    },
+    {
+      "rank": 3,
+      "city": "Eşfahān",
+      "population": 2219343,
+      "share_pct": 3.6
+    },
+    {
+      "rank": 4,
+      "city": "Karaj",
+      "population": 1973470,
+      "share_pct": 3.2
+    },
+    {
+      "rank": 5,
+      "city": "Shīrāz",
+      "population": 1565572,
+      "share_pct": 2.5
+    }
+  ],
+  "top5_combined_share": 38.3,
+  "narration": {
+    "concentration": {
+      "headline": "Moderately concentrated — one leading city",
+      "body": "Tehran leads Iran's urban system with 23.0% of tracked urban population across 499 cities — significant but not overwhelming. Secondary cities retain meaningful economic weight alongside the capital.",
+      "comparison": "Similar to: United Kingdom, Italy, Canada",
+      "contrast": "Unlike: USA, Japan (more distributed) or Thailand, Argentina (more dominant)",
+      "pattern": "transitional",
+      "insight_confidence": "high"
+    },
+    "gravity": {
+      "headline": "Dense gravitational cluster — Tehran & Karaj",
+      "body": "The strongest gravitational pull exists between Tehran and Karaj (41 km apart, combined population 16,121,470). Cities form a tight gravitational cluster with top pairs averaging 41 km apart. This dense sub-regional network often functions as a single megalopolitan economy.",
+      "top_pair": "Tehran → Karaj",
+      "network_type": "clustered",
+      "avg_distance_top5": 41.2
+    },
+    "synthesis": "Iran sits between distributed and dominant: Tehran leads with 23.0% but doesn't overwhelm. Gravity clusters tightly around Tehran → Karaj (41 km avg) — a strong sub-regional core coexists with the national leader, creating a layered urban hierarchy."
+  }
+}

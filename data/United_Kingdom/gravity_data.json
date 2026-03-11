@@ -1,0 +1,143 @@
+{
+  "country": "United Kingdom",
+  "cities": [
+    {
+      "city": "London",
+      "lat": 51.5072,
+      "lng": -0.1275,
+      "population": 11262000,
+      "rank": 1
+    },
+    {
+      "city": "Birmingham",
+      "lat": 52.48,
+      "lng": -1.9025,
+      "population": 2590363,
+      "rank": 2
+    },
+    {
+      "city": "Portsmouth",
+      "lat": 50.8058,
+      "lng": -1.0872,
+      "population": 855679,
+      "rank": 3
+    },
+    {
+      "city": "Southampton",
+      "lat": 50.9025,
+      "lng": -1.4042,
+      "population": 855569,
+      "rank": 4
+    },
+    {
+      "city": "Bristol",
+      "lat": 51.4536,
+      "lng": -2.5975,
+      "population": 707412,
+      "rank": 5
+    },
+    {
+      "city": "Glasgow",
+      "lat": 55.8611,
+      "lng": -4.25,
+      "population": 626410,
+      "rank": 6
+    },
+    {
+      "city": "Manchester",
+      "lat": 53.479,
+      "lng": -2.2452,
+      "population": 547627,
+      "rank": 7
+    },
+    {
+      "city": "Leeds",
+      "lat": 53.7975,
+      "lng": -1.5436,
+      "population": 536280,
+      "rank": 8
+    },
+    {
+      "city": "Sheffield",
+      "lat": 53.3808,
+      "lng": -1.4703,
+      "population": 518090,
+      "rank": 9
+    },
+    {
+      "city": "Liverpool",
+      "lat": 53.4072,
+      "lng": -2.9917,
+      "population": 513441,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Portsmouth",
+      "city_b": "Southampton",
+      "distance_km": 24.7,
+      "gravity": 1.0,
+      "pop_a": 855679,
+      "pop_b": 855569,
+      "lat_a": 50.8058,
+      "lng_a": -1.0872,
+      "lat_b": 50.9025,
+      "lng_b": -1.4042
+    },
+    {
+      "city_a": "London",
+      "city_b": "Birmingham",
+      "distance_km": 162.7,
+      "gravity": 0.9195,
+      "pop_a": 11262000,
+      "pop_b": 2590363,
+      "lat_a": 51.5072,
+      "lng_a": -0.1275,
+      "lat_b": 52.48,
+      "lng_b": -1.9025
+    },
+    {
+      "city_a": "London",
+      "city_b": "Portsmouth",
+      "distance_km": 102.8,
+      "gravity": 0.7609,
+      "pop_a": 11262000,
+      "pop_b": 855679,
+      "lat_a": 51.5072,
+      "lng_a": -0.1275,
+      "lat_b": 50.8058,
+      "lng_b": -1.0872
+    },
+    {
+      "city_a": "London",
+      "city_b": "Southampton",
+      "distance_km": 111.5,
+      "gravity": 0.6462,
+      "pop_a": 11262000,
+      "pop_b": 855569,
+      "lat_a": 51.5072,
+      "lng_a": -0.1275,
+      "lat_b": 50.9025,
+      "lng_b": -1.4042
+    },
+    {
+      "city_a": "London",
+      "city_b": "Bristol",
+      "distance_km": 171.1,
+      "gravity": 0.226,
+      "pop_a": 11262000,
+      "pop_b": 707412,
+      "lat_a": 51.5072,
+      "lng_a": -0.1275,
+      "lat_b": 51.4536,
+      "lng_b": -2.5975
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 5,
+    "strongest_pair": "Portsmouth → Southampton",
+    "generated_at": "2026-03-12"
+  }
+}

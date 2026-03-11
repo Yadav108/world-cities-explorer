@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Urban Gravity — Cities attract each other like masses</title>
+  <link rel="stylesheet" href="nav.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0d0d1a;
+      --bg2:     #0a0a18;
+      --accent:  #00cfff;
+      --text:    #cdd6f4;
+      --text2:   #6b8cae;
+      --text3:   #4a6a8a;
+      --border:  #1e3a5f;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── Animated canvas sits behind everything ── */
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── Layout wrapper ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px 32px;
+      gap: 0;
+    }
+
+    /* ── Hero ─────────────────────────────────── */
+    .hero {
+      text-align: center;
+      max-width: 640px;
+      margin-bottom: 52px;
+    }
+
+    .hero-icon {
+      font-size: 52px;
+      line-height: 1;
+      margin-bottom: 20px;
+      display: block;
+      /* subtle glow on the globe */
+      filter: drop-shadow(0 0 18px rgba(0, 207, 255, 0.35));
+      animation: floatIcon 4s ease-in-out infinite;
+    }
+    @keyframes floatIcon {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .hero h1 span { color: var(--accent); }
+
+    .hero-sub {
+      font-size: clamp(15px, 2.2vw, 18px);
+      color: var(--text2);
+      line-height: 1.6;
+      margin-bottom: 36px;
+    }
+
+    /* ── CTAs ── */
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-primary, .cta-secondary {
+      padding: 13px 30px;
+      border-radius: 30px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.22s;
+      border: 2px solid var(--accent);
+      letter-spacing: 0.01em;
+      text-decoration: none;
+    }
+    .cta-primary {
+      background: var(--accent);
+      color: #0d0d1a;
+    }
+    .cta-primary:hover {
+      background: #33d9ff;
+      border-color: #33d9ff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0, 207, 255, 0.35);
+    }
+    .cta-secondary {
+      background: transparent;
+      color: var(--accent);
+    }
+    .cta-secondary:hover {
+      background: rgba(0, 207, 255, 0.1);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0, 207, 255, 0.15);
+    }
+
+    /* ── Feature cards ────────────────────────── */
+    .cards {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 860px;
+      margin-bottom: 44px;
+    }
+
+    .card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px 20px;
+      width: 240px;
+      cursor: pointer;
+      transition: all 0.22s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(0, 207, 255, 0.12);
+      background: #0d0f1f;
+    }
+
+    .card-icon {
+      font-size: 26px;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .card-desc {
+      font-size: 12.5px;
+      color: var(--text2);
+      line-height: 1.65;
+    }
+    .card-link {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 11px;
+      color: var(--accent);
+      opacity: 0.7;
+      letter-spacing: 0.04em;
+    }
+    .card:hover .card-link { opacity: 1; }
+
+    /* ── Tech strip ───────────────────────────── */
+    .tech-strip {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text3);
+      letter-spacing: 0.04em;
+      line-height: 1.8;
+      max-width: 600px;
+    }
+    .tech-strip .sep {
+      margin: 0 6px;
+      opacity: 0.4;
+    }
+    .tech-strip .label {
+      color: var(--text2);
+      font-weight: 600;
+      margin-right: 6px;
+    }
+
+    /* fade-in on load */
+    .page { animation: pageIn 0.6s ease both; }
+    @keyframes pageIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Animated background canvas -->
+<svg id="bg-canvas"></svg>
+
+<div class="page">
+
+  <!-- ── Hero ── -->
+  <div class="hero">
+    <span class="hero-icon">🌍</span>
+    <h1>Urban <span>Gravity</span></h1>
+    <p class="hero-sub">
+      Cities attract each other like masses.<br>
+      Explore the physics of human settlement.
+    </p>
+    <div class="cta-row">
+      <a href="index.html" class="cta-primary">Explore a Country</a>
+      <a href="ranking.html" class="cta-secondary">Global Ranking</a>
+    </div>
+  </div>
+
+  <!-- ── Feature Cards ── -->
+  <div class="cards">
+    <a class="card" href="index.html?mode=gravity">
+      <span class="card-icon">⚡</span>
+      <div class="card-title">Gravity Network</div>
+      <div class="card-desc">
+        Newton's model applied to cities.<br>
+        Stronger pull&nbsp;=&nbsp;thicker line.
+      </div>
+      <span class="card-link">Open gravity view →</span>
+    </a>
+
+    <a class="card" href="index.html?mode=concentration">
+      <span class="card-icon">📊</span>
+      <div class="card-title">Primacy Index</div>
+      <div class="card-desc">
+        How much does one city dominate?<br>
+        One number reveals everything.
+      </div>
+      <span class="card-link">Open concentration view →</span>
+    </a>
+
+    <a class="card" href="ranking.html">
+      <span class="card-icon">🗺️</span>
+      <div class="card-title">Global Ranking</div>
+      <div class="card-desc">
+        191 countries ranked by urban<br>
+        concentration. Click any to explore.
+      </div>
+      <span class="card-link">Open global ranking →</span>
+    </a>
+  </div>
+
+  <!-- ── Tech strip ── -->
+  <div class="tech-strip">
+    <span class="label">Built with</span>
+    D3.js v7<span class="sep">·</span>
+    Leaflet.js<span class="sep">·</span>
+    Python<span class="sep">·</span>
+    Newton's Gravity Model<span class="sep">·</span>
+    Haversine Formula<span class="sep">·</span>
+    43,645 cities
+  </div>
+
+</div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+// ══════════════════════════════════════════════════════
+//  ANIMATED BACKGROUND — floating city nodes + gravity lines
+// ══════════════════════════════════════════════════════
+
+const svg    = d3.select('#bg-canvas');
+const EDGE_THRESHOLD = 180;
+const NODE_COUNT     = 45;
+
+let width, height;
+
+function resize() {
+  width  = window.innerWidth;
+  height = window.innerHeight;
+  svg.attr('width', width).attr('height', height);
+}
+resize();
+window.addEventListener('resize', resize);
+
+// Generate random nodes
+const nodes = d3.range(NODE_COUNT).map(() => ({
+  x:  Math.random() * width,
+  y:  Math.random() * height,
+  r:  1.2 + Math.random() * 2.8,
+  vx: (Math.random() - 0.5) * 0.28,
+  vy: (Math.random() - 0.5) * 0.28,
+}));
+
+// Compute edges within distance threshold
+function getEdges() {
+  const edges = [];
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      const dx = nodes[i].x - nodes[j].x;
+      const dy = nodes[i].y - nodes[j].y;
+      const d  = Math.sqrt(dx * dx + dy * dy);
+      if (d < EDGE_THRESHOLD) edges.push({ i, j, d });
+    }
+  }
+  return edges;
+}
+
+// SVG groups — edges below nodes
+const edgeGroup = svg.append('g');
+const nodeGroup = svg.append('g');
+
+// Initial circles (sizes fixed, positions updated each frame)
+const circles = nodeGroup.selectAll('circle')
+  .data(nodes).join('circle')
+  .attr('r',    d => d.r)
+  .attr('fill', 'rgba(0, 207, 255, 0.38)');
+
+// Pulse animation — randomly stagger glow for a few nodes
+nodes.forEach((n, i) => {
+  if (i % 5 === 0) {
+    circles.filter((_, idx) => idx === i)
+      .style('animation', `nodePulse ${2 + Math.random() * 2}s ease-in-out infinite`);
+  }
+});
+
+// Inline keyframe injection
+const styleEl = document.createElement('style');
+styleEl.textContent = `
+  @keyframes nodePulse {
+    0%, 100% { opacity: 0.38; r: attr(r); }
+    50%       { opacity: 0.70; }
+  }
+`;
+document.head.appendChild(styleEl);
+
+// Animation loop
+function animate() {
+  // Move nodes, bounce off walls
+  nodes.forEach(n => {
+    n.x += n.vx;
+    n.y += n.vy;
+    if (n.x <= 0 || n.x >= width)  n.vx *= -1;
+    if (n.y <= 0 || n.y >= height) n.vy *= -1;
+    n.x = Math.max(0, Math.min(width,  n.x));
+    n.y = Math.max(0, Math.min(height, n.y));
+  });
+
+  // Update circle positions
+  circles.attr('cx', d => d.x).attr('cy', d => d.y);
+
+  // Recompute and redraw edges
+  const edges = getEdges();
+
+  edgeGroup.selectAll('line')
+    .data(edges, d => `${d.i}-${d.j}`)
+    .join('line')
+    .attr('x1', d => nodes[d.i].x)
+    .attr('y1', d => nodes[d.i].y)
+    .attr('x2', d => nodes[d.j].x)
+    .attr('y2', d => nodes[d.j].y)
+    .attr('stroke', 'rgba(0, 207, 255, 0.13)')
+    .attr('stroke-width', d => 0.4 + (1 - d.d / EDGE_THRESHOLD) * 1.2);
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+
+// ══════════════════════════════════════════════════════
+//  Read ?mode= param and pass it through to index.html
+// ══════════════════════════════════════════════════════
+// (Cards already hard-link to index.html?mode=X — nothing extra needed)
+
+// Honour ?mode= if landing.html itself is opened with a mode param
+// (e.g. ranking.html → back → landing.html?mode=gravity)
+// No-op for plain landing.html load.
+</script>
+<script src="nav.js"></script>
+<script>Nav.init({ theme: 'solid' });</script>
+</body>
+</html>

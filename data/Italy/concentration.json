@@ -1,0 +1,64 @@
+{
+  "country": "Italy",
+  "total_cities": 1357,
+  "total_population": 42129508,
+  "primacy_index": 0.0652,
+  "confidence": "high",
+  "confidence_note": "",
+  "largest_city": {
+    "city": "Rome",
+    "population": 2748109,
+    "share_pct": 6.5
+  },
+  "top5": [
+    {
+      "rank": 1,
+      "city": "Rome",
+      "population": 2748109,
+      "share_pct": 6.5
+    },
+    {
+      "rank": 2,
+      "city": "Milan",
+      "population": 1354196,
+      "share_pct": 3.2
+    },
+    {
+      "rank": 3,
+      "city": "Naples",
+      "population": 913462,
+      "share_pct": 2.2
+    },
+    {
+      "rank": 4,
+      "city": "Turin",
+      "population": 841600,
+      "share_pct": 2.0
+    },
+    {
+      "rank": 5,
+      "city": "Palermo",
+      "population": 630167,
+      "share_pct": 1.5
+    }
+  ],
+  "top5_combined_share": 15.4,
+  "narration": {
+    "concentration": {
+      "headline": "Highly distributed urban network",
+      "body": "No single city overwhelms Italy's urban landscape. Rome holds 6.5% of tracked urban population across 1357 cities — characteristic of federal or historically polycentric countries with multiple strong economic centers.",
+      "comparison": "Similar to: United States, Germany, Switzerland",
+      "contrast": "Unlike: France, Thailand, Argentina",
+      "pattern": "polycentric",
+      "insight_confidence": "high"
+    },
+    "gravity": {
+      "headline": "Dense gravitational cluster — Milan & Turin",
+      "body": "The strongest gravitational pull exists between Milan and Turin (126 km apart, combined population 2,195,796). Cities form a tight gravitational cluster with top pairs averaging 128 km apart. This dense sub-regional network often functions as a single megalopolitan economy.",
+      "top_pair": "Milan → Turin",
+      "network_type": "clustered",
+      "avg_distance_top5": 127.8
+    },
+    "synthesis": "Italy presents a classic polycentric structure: no primate city, with Rome holding just 6.5% of tracked urban population. Gravity is strongest within a tight sub-regional cluster (Milan → Turin, 128 km average separation) rather than radiating from a single capital — typical of federal economies with distributed industrial heritage."
+  }
+}

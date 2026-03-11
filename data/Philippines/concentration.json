@@ -1,0 +1,64 @@
+{
+  "country": "Philippines",
+  "total_cities": 1579,
+  "total_population": 137832184,
+  "primacy_index": 0.1808,
+  "confidence": "high",
+  "confidence_note": "",
+  "largest_city": {
+    "city": "Manila",
+    "population": 24922000,
+    "share_pct": 18.1
+  },
+  "top5": [
+    {
+      "rank": 1,
+      "city": "Manila",
+      "population": 24922000,
+      "share_pct": 18.1
+    },
+    {
+      "rank": 2,
+      "city": "Quezon City",
+      "population": 2960048,
+      "share_pct": 2.1
+    },
+    {
+      "rank": 3,
+      "city": "Zamboanga City",
+      "population": 2100000,
+      "share_pct": 1.5
+    },
+    {
+      "rank": 4,
+      "city": "Davao",
+      "population": 1910167,
+      "share_pct": 1.4
+    },
+    {
+      "rank": 5,
+      "city": "Caloocan City",
+      "population": 1661584,
+      "share_pct": 1.2
+    }
+  ],
+  "top5_combined_share": 24.3,
+  "narration": {
+    "concentration": {
+      "headline": "Moderately concentrated — one leading city",
+      "body": "Manila leads Philippines's urban system with 18.1% of tracked urban population across 1579 cities — significant but not overwhelming. Secondary cities retain meaningful economic weight alongside the capital.",
+      "comparison": "Similar to: United Kingdom, Italy, Canada",
+      "contrast": "Unlike: USA, Japan (more distributed) or Thailand, Argentina (more dominant)",
+      "pattern": "transitional",
+      "insight_confidence": "high"
+    },
+    "gravity": {
+      "headline": "Dense gravitational cluster — Manila & Caloocan City",
+      "body": "The strongest gravitational pull exists between Manila and Caloocan City (6 km apart, combined population 26,583,584). Cities form a tight gravitational cluster with top pairs averaging 8 km apart. This dense sub-regional network often functions as a single megalopolitan economy.",
+      "top_pair": "Manila → Caloocan City",
+      "network_type": "clustered",
+      "avg_distance_top5": 7.9
+    },
+    "synthesis": "Philippines sits between distributed and dominant: Manila leads with 18.1% but doesn't overwhelm. Gravity clusters tightly around Manila → Caloocan City (8 km avg) — a strong sub-regional core coexists with the national leader, creating a layered urban hierarchy."
+  }
+}

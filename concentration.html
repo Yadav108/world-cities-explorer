@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>📊 Urban Concentration</title>
+  <!-- Redirect to unified app -->
+  <script>window.location.replace('index.html?mode=concentration');</script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0d0d1a;
+      --bg2:      #12122a;
+      --border:   #1e1e3a;
+      --border2:  #2a2a4a;
+      --text:     #cdd6f4;
+      --text2:    #7799bb;
+      --cyan:     #00cfff;
+      --orange:   #ff9f43;
+      --red:      #ff4757;
+      --green:    #2ed573;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── Header ──────────────────────────────────────── */
+    header {
+      width: 100%;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    header h1 { font-size: 1.15rem; font-weight: 700; color: var(--text); }
+    header h1 span { color: var(--cyan); }
+    #confidence-badge {
+      margin-left: auto;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.05em;
+    }
+    #confidence-note {
+      font-size: 0.72rem;
+      color: var(--orange);
+      max-width: 280px;
+      text-align: right;
+    }
+
+    /* ── Main layout ─────────────────────────────────── */
+    main {
+      display: flex;
+      gap: 0;
+      width: 100%;
+      max-width: 860px;
+      margin-top: 40px;
+      padding: 0 16px;
+    }
+
+    .panel {
+      flex: 1;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .panel + .panel { margin-left: 20px; }
+
+    .panel-title {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--text2);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      align-self: flex-start;
+    }
+
+    /* ── Arc gauge ───────────────────────────────────── */
+    #gauge-svg { overflow: visible; }
+
+    #gauge-value {
+      font-size: 2rem;
+      font-weight: 800;
+      fill: var(--text);
+    }
+    #gauge-label {
+      font-size: 0.85rem;
+      fill: var(--text2);
+    }
+    #gauge-category {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+
+    /* stat rows below gauge */
+    .stat-grid {
+      width: 100%;
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-label { color: var(--text2); }
+    .stat-val   { color: var(--text); font-weight: 600; }
+
+    /* ── Bar chart ───────────────────────────────────── */
+    #bar-svg { width: 100%; overflow: visible; }
+
+    /* ── Footer ──────────────────────────────────────── */
+    footer {
+      margin-top: 40px;
+      font-size: 0.72rem;
+      color: var(--text2);
+      padding-bottom: 32px;
+    }
+    footer a { color: var(--cyan); text-decoration: none; }
+
+    /* ── Error state ─────────────────────────────────── */
+    #error-msg {
+      display: none;
+      margin-top: 80px;
+      text-align: center;
+      color: var(--red);
+      font-size: 1rem;
+    }
+    #error-msg small { display: block; margin-top: 8px; color: var(--text2); font-size: 0.8rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>📊 Urban Concentration — <span id="hdr-country">Loading…</span></h1>
+  <div id="confidence-note"></div>
+  <div id="confidence-badge">–</div>
+</header>
+
+<main>
+  <!-- Left: Arc Gauge -->
+  <div class="panel" id="gauge-panel">
+    <div class="panel-title">Primacy Index</div>
+    <svg id="gauge-svg" width="220" height="140" viewBox="0 0 220 140"></svg>
+    <div class="stat-grid" id="stat-grid"></div>
+  </div>
+
+  <!-- Right: Bar Chart -->
+  <div class="panel" id="bar-panel">
+    <div class="panel-title">Top 5 Cities by Population Share</div>
+    <svg id="bar-svg"></svg>
+  </div>
+</main>
+
+<div id="error-msg">
+  ⚠️  concentration.json not found
+  <small>Run: <code>python generate_gravity.py</code> first</small>
+</div>
+
+<footer>
+  Data from <a href="https://simplemaps.com/data/world-cities" target="_blank">simplemaps.com</a>
+  · Visualization built with <a href="https://d3js.org" target="_blank">D3.js v7</a>
+</footer>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+  const fmtPop  = d3.format(',');
+  const fmtPct  = v => v.toFixed(1) + '%';
+
+  // ── Color rules ───────────────────────────────────────
+  function arcColor(primacy) {
+    if (primacy < 0.15) return '#00cfff';   // cyan  — Distributed
+    if (primacy < 0.35) return '#ff9f43';   // orange — Moderate
+    return '#ff4757';                        // red   — Dominant
+  }
+  function arcCategory(primacy) {
+    if (primacy < 0.15) return 'Distributed';
+    if (primacy < 0.35) return 'Moderate';
+    return 'Dominant';
+  }
+
+  // ── Arc Gauge ─────────────────────────────────────────
+  function drawGauge(data) {
+    const svg = d3.select('#gauge-svg');
+    const cx  = 110, cy = 120;   // centre — near bottom so semicircle fits
+
+    const arc = d3.arc()
+      .innerRadius(70)
+      .outerRadius(100)
+      .startAngle(-Math.PI / 2);
+
+    const g = svg.append('g').attr('transform', `translate(${cx},${cy})`);
+
+    // Background track
+    g.append('path')
+      .datum({ endAngle: Math.PI / 2 })
+      .attr('d', arc)
+      .attr('fill', '#1e1e3a');
+
+    // Foreground fill — primacy 0→1 maps to -π/2 → π/2
+    const endAngle = -Math.PI / 2 + data.primacy_index * Math.PI;
+    const color    = arcColor(data.primacy_index);
+
+    g.append('path')
+      .datum({ endAngle: 0 })           // start at 0 for transition
+      .attr('d', arc)
+      .attr('fill', color)
+      .transition().duration(900).ease(d3.easeCubicOut)
+      .attrTween('d', function(d) {
+        const interp = d3.interpolate(d.endAngle, endAngle);
+        return t => { d.endAngle = interp(t); return arc(d); };
+      });
+
+    // Needle tick marks at 0%, 25%, 50%, 75%, 100%
+    [0, 0.25, 0.5, 0.75, 1].forEach(v => {
+      const a  = -Math.PI / 2 + v * Math.PI;
+      const r1 = 102, r2 = 110;
+      g.append('line')
+        .attr('x1', Math.cos(a) * r1).attr('y1', Math.sin(a) * r1)
+        .attr('x2', Math.cos(a) * r2).attr('y2', Math.sin(a) * r2)
+        .attr('stroke', '#2a2a4a').attr('stroke-width', 1.5);
+    });
+
+    // Centre labels
+    g.append('text').attr('id', 'gauge-value')
+      .attr('text-anchor', 'middle').attr('dy', '-0.15em')
+      .attr('fill', '#cdd6f4').attr('font-size', '1.9rem').attr('font-weight', 800)
+      .text(fmtPct(data.primacy_index * 100));
+
+    g.append('text').attr('id', 'gauge-label')
+      .attr('text-anchor', 'middle').attr('dy', '1.3em')
+      .attr('fill', '#7799bb').attr('font-size', '0.78rem')
+      .text('of urban pop in ' + data.largest_city.city);
+
+    g.append('text').attr('id', 'gauge-category')
+      .attr('text-anchor', 'middle').attr('dy', '2.8em')
+      .attr('fill', color).attr('font-size', '0.8rem').attr('font-weight', 700)
+      .attr('letter-spacing', '0.08em')
+      .text(arcCategory(data.primacy_index).toUpperCase());
+
+    // Min / Max labels on arc ends
+    g.append('text').attr('x', -108).attr('y', 14)
+      .attr('fill', '#555577').attr('font-size', '0.65rem').text('0%');
+    g.append('text').attr('x', 96).attr('y', 14)
+      .attr('fill', '#555577').attr('font-size', '0.65rem').text('100%');
+  }
+
+  // ── Stat rows ─────────────────────────────────────────
+  function drawStats(data) {
+    const rows = [
+      ['Total cities',      data.total_cities],
+      ['Total urban pop',   fmtPop(data.total_population)],
+      ['Top 5 combined',    fmtPct(data.top5_combined_share)],
+      ['Largest city',      data.largest_city.city],
+    ];
+    const grid = d3.select('#stat-grid');
+    rows.forEach(([label, val]) => {
+      const row = grid.append('div').attr('class', 'stat-row');
+      row.append('span').attr('class', 'stat-label').text(label);
+      row.append('span').attr('class', 'stat-val').text(val);
+    });
+  }
+
+  // ── Bar chart ─────────────────────────────────────────
+  function drawBars(data) {
+    const barW    = 200;
+    const rowH    = 36;
+    const labelW  = 90;
+    const pctW    = 46;
+    const padLeft = 8;
+    const height  = data.top5.length * rowH;
+    const width   = labelW + barW + pctW + padLeft;
+
+    const svg = d3.select('#bar-svg')
+      .attr('width',  width)
+      .attr('height', height)
+      .attr('viewBox', `0 0 ${width} ${height}`);
+
+    const xScale = d3.scaleLinear()
+      .domain([0, data.top5[0].share_pct])
+      .range([0, barW]);
+
+    const color = arcColor(data.primacy_index);
+
+    const rows = svg.selectAll('g.bar-row')
+      .data(data.top5)
+      .join('g')
+        .attr('class', 'bar-row')
+        .attr('transform', (_, i) => `translate(0, ${i * rowH + 4})`);
+
+    // Rank + city label
+    rows.append('text')
+      .attr('x', 0).attr('y', 16)
+      .attr('fill', '#7799bb').attr('font-size', '0.7rem')
+      .text((d, i) => `#${i + 1}`);
+
+    rows.append('text')
+      .attr('x', 22).attr('y', 16)
+      .attr('fill', '#cdd6f4').attr('font-size', '0.78rem')
+      .text(d => d.city.length > 11 ? d.city.slice(0, 10) + '…' : d.city);
+
+    // Background bar track
+    rows.append('rect')
+      .attr('x', labelW).attr('y', 4)
+      .attr('width', barW).attr('height', 20)
+      .attr('rx', 4).attr('fill', '#1e1e3a');
+
+    // Foreground bar — animated
+    rows.append('rect')
+      .attr('x', labelW).attr('y', 4)
+      .attr('width', 0).attr('height', 20)
+      .attr('rx', 4).attr('fill', color).attr('opacity', 0.85)
+      .transition().duration(800).delay((_, i) => i * 80).ease(d3.easeCubicOut)
+      .attr('width', d => xScale(d.share_pct));
+
+    // Percentage label
+    rows.append('text')
+      .attr('x', labelW + barW + 8).attr('y', 18)
+      .attr('fill', '#7799bb').attr('font-size', '0.72rem')
+      .text(d => fmtPct(d.share_pct));
+
+    // Population sub-label
+    rows.append('text')
+      .attr('x', labelW).attr('y', 32)
+      .attr('fill', '#555577').attr('font-size', '0.65rem')
+      .text(d => fmtPop(d.population));
+  }
+
+  // ── Confidence badge ──────────────────────────────────
+  function drawBadge(data) {
+    const badge = document.getElementById('confidence-badge');
+    const note  = document.getElementById('confidence-note');
+    const map   = {
+      high:   { bg: 'rgba(46,213,115,0.15)', color: '#2ed573', text: '★★★ High Confidence'   },
+      medium: { bg: 'rgba(255,159,67,0.15)', color: '#ff9f43', text: '★★☆ Medium Confidence' },
+      low:    { bg: 'rgba(255,71,87,0.15)',  color: '#ff4757', text: '★☆☆ Low Confidence'    },
+    };
+    const s = map[data.confidence];
+    badge.style.background = s.bg;
+    badge.style.color      = s.color;
+    badge.style.border     = `1px solid ${s.color}44`;
+    badge.textContent      = s.text;
+    if (data.confidence_note) note.textContent = '⚠️  ' + data.confidence_note;
+  }
+
+  // ── Load and render ───────────────────────────────────
+  d3.json('concentration.json').then(data => {
+    document.getElementById('hdr-country').textContent = data.country;
+    drawBadge(data);
+    drawGauge(data);
+    drawStats(data);
+    drawBars(data);
+  }).catch(() => {
+    document.getElementById('error-msg').style.display = 'block';
+    document.querySelector('main').style.display       = 'none';
+    document.getElementById('hdr-country').textContent = 'Error';
+  });
+</script>
+</body>
+</html>

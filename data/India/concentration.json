@@ -1,0 +1,64 @@
+{
+  "country": "India",
+  "total_cities": 7103,
+  "total_population": 514693978,
+  "primacy_index": 0.0626,
+  "confidence": "high",
+  "confidence_note": "",
+  "largest_city": {
+    "city": "Delhi",
+    "population": 32226000,
+    "share_pct": 6.3
+  },
+  "top5": [
+    {
+      "rank": 1,
+      "city": "Delhi",
+      "population": 32226000,
+      "share_pct": 6.3
+    },
+    {
+      "rank": 2,
+      "city": "Mumbai",
+      "population": 24973000,
+      "share_pct": 4.9
+    },
+    {
+      "rank": 3,
+      "city": "Kolkāta",
+      "population": 21747000,
+      "share_pct": 4.2
+    },
+    {
+      "rank": 4,
+      "city": "Bangalore",
+      "population": 15386000,
+      "share_pct": 3.0
+    },
+    {
+      "rank": 5,
+      "city": "Chennai",
+      "population": 12395000,
+      "share_pct": 2.4
+    }
+  ],
+  "top5_combined_share": 20.8,
+  "narration": {
+    "concentration": {
+      "headline": "Highly distributed urban network",
+      "body": "No single city overwhelms India's urban landscape. Delhi holds 6.3% of tracked urban population across 7103 cities — characteristic of federal or historically polycentric countries with multiple strong economic centers.",
+      "comparison": "Similar to: United States, Germany, Switzerland",
+      "contrast": "Unlike: France, Thailand, Argentina",
+      "pattern": "polycentric",
+      "insight_confidence": "high"
+    },
+    "gravity": {
+      "headline": "Linear city corridor — Mumbai to Pune",
+      "body": "The strongest gravitational pull exists between Mumbai and Pune (120 km apart, combined population 33,204,000). Cities are connected along a corridor averaging 216 km between top pairs — typical of coastal, river valley, or industrial belt development.",
+      "top_pair": "Mumbai → Pune",
+      "network_type": "linear",
+      "avg_distance_top5": 216.0
+    },
+    "synthesis": "India shows a distributed urban system with no dominant primate city (Delhi at 6.3%), with gravitational connections forming a corridor (Mumbai → Pune, avg 216 km). Urban power is spread across a geographic axis rather than concentrated at a single hub."
+  }
+}

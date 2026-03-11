@@ -1,0 +1,95 @@
+{
+  "country": "Argentina",
+  "cities": [
+    {
+      "city": "Buenos Aires",
+      "lat": -34.6036,
+      "lng": -58.3814,
+      "population": 16710000,
+      "rank": 1
+    },
+    {
+      "city": "Córdoba",
+      "lat": -31.4167,
+      "lng": -64.1833,
+      "population": 2106734,
+      "rank": 2
+    },
+    {
+      "city": "Rosario",
+      "lat": -32.9575,
+      "lng": -60.6394,
+      "population": 1276000,
+      "rank": 3
+    },
+    {
+      "city": "Santiago del Estero",
+      "lat": -27.7833,
+      "lng": -64.2667,
+      "population": 911506,
+      "rank": 4
+    },
+    {
+      "city": "La Plata",
+      "lat": -34.9211,
+      "lng": -57.9544,
+      "population": 904789,
+      "rank": 5
+    },
+    {
+      "city": "Mar del Plata",
+      "lat": -38.0,
+      "lng": -57.55,
+      "population": 682605,
+      "rank": 6
+    },
+    {
+      "city": "San Miguel de Tucumán",
+      "lat": -26.8167,
+      "lng": -65.2167,
+      "population": 605767,
+      "rank": 7
+    },
+    {
+      "city": "Salta",
+      "lat": -24.7833,
+      "lng": -65.4167,
+      "population": 535303,
+      "rank": 8
+    },
+    {
+      "city": "San Juan",
+      "lat": -31.5342,
+      "lng": -68.5261,
+      "population": 471389,
+      "rank": 9
+    },
+    {
+      "city": "Lanús",
+      "lat": -34.7,
+      "lng": -58.4,
+      "population": 459263,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Buenos Aires",
+      "city_b": "Lanús",
+      "distance_km": 10.9,
+      "gravity": 1.0,
+      "pop_a": 16710000,
+      "pop_b": 459263,
+      "lat_a": -34.6036,
+      "lng_a": -58.3814,
+      "lat_b": -34.7,
+      "lng_b": -58.4
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 1,
+    "strongest_pair": "Buenos Aires → Lanús",
+    "generated_at": "2026-03-12"
+  }
+}

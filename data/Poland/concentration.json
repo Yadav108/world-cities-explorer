@@ -1,0 +1,64 @@
+{
+  "country": "Poland",
+  "total_cities": 462,
+  "total_population": 21611509,
+  "primacy_index": 0.0938,
+  "confidence": "high",
+  "confidence_note": "",
+  "largest_city": {
+    "city": "Warsaw",
+    "population": 2028000,
+    "share_pct": 9.4
+  },
+  "top5": [
+    {
+      "rank": 1,
+      "city": "Warsaw",
+      "population": 2028000,
+      "share_pct": 9.4
+    },
+    {
+      "rank": 2,
+      "city": "Kraków",
+      "population": 804237,
+      "share_pct": 3.7
+    },
+    {
+      "rank": 3,
+      "city": "Gdańsk",
+      "population": 749786,
+      "share_pct": 3.5
+    },
+    {
+      "rank": 4,
+      "city": "Wrocław",
+      "population": 672929,
+      "share_pct": 3.1
+    },
+    {
+      "rank": 5,
+      "city": "Łódź",
+      "population": 670642,
+      "share_pct": 3.1
+    }
+  ],
+  "top5_combined_share": 22.8,
+  "narration": {
+    "concentration": {
+      "headline": "Highly distributed urban network",
+      "body": "No single city overwhelms Poland's urban landscape. Warsaw holds 9.4% of tracked urban population across 462 cities — characteristic of federal or historically polycentric countries with multiple strong economic centers.",
+      "comparison": "Similar to: United States, Germany, Switzerland",
+      "contrast": "Unlike: France, Thailand, Argentina",
+      "pattern": "polycentric",
+      "insight_confidence": "high"
+    },
+    "gravity": {
+      "headline": "Linear city corridor — Warsaw to Łódź",
+      "body": "The strongest gravitational pull exists between Warsaw and Łódź (118 km apart, combined population 2,698,642). Cities are connected along a corridor averaging 196 km between top pairs — typical of coastal, river valley, or industrial belt development.",
+      "top_pair": "Warsaw → Łódź",
+      "network_type": "linear",
+      "avg_distance_top5": 196.4
+    },
+    "synthesis": "Poland shows a distributed urban system with no dominant primate city (Warsaw at 9.4%), with gravitational connections forming a corridor (Warsaw → Łódź, avg 196 km). Urban power is spread across a geographic axis rather than concentrated at a single hub."
+  }
+}

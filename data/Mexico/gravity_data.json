@@ -1,0 +1,107 @@
+{
+  "country": "Mexico",
+  "cities": [
+    {
+      "city": "Mexico City",
+      "lat": 19.4333,
+      "lng": -99.1333,
+      "population": 21804000,
+      "rank": 1
+    },
+    {
+      "city": "Guadalajara",
+      "lat": 20.6767,
+      "lng": -103.3475,
+      "population": 5525000,
+      "rank": 2
+    },
+    {
+      "city": "Monterrey",
+      "lat": 25.6844,
+      "lng": -100.3181,
+      "population": 5324281,
+      "rank": 3
+    },
+    {
+      "city": "Toluca",
+      "lat": 19.2925,
+      "lng": -99.6569,
+      "population": 2476689,
+      "rank": 4
+    },
+    {
+      "city": "Tijuana",
+      "lat": 32.525,
+      "lng": -117.0333,
+      "population": 2002000,
+      "rank": 5
+    },
+    {
+      "city": "Ecatepec",
+      "lat": 19.6097,
+      "lng": -99.06,
+      "population": 1655015,
+      "rank": 6
+    },
+    {
+      "city": "León de los Aldama",
+      "lat": 21.1167,
+      "lng": -101.6833,
+      "population": 1579803,
+      "rank": 7
+    },
+    {
+      "city": "Puebla",
+      "lat": 19.0333,
+      "lng": -98.1833,
+      "population": 1576259,
+      "rank": 8
+    },
+    {
+      "city": "Zapopan",
+      "lat": 20.7167,
+      "lng": -103.4,
+      "population": 1476491,
+      "rank": 9
+    },
+    {
+      "city": "Juárez",
+      "lat": 31.745,
+      "lng": -106.485,
+      "population": 1321004,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Guadalajara",
+      "city_b": "Zapopan",
+      "distance_km": 7.0,
+      "gravity": 1.0,
+      "pop_a": 5525000,
+      "pop_b": 1476491,
+      "lat_a": 20.6767,
+      "lng_a": -103.3475,
+      "lat_b": 20.7167,
+      "lng_b": -103.4
+    },
+    {
+      "city_a": "Mexico City",
+      "city_b": "Ecatepec",
+      "distance_km": 21.1,
+      "gravity": 0.4945,
+      "pop_a": 21804000,
+      "pop_b": 1655015,
+      "lat_a": 19.4333,
+      "lng_a": -99.1333,
+      "lat_b": 19.6097,
+      "lng_b": -99.06
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 2,
+    "strongest_pair": "Guadalajara → Zapopan",
+    "generated_at": "2026-03-12"
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "country": "Australia",
+  "cities": [
+    {
+      "city": "Melbourne",
+      "lat": -37.8142,
+      "lng": 144.9631,
+      "population": 5031195,
+      "rank": 1
+    },
+    {
+      "city": "Sydney",
+      "lat": -33.8667,
+      "lng": 151.2,
+      "population": 4840600,
+      "rank": 2
+    },
+    {
+      "city": "Brisbane",
+      "lat": -27.4678,
+      "lng": 153.0281,
+      "population": 2706966,
+      "rank": 3
+    },
+    {
+      "city": "Perth",
+      "lat": -31.9558,
+      "lng": 115.8597,
+      "population": 2141834,
+      "rank": 4
+    },
+    {
+      "city": "Adelaide",
+      "lat": -34.9275,
+      "lng": 138.6,
+      "population": 1387290,
+      "rank": 5
+    },
+    {
+      "city": "Gold Coast",
+      "lat": -28.0167,
+      "lng": 153.4,
+      "population": 607665,
+      "rank": 6
+    },
+    {
+      "city": "Cranbourne",
+      "lat": -38.0996,
+      "lng": 145.2834,
+      "population": 460491,
+      "rank": 7
+    },
+    {
+      "city": "Canberra",
+      "lat": -35.2931,
+      "lng": 149.1269,
+      "population": 381488,
+      "rank": 8
+    },
+    {
+      "city": "Central Coast",
+      "lat": -33.3,
+      "lng": 151.2,
+      "population": 346596,
+      "rank": 9
+    },
+    {
+      "city": "Wollongong",
+      "lat": -34.4331,
+      "lng": 150.8831,
+      "population": 261896,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Melbourne",
+      "city_b": "Cranbourne",
+      "distance_km": 42.4,
+      "gravity": 1.0,
+      "pop_a": 5031195,
+      "pop_b": 460491,
+      "lat_a": -37.8142,
+      "lng_a": 144.9631,
+      "lat_b": -38.0996,
+      "lng_b": 145.2834
+    },
+    {
+      "city_a": "Sydney",
+      "city_b": "Central Coast",
+      "distance_km": 63.0,
+      "gravity": 0.3275,
+      "pop_a": 4840600,
+      "pop_b": 346596,
+      "lat_a": -33.8667,
+      "lng_a": 151.2,
+      "lat_b": -33.3,
+      "lng_b": 151.2
+    },
+    {
+      "city_a": "Brisbane",
+      "city_b": "Gold Coast",
+      "distance_km": 71.2,
+      "gravity": 0.2517,
+      "pop_a": 2706966,
+      "pop_b": 607665,
+      "lat_a": -27.4678,
+      "lng_a": 153.0281,
+      "lat_b": -28.0167,
+      "lng_b": 153.4
+    },
+    {
+      "city_a": "Sydney",
+      "city_b": "Wollongong",
+      "distance_km": 69.4,
+      "gravity": 0.204,
+      "pop_a": 4840600,
+      "pop_b": 261896,
+      "lat_a": -33.8667,
+      "lng_a": 151.2,
+      "lat_b": -34.4331,
+      "lng_b": 150.8831
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 4,
+    "strongest_pair": "Melbourne → Cranbourne",
+    "generated_at": "2026-03-12"
+  }
+}

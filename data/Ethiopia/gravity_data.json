@@ -1,0 +1,119 @@
+{
+  "country": "Ethiopia",
+  "cities": [
+    {
+      "city": "Addis Ababa",
+      "lat": 9.03,
+      "lng": 38.74,
+      "population": 5704000,
+      "rank": 1
+    },
+    {
+      "city": "K’ebrī Beyah",
+      "lat": 9.0833,
+      "lng": 43.0833,
+      "population": 543272,
+      "rank": 2
+    },
+    {
+      "city": "K’ebrī Dehar",
+      "lat": 6.7333,
+      "lng": 44.2667,
+      "population": 499500,
+      "rank": 3
+    },
+    {
+      "city": "Warder",
+      "lat": 6.9667,
+      "lng": 45.35,
+      "population": 450400,
+      "rank": 4
+    },
+    {
+      "city": "Shashemenē",
+      "lat": 7.2,
+      "lng": 38.6,
+      "population": 407000,
+      "rank": 5
+    },
+    {
+      "city": "Godē",
+      "lat": 5.9527,
+      "lng": 43.5516,
+      "population": 350000,
+      "rank": 6
+    },
+    {
+      "city": "Nazrēt",
+      "lat": 8.5414,
+      "lng": 39.2689,
+      "population": 324000,
+      "rank": 7
+    },
+    {
+      "city": "Mekele",
+      "lat": 13.4969,
+      "lng": 39.4769,
+      "population": 323700,
+      "rank": 8
+    },
+    {
+      "city": "Āwasa",
+      "lat": 7.05,
+      "lng": 38.4667,
+      "population": 300100,
+      "rank": 9
+    },
+    {
+      "city": "Dire Dawa",
+      "lat": 9.6,
+      "lng": 41.8667,
+      "population": 277000,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Addis Ababa",
+      "city_b": "Nazrēt",
+      "distance_km": 79.6,
+      "gravity": 1.0,
+      "pop_a": 5704000,
+      "pop_b": 324000,
+      "lat_a": 9.03,
+      "lng_a": 38.74,
+      "lat_b": 8.5414,
+      "lng_b": 39.2689
+    },
+    {
+      "city_a": "Shashemenē",
+      "city_b": "Āwasa",
+      "distance_km": 22.2,
+      "gravity": 0.8459,
+      "pop_a": 407000,
+      "pop_b": 300100,
+      "lat_a": 7.2,
+      "lng_a": 38.6,
+      "lat_b": 7.05,
+      "lng_b": 38.4667
+    },
+    {
+      "city_a": "Addis Ababa",
+      "city_b": "Shashemenē",
+      "distance_km": 204.1,
+      "gravity": 0.1906,
+      "pop_a": 5704000,
+      "pop_b": 407000,
+      "lat_a": 9.03,
+      "lng_a": 38.74,
+      "lat_b": 7.2,
+      "lng_b": 38.6
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 3,
+    "strongest_pair": "Addis Ababa → Nazrēt",
+    "generated_at": "2026-03-12"
+  }
+}

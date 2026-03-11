@@ -1,0 +1,107 @@
+{
+  "country": "Philippines",
+  "cities": [
+    {
+      "city": "Manila",
+      "lat": 14.5958,
+      "lng": 120.9772,
+      "population": 24922000,
+      "rank": 1
+    },
+    {
+      "city": "Quezon City",
+      "lat": 14.65,
+      "lng": 121.0475,
+      "population": 2960048,
+      "rank": 2
+    },
+    {
+      "city": "Zamboanga City",
+      "lat": 6.9042,
+      "lng": 122.0761,
+      "population": 2100000,
+      "rank": 3
+    },
+    {
+      "city": "Davao",
+      "lat": 7.07,
+      "lng": 125.6,
+      "population": 1910167,
+      "rank": 4
+    },
+    {
+      "city": "Caloocan City",
+      "lat": 14.65,
+      "lng": 120.97,
+      "population": 1661584,
+      "rank": 5
+    },
+    {
+      "city": "Canagatan",
+      "lat": 18.0,
+      "lng": 121.8,
+      "population": 1273219,
+      "rank": 6
+    },
+    {
+      "city": "Cebu City",
+      "lat": 10.32,
+      "lng": 123.75,
+      "population": 964169,
+      "rank": 7
+    },
+    {
+      "city": "Masbate",
+      "lat": 12.27,
+      "lng": 123.58,
+      "population": 908920,
+      "rank": 8
+    },
+    {
+      "city": "Antipolo",
+      "lat": 14.5842,
+      "lng": 121.1763,
+      "population": 887399,
+      "rank": 9
+    },
+    {
+      "city": "Taguig City",
+      "lat": 14.52,
+      "lng": 121.05,
+      "population": 886722,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Manila",
+      "city_b": "Caloocan City",
+      "distance_km": 6.1,
+      "gravity": 1.0,
+      "pop_a": 24922000,
+      "pop_b": 1661584,
+      "lat_a": 14.5958,
+      "lng_a": 120.9772,
+      "lat_b": 14.65,
+      "lng_b": 120.97
+    },
+    {
+      "city_a": "Manila",
+      "city_b": "Quezon City",
+      "distance_km": 9.7,
+      "gravity": 0.7032,
+      "pop_a": 24922000,
+      "pop_b": 2960048,
+      "lat_a": 14.5958,
+      "lng_a": 120.9772,
+      "lat_b": 14.65,
+      "lng_b": 121.0475
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 2,
+    "strongest_pair": "Manila → Caloocan City",
+    "generated_at": "2026-03-12"
+  }
+}

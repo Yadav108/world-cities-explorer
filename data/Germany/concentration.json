@@ -1,0 +1,64 @@
+{
+  "country": "Germany",
+  "total_cities": 1758,
+  "total_population": 68218046,
+  "primacy_index": 0.0686,
+  "confidence": "high",
+  "confidence_note": "",
+  "largest_city": {
+    "city": "Berlin",
+    "population": 4679500,
+    "share_pct": 6.9
+  },
+  "top5": [
+    {
+      "rank": 1,
+      "city": "Berlin",
+      "population": 4679500,
+      "share_pct": 6.9
+    },
+    {
+      "rank": 2,
+      "city": "Stuttgart",
+      "population": 2787724,
+      "share_pct": 4.1
+    },
+    {
+      "rank": 3,
+      "city": "Munich",
+      "population": 2606021,
+      "share_pct": 3.8
+    },
+    {
+      "rank": 4,
+      "city": "Hamburg",
+      "population": 2496600,
+      "share_pct": 3.7
+    },
+    {
+      "rank": 5,
+      "city": "Cologne",
+      "population": 1087353,
+      "share_pct": 1.6
+    }
+  ],
+  "top5_combined_share": 20.1,
+  "narration": {
+    "concentration": {
+      "headline": "Highly distributed urban network",
+      "body": "No single city overwhelms Germany's urban landscape. Berlin holds 6.9% of tracked urban population across 1758 cities — characteristic of federal or historically polycentric countries with multiple strong economic centers.",
+      "comparison": "Similar to: United States, Germany, Switzerland",
+      "contrast": "Unlike: France, Thailand, Argentina",
+      "pattern": "polycentric",
+      "insight_confidence": "high"
+    },
+    "gravity": {
+      "headline": "Dense gravitational cluster — Cologne & Düsseldorf",
+      "body": "The strongest gravitational pull exists between Cologne and Düsseldorf (34 km apart, combined population 1,718,570). Cities form a tight gravitational cluster with top pairs averaging 69 km apart. This dense sub-regional network often functions as a single megalopolitan economy.",
+      "top_pair": "Cologne → Düsseldorf",
+      "network_type": "clustered",
+      "avg_distance_top5": 68.8
+    },
+    "synthesis": "Germany presents a classic polycentric structure: no primate city, with Berlin holding just 6.9% of tracked urban population. Gravity is strongest within a tight sub-regional cluster (Cologne → Düsseldorf, 69 km average separation) rather than radiating from a single capital — typical of federal economies with distributed industrial heritage."
+  }
+}

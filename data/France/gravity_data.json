@@ -1,0 +1,203 @@
+{
+  "country": "France",
+  "cities": [
+    {
+      "city": "Paris",
+      "lat": 48.8567,
+      "lng": 2.3522,
+      "population": 11060000,
+      "rank": 1
+    },
+    {
+      "city": "Bordeaux",
+      "lat": 44.84,
+      "lng": -0.58,
+      "population": 994920,
+      "rank": 2
+    },
+    {
+      "city": "Marseille",
+      "lat": 43.2964,
+      "lng": 5.37,
+      "population": 877215,
+      "rank": 3
+    },
+    {
+      "city": "Lyon",
+      "lat": 45.76,
+      "lng": 4.84,
+      "population": 520774,
+      "rank": 4
+    },
+    {
+      "city": "Toulouse",
+      "lat": 43.6045,
+      "lng": 1.444,
+      "population": 511684,
+      "rank": 5
+    },
+    {
+      "city": "Nice",
+      "lat": 43.7034,
+      "lng": 7.2663,
+      "population": 353701,
+      "rank": 6
+    },
+    {
+      "city": "Nantes",
+      "lat": 47.2181,
+      "lng": -1.5528,
+      "population": 325070,
+      "rank": 7
+    },
+    {
+      "city": "Montpellier",
+      "lat": 43.6119,
+      "lng": 3.8772,
+      "population": 307101,
+      "rank": 8
+    },
+    {
+      "city": "Strasbourg",
+      "lat": 48.5833,
+      "lng": 7.7458,
+      "population": 291709,
+      "rank": 9
+    },
+    {
+      "city": "Lille",
+      "lat": 50.6278,
+      "lng": 3.0583,
+      "population": 238695,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Paris",
+      "city_b": "Lille",
+      "distance_km": 203.4,
+      "gravity": 1.0,
+      "pop_a": 11060000,
+      "pop_b": 238695,
+      "lat_a": 48.8567,
+      "lng_a": 2.3522,
+      "lat_b": 50.6278,
+      "lng_b": 3.0583
+    },
+    {
+      "city_a": "Paris",
+      "city_b": "Bordeaux",
+      "distance_km": 499.1,
+      "gravity": 0.6914,
+      "pop_a": 11060000,
+      "pop_b": 994920,
+      "lat_a": 48.8567,
+      "lng_a": 2.3522,
+      "lat_b": 44.84,
+      "lng_b": -0.58
+    },
+    {
+      "city_a": "Paris",
+      "city_b": "Lyon",
+      "distance_km": 392.1,
+      "gravity": 0.5863,
+      "pop_a": 11060000,
+      "pop_b": 520774,
+      "lat_a": 48.8567,
+      "lng_a": 2.3522,
+      "lat_b": 45.76,
+      "lng_b": 4.84
+    },
+    {
+      "city_a": "Paris",
+      "city_b": "Nantes",
+      "distance_km": 342.7,
+      "gravity": 0.4786,
+      "pop_a": 11060000,
+      "pop_b": 325070,
+      "lat_a": 48.8567,
+      "lng_a": 2.3522,
+      "lat_b": 47.2181,
+      "lng_b": -1.5528
+    },
+    {
+      "city_a": "Paris",
+      "city_b": "Marseille",
+      "distance_km": 660.5,
+      "gravity": 0.3472,
+      "pop_a": 11060000,
+      "pop_b": 877215,
+      "lat_a": 48.8567,
+      "lng_a": 2.3522,
+      "lat_b": 43.2964,
+      "lng_b": 5.37
+    },
+    {
+      "city_a": "Paris",
+      "city_b": "Strasbourg",
+      "distance_km": 396.8,
+      "gravity": 0.3198,
+      "pop_a": 11060000,
+      "pop_b": 291709,
+      "lat_a": 48.8567,
+      "lng_a": 2.3522,
+      "lat_b": 48.5833,
+      "lng_b": 7.7458
+    },
+    {
+      "city_a": "Marseille",
+      "city_b": "Montpellier",
+      "distance_km": 125.5,
+      "gravity": 0.2666,
+      "pop_a": 877215,
+      "pop_b": 307101,
+      "lat_a": 43.2964,
+      "lng_a": 5.37,
+      "lat_b": 43.6119,
+      "lng_b": 3.8772
+    },
+    {
+      "city_a": "Paris",
+      "city_b": "Toulouse",
+      "distance_km": 588.2,
+      "gravity": 0.2549,
+      "pop_a": 11060000,
+      "pop_b": 511684,
+      "lat_a": 48.8567,
+      "lng_a": 2.3522,
+      "lat_b": 43.6045,
+      "lng_b": 1.444
+    },
+    {
+      "city_a": "Marseille",
+      "city_b": "Nice",
+      "distance_km": 159.5,
+      "gravity": 0.1895,
+      "pop_a": 877215,
+      "pop_b": 353701,
+      "lat_a": 43.2964,
+      "lng_a": 5.37,
+      "lat_b": 43.7034,
+      "lng_b": 7.2663
+    },
+    {
+      "city_a": "Bordeaux",
+      "city_b": "Toulouse",
+      "distance_km": 211.9,
+      "gravity": 0.1762,
+      "pop_a": 994920,
+      "pop_b": 511684,
+      "lat_a": 44.84,
+      "lng_a": -0.58,
+      "lat_b": 43.6045,
+      "lng_b": 1.444
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 10,
+    "strongest_pair": "Paris → Lille",
+    "generated_at": "2026-03-12"
+  }
+}

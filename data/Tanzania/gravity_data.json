@@ -1,0 +1,95 @@
+{
+  "country": "Tanzania",
+  "cities": [
+    {
+      "city": "Dar es Salaam",
+      "lat": -6.8161,
+      "lng": 39.2803,
+      "population": 7962000,
+      "rank": 1
+    },
+    {
+      "city": "Mwanza",
+      "lat": -2.5167,
+      "lng": 32.9,
+      "population": 1104521,
+      "rank": 2
+    },
+    {
+      "city": "Ubungo",
+      "lat": -6.7889,
+      "lng": 39.2056,
+      "population": 1086912,
+      "rank": 3
+    },
+    {
+      "city": "Dodoma",
+      "lat": -6.1731,
+      "lng": 35.7419,
+      "population": 765179,
+      "rank": 4
+    },
+    {
+      "city": "Arusha",
+      "lat": -3.3667,
+      "lng": 36.6833,
+      "population": 617631,
+      "rank": 5
+    },
+    {
+      "city": "Mbeya",
+      "lat": -8.9,
+      "lng": 33.45,
+      "population": 541603,
+      "rank": 6
+    },
+    {
+      "city": "Morogoro",
+      "lat": -6.8242,
+      "lng": 37.6633,
+      "population": 471409,
+      "rank": 7
+    },
+    {
+      "city": "Kahama",
+      "lat": -3.8375,
+      "lng": 32.6,
+      "population": 453654,
+      "rank": 8
+    },
+    {
+      "city": "Tanga",
+      "lat": -5.0742,
+      "lng": 39.0992,
+      "population": 393429,
+      "rank": 9
+    },
+    {
+      "city": "Uvinza",
+      "lat": -5.1069,
+      "lng": 30.3839,
+      "population": 387442,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Dar es Salaam",
+      "city_b": "Ubungo",
+      "distance_km": 8.8,
+      "gravity": 1.0,
+      "pop_a": 7962000,
+      "pop_b": 1086912,
+      "lat_a": -6.8161,
+      "lng_a": 39.2803,
+      "lat_b": -6.7889,
+      "lng_b": 39.2056
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 1,
+    "strongest_pair": "Dar es Salaam → Ubungo",
+    "generated_at": "2026-03-12"
+  }
+}

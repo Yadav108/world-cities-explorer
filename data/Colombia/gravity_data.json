@@ -1,0 +1,95 @@
+{
+  "country": "Colombia",
+  "cities": [
+    {
+      "city": "Bogotá",
+      "lat": 4.7111,
+      "lng": -74.0722,
+      "population": 8034649,
+      "rank": 1
+    },
+    {
+      "city": "Cali",
+      "lat": 3.4206,
+      "lng": -76.5222,
+      "population": 2838333,
+      "rank": 2
+    },
+    {
+      "city": "Medellín",
+      "lat": 6.2308,
+      "lng": -75.5906,
+      "population": 2529403,
+      "rank": 3
+    },
+    {
+      "city": "Barranquilla",
+      "lat": 10.9833,
+      "lng": -74.8019,
+      "population": 1326588,
+      "rank": 4
+    },
+    {
+      "city": "Cartagena",
+      "lat": 10.4,
+      "lng": -75.5,
+      "population": 914552,
+      "rank": 5
+    },
+    {
+      "city": "Bucaramanga",
+      "lat": 7.1333,
+      "lng": -73.0,
+      "population": 893040,
+      "rank": 6
+    },
+    {
+      "city": "Cúcuta",
+      "lat": 7.8942,
+      "lng": -72.5039,
+      "population": 806378,
+      "rank": 7
+    },
+    {
+      "city": "Palermo",
+      "lat": 2.8917,
+      "lng": -75.4375,
+      "population": 800000,
+      "rank": 8
+    },
+    {
+      "city": "Soledad",
+      "lat": 10.9167,
+      "lng": -74.75,
+      "population": 676014,
+      "rank": 9
+    },
+    {
+      "city": "Villavicencio",
+      "lat": 4.15,
+      "lng": -73.6333,
+      "population": 664148,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Barranquilla",
+      "city_b": "Soledad",
+      "distance_km": 9.3,
+      "gravity": 1.0,
+      "pop_a": 1326588,
+      "pop_b": 676014,
+      "lat_a": 10.9833,
+      "lng_a": -74.8019,
+      "lat_b": 10.9167,
+      "lng_b": -74.75
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 1,
+    "strongest_pair": "Barranquilla → Soledad",
+    "generated_at": "2026-03-12"
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "country": "Pakistan",
+  "cities": [
+    {
+      "city": "Karachi",
+      "lat": 24.86,
+      "lng": 67.01,
+      "population": 20249000,
+      "rank": 1
+    },
+    {
+      "city": "Lahore",
+      "lat": 31.5497,
+      "lng": 74.3436,
+      "population": 12306000,
+      "rank": 2
+    },
+    {
+      "city": "Kotla Qasim Khan",
+      "lat": 32.5833,
+      "lng": 73.75,
+      "population": 3219375,
+      "rank": 3
+    },
+    {
+      "city": "Faisalabad",
+      "lat": 31.4167,
+      "lng": 73.0911,
+      "population": 3203846,
+      "rank": 4
+    },
+    {
+      "city": "Rawalpindi",
+      "lat": 33.6,
+      "lng": 73.0333,
+      "population": 2098231,
+      "rank": 5
+    },
+    {
+      "city": "Gujranwala",
+      "lat": 32.1567,
+      "lng": 74.19,
+      "population": 2027001,
+      "rank": 6
+    },
+    {
+      "city": "Peshawar",
+      "lat": 34.0144,
+      "lng": 71.5675,
+      "population": 1970042,
+      "rank": 7
+    },
+    {
+      "city": "Multan",
+      "lat": 30.1978,
+      "lng": 71.4697,
+      "population": 1871843,
+      "rank": 8
+    },
+    {
+      "city": "Hyderabad City",
+      "lat": 25.3792,
+      "lng": 68.3683,
+      "population": 1732693,
+      "rank": 9
+    },
+    {
+      "city": "Islamabad",
+      "lat": 33.6931,
+      "lng": 73.0639,
+      "population": 1014825,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Rawalpindi",
+      "city_b": "Islamabad",
+      "distance_km": 10.7,
+      "gravity": 1.0,
+      "pop_a": 2098231,
+      "pop_b": 1014825,
+      "lat_a": 33.6,
+      "lng_a": 73.0333,
+      "lat_b": 33.6931,
+      "lng_b": 73.0639
+    },
+    {
+      "city_a": "Lahore",
+      "city_b": "Gujranwala",
+      "distance_km": 69.0,
+      "gravity": 0.2831,
+      "pop_a": 12306000,
+      "pop_b": 2027001,
+      "lat_a": 31.5497,
+      "lng_a": 74.3436,
+      "lat_b": 32.1567,
+      "lng_b": 74.19
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 2,
+    "strongest_pair": "Rawalpindi → Islamabad",
+    "generated_at": "2026-03-12"
+  }
+}

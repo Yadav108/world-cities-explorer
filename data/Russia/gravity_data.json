@@ -1,0 +1,131 @@
+{
+  "country": "Russia",
+  "cities": [
+    {
+      "city": "Moscow",
+      "lat": 55.7506,
+      "lng": 37.6175,
+      "population": 17332000,
+      "rank": 1
+    },
+    {
+      "city": "Saint Petersburg",
+      "lat": 59.9375,
+      "lng": 30.3086,
+      "population": 5597763,
+      "rank": 2
+    },
+    {
+      "city": "Novosibirsk",
+      "lat": 55.05,
+      "lng": 82.95,
+      "population": 1633851,
+      "rank": 3
+    },
+    {
+      "city": "Yekaterinburg",
+      "lat": 56.8356,
+      "lng": 60.6128,
+      "population": 1468833,
+      "rank": 4
+    },
+    {
+      "city": "Kazan",
+      "lat": 55.7964,
+      "lng": 49.1089,
+      "population": 1259173,
+      "rank": 5
+    },
+    {
+      "city": "Nizhniy Novgorod",
+      "lat": 56.3269,
+      "lng": 44.0075,
+      "population": 1204985,
+      "rank": 6
+    },
+    {
+      "city": "Chelyabinsk",
+      "lat": 55.1547,
+      "lng": 61.3758,
+      "population": 1177058,
+      "rank": 7
+    },
+    {
+      "city": "Samara",
+      "lat": 53.2028,
+      "lng": 50.1408,
+      "population": 1156659,
+      "rank": 8
+    },
+    {
+      "city": "Krasnodar",
+      "lat": 45.0333,
+      "lng": 38.9667,
+      "population": 1138654,
+      "rank": 9
+    },
+    {
+      "city": "Rostov",
+      "lat": 47.2225,
+      "lng": 39.71,
+      "population": 1135968,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Moscow",
+      "city_b": "Saint Petersburg",
+      "distance_km": 634.8,
+      "gravity": 1.0,
+      "pop_a": 17332000,
+      "pop_b": 5597763,
+      "lat_a": 55.7506,
+      "lng_a": 37.6175,
+      "lat_b": 59.9375,
+      "lng_b": 30.3086
+    },
+    {
+      "city_a": "Moscow",
+      "city_b": "Nizhniy Novgorod",
+      "distance_km": 401.9,
+      "gravity": 0.5366,
+      "pop_a": 17332000,
+      "pop_b": 1204985,
+      "lat_a": 55.7506,
+      "lng_a": 37.6175,
+      "lat_b": 56.3269,
+      "lng_b": 44.0075
+    },
+    {
+      "city_a": "Yekaterinburg",
+      "city_b": "Chelyabinsk",
+      "distance_km": 192.8,
+      "gravity": 0.1925,
+      "pop_a": 1468833,
+      "pop_b": 1177058,
+      "lat_a": 56.8356,
+      "lng_a": 60.6128,
+      "lat_b": 55.1547,
+      "lng_b": 61.3758
+    },
+    {
+      "city_a": "Moscow",
+      "city_b": "Kazan",
+      "distance_km": 717.9,
+      "gravity": 0.1753,
+      "pop_a": 17332000,
+      "pop_b": 1259173,
+      "lat_a": 55.7506,
+      "lng_a": 37.6175,
+      "lat_b": 55.7964,
+      "lng_b": 49.1089
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 4,
+    "strongest_pair": "Moscow → Saint Petersburg",
+    "generated_at": "2026-03-12"
+  }
+}

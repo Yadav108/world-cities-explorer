@@ -1,0 +1,64 @@
+{
+  "country": "Spain",
+  "total_cities": 783,
+  "total_population": 46184695,
+  "primacy_index": 0.1345,
+  "confidence": "high",
+  "confidence_note": "",
+  "largest_city": {
+    "city": "Madrid",
+    "population": 6211000,
+    "share_pct": 13.4
+  },
+  "top5": [
+    {
+      "rank": 1,
+      "city": "Madrid",
+      "population": 6211000,
+      "share_pct": 13.4
+    },
+    {
+      "rank": 2,
+      "city": "Barcelona",
+      "population": 4800000,
+      "share_pct": 10.4
+    },
+    {
+      "rank": 3,
+      "city": "Valencia",
+      "population": 1595000,
+      "share_pct": 3.5
+    },
+    {
+      "rank": 4,
+      "city": "Sevilla",
+      "population": 1100000,
+      "share_pct": 2.4
+    },
+    {
+      "rank": 5,
+      "city": "Málaga",
+      "population": 967250,
+      "share_pct": 2.1
+    }
+  ],
+  "top5_combined_share": 31.8,
+  "narration": {
+    "concentration": {
+      "headline": "Highly distributed urban network",
+      "body": "No single city overwhelms Spain's urban landscape. Madrid holds 13.4% of tracked urban population across 783 cities — characteristic of federal or historically polycentric countries with multiple strong economic centers.",
+      "comparison": "Similar to: United States, Germany, Switzerland",
+      "contrast": "Unlike: France, Thailand, Argentina",
+      "pattern": "polycentric",
+      "insight_confidence": "high"
+    },
+    "gravity": {
+      "headline": "Linear city corridor — Madrid to Barcelona",
+      "body": "The strongest gravitational pull exists between Madrid and Barcelona (506 km apart, combined population 11,011,000). Cities are connected along a corridor averaging 318 km between top pairs — typical of coastal, river valley, or industrial belt development.",
+      "top_pair": "Madrid → Barcelona",
+      "network_type": "linear",
+      "avg_distance_top5": 318.3
+    },
+    "synthesis": "Spain shows a distributed urban system with no dominant primate city (Madrid at 13.4%), with gravitational connections forming a corridor (Madrid → Barcelona, avg 318 km). Urban power is spread across a geographic axis rather than concentrated at a single hub."
+  }
+}

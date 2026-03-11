@@ -1,0 +1,64 @@
+{
+  "country": "Ethiopia",
+  "total_cities": 142,
+  "total_population": 14920664,
+  "primacy_index": 0.3823,
+  "confidence": "high",
+  "confidence_note": "",
+  "largest_city": {
+    "city": "Addis Ababa",
+    "population": 5704000,
+    "share_pct": 38.2
+  },
+  "top5": [
+    {
+      "rank": 1,
+      "city": "Addis Ababa",
+      "population": 5704000,
+      "share_pct": 38.2
+    },
+    {
+      "rank": 2,
+      "city": "K’ebrī Beyah",
+      "population": 543272,
+      "share_pct": 3.6
+    },
+    {
+      "rank": 3,
+      "city": "K’ebrī Dehar",
+      "population": 499500,
+      "share_pct": 3.3
+    },
+    {
+      "rank": 4,
+      "city": "Warder",
+      "population": 450400,
+      "share_pct": 3.0
+    },
+    {
+      "rank": 5,
+      "city": "Shashemenē",
+      "population": 407000,
+      "share_pct": 2.7
+    }
+  ],
+  "top5_combined_share": 50.8,
+  "narration": {
+    "concentration": {
+      "headline": "Primate city dominance — one city overwhelms all others",
+      "body": "Addis Ababa accounts for a striking 38.2% of tracked urban population across 142 cities in Ethiopia. This level of primacy (38%) is characteristic of rapidly urbanising or historically centralised economies where one city concentrates political, economic and cultural power.",
+      "comparison": "Similar to: Thailand, Argentina, Peru",
+      "contrast": "Unlike: Germany, United States (distributed)",
+      "pattern": "monocentric",
+      "insight_confidence": "high"
+    },
+    "gravity": {
+      "headline": "Dense gravitational cluster — Addis Ababa & Nazrēt",
+      "body": "The strongest gravitational pull exists between Addis Ababa and Nazrēt (80 km apart, combined population 6,028,000). Cities form a tight gravitational cluster with top pairs averaging 102 km apart. This dense sub-regional network often functions as a single megalopolitan economy.",
+      "top_pair": "Addis Ababa → Nazrēt",
+      "network_type": "clustered",
+      "avg_distance_top5": 102.0
+    },
+    "synthesis": "Ethiopia exhibits strong primate city dominance: Addis Ababa holds 38.2% of tracked urban population — a striking concentration. The gravity network confirms this: connections involving Addis Ababa dominate, with Addis Ababa → Nazrēt among secondary links. This pattern is characteristic of historically centralised or rapidly urbanising economies."
+  }
+}

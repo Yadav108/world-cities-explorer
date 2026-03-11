@@ -1,0 +1,107 @@
+{
+  "country": "Vietnam",
+  "cities": [
+    {
+      "city": "Ho Chi Minh City",
+      "lat": 10.7756,
+      "lng": 106.7019,
+      "population": 15136000,
+      "rank": 1
+    },
+    {
+      "city": "Hanoi",
+      "lat": 21.0,
+      "lng": 105.85,
+      "population": 8587100,
+      "rank": 2
+    },
+    {
+      "city": "Haiphong",
+      "lat": 20.8651,
+      "lng": 106.6838,
+      "population": 2310280,
+      "rank": 3
+    },
+    {
+      "city": "Biên Hòa",
+      "lat": 10.95,
+      "lng": 106.8167,
+      "population": 1575000,
+      "rank": 4
+    },
+    {
+      "city": "Cần Thơ",
+      "lat": 10.0333,
+      "lng": 105.7833,
+      "population": 1237300,
+      "rank": 5
+    },
+    {
+      "city": "Ninh Bình",
+      "lat": 20.25,
+      "lng": 105.8333,
+      "population": 1106913,
+      "rank": 6
+    },
+    {
+      "city": "Thủ Đức",
+      "lat": 10.8266,
+      "lng": 106.7609,
+      "population": 1013795,
+      "rank": 7
+    },
+    {
+      "city": "Thanh Hóa",
+      "lat": 19.8075,
+      "lng": 105.7764,
+      "population": 850000,
+      "rank": 8
+    },
+    {
+      "city": "Vinh",
+      "lat": 18.6667,
+      "lng": 105.6667,
+      "population": 790000,
+      "rank": 9
+    },
+    {
+      "city": "Huế",
+      "lat": 16.4619,
+      "lng": 107.5955,
+      "population": 652572,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Ho Chi Minh City",
+      "city_b": "Thủ Đức",
+      "distance_km": 8.6,
+      "gravity": 1.0,
+      "pop_a": 15136000,
+      "pop_b": 1013795,
+      "lat_a": 10.7756,
+      "lng_a": 106.7019,
+      "lat_b": 10.8266,
+      "lng_b": 106.7609
+    },
+    {
+      "city_a": "Ho Chi Minh City",
+      "city_b": "Biên Hòa",
+      "distance_km": 23.1,
+      "gravity": 0.2147,
+      "pop_a": 15136000,
+      "pop_b": 1575000,
+      "lat_a": 10.7756,
+      "lng_a": 106.7019,
+      "lat_b": 10.95,
+      "lng_b": 106.8167
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 2,
+    "strongest_pair": "Ho Chi Minh City → Thủ Đức",
+    "generated_at": "2026-03-12"
+  }
+}

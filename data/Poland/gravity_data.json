@@ -1,0 +1,179 @@
+{
+  "country": "Poland",
+  "cities": [
+    {
+      "city": "Warsaw",
+      "lat": 52.23,
+      "lng": 21.0111,
+      "population": 2028000,
+      "rank": 1
+    },
+    {
+      "city": "Kraków",
+      "lat": 50.0614,
+      "lng": 19.9372,
+      "population": 804237,
+      "rank": 2
+    },
+    {
+      "city": "Gdańsk",
+      "lat": 54.3475,
+      "lng": 18.6453,
+      "population": 749786,
+      "rank": 3
+    },
+    {
+      "city": "Wrocław",
+      "lat": 51.11,
+      "lng": 17.0325,
+      "population": 672929,
+      "rank": 4
+    },
+    {
+      "city": "Łódź",
+      "lat": 51.7769,
+      "lng": 19.4547,
+      "population": 670642,
+      "rank": 5
+    },
+    {
+      "city": "Poznań",
+      "lat": 52.4083,
+      "lng": 16.9336,
+      "population": 546859,
+      "rank": 6
+    },
+    {
+      "city": "Szczecin",
+      "lat": 53.4325,
+      "lng": 14.5481,
+      "population": 396168,
+      "rank": 7
+    },
+    {
+      "city": "Bydgoszcz",
+      "lat": 53.1219,
+      "lng": 18.0003,
+      "population": 337666,
+      "rank": 8
+    },
+    {
+      "city": "Lublin",
+      "lat": 51.25,
+      "lng": 22.5667,
+      "population": 334681,
+      "rank": 9
+    },
+    {
+      "city": "Białystok",
+      "lat": 53.1353,
+      "lng": 23.1456,
+      "population": 294242,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Warsaw",
+      "city_b": "Łódź",
+      "distance_km": 117.8,
+      "gravity": 1.0,
+      "pop_a": 2028000,
+      "pop_b": 670642,
+      "lat_a": 52.23,
+      "lng_a": 21.0111,
+      "lat_b": 51.7769,
+      "lng_b": 19.4547
+    },
+    {
+      "city_a": "Warsaw",
+      "city_b": "Lublin",
+      "distance_km": 152.8,
+      "gravity": 0.2943,
+      "pop_a": 2028000,
+      "pop_b": 334681,
+      "lat_a": 52.23,
+      "lng_a": 21.0111,
+      "lat_b": 51.25,
+      "lng_b": 22.5667
+    },
+    {
+      "city_a": "Warsaw",
+      "city_b": "Kraków",
+      "distance_km": 252.5,
+      "gravity": 0.2585,
+      "pop_a": 2028000,
+      "pop_b": 804237,
+      "lat_a": 52.23,
+      "lng_a": 21.0111,
+      "lat_b": 50.0614,
+      "lng_b": 19.9372
+    },
+    {
+      "city_a": "Warsaw",
+      "city_b": "Białystok",
+      "distance_km": 175.6,
+      "gravity": 0.1947,
+      "pop_a": 2028000,
+      "pop_b": 294242,
+      "lat_a": 52.23,
+      "lng_a": 21.0111,
+      "lat_b": 53.1353,
+      "lng_b": 23.1456
+    },
+    {
+      "city_a": "Warsaw",
+      "city_b": "Gdańsk",
+      "distance_km": 283.1,
+      "gravity": 0.1908,
+      "pop_a": 2028000,
+      "pop_b": 749786,
+      "lat_a": 52.23,
+      "lng_a": 21.0111,
+      "lat_b": 54.3475,
+      "lng_b": 18.6453
+    },
+    {
+      "city_a": "Wrocław",
+      "city_b": "Poznań",
+      "distance_km": 144.5,
+      "gravity": 0.1769,
+      "pop_a": 672929,
+      "pop_b": 546859,
+      "lat_a": 51.11,
+      "lng_a": 17.0325,
+      "lat_b": 52.4083,
+      "lng_b": 16.9336
+    },
+    {
+      "city_a": "Poznań",
+      "city_b": "Bydgoszcz",
+      "distance_km": 107.0,
+      "gravity": 0.1617,
+      "pop_a": 546859,
+      "pop_b": 337666,
+      "lat_a": 52.4083,
+      "lng_a": 16.9336,
+      "lat_b": 53.1219,
+      "lng_b": 18.0003
+    },
+    {
+      "city_a": "Warsaw",
+      "city_b": "Wrocław",
+      "distance_km": 301.3,
+      "gravity": 0.1505,
+      "pop_a": 2028000,
+      "pop_b": 672929,
+      "lat_a": 52.23,
+      "lng_a": 21.0111,
+      "lat_b": 51.11,
+      "lng_b": 17.0325
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 8,
+    "strongest_pair": "Warsaw → Łódź",
+    "generated_at": "2026-03-12"
+  }
+}

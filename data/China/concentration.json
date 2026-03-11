@@ -1,0 +1,64 @@
+{
+  "country": "China",
+  "total_cities": 1714,
+  "total_population": 1360845815,
+  "primacy_index": 0.0198,
+  "confidence": "high",
+  "confidence_note": "",
+  "largest_city": {
+    "city": "Guangzhou",
+    "population": 26940000,
+    "share_pct": 2.0
+  },
+  "top5": [
+    {
+      "rank": 1,
+      "city": "Guangzhou",
+      "population": 26940000,
+      "share_pct": 2.0
+    },
+    {
+      "rank": 2,
+      "city": "Shanghai",
+      "population": 24073000,
+      "share_pct": 1.8
+    },
+    {
+      "rank": 3,
+      "city": "Beijing",
+      "population": 18522000,
+      "share_pct": 1.4
+    },
+    {
+      "rank": 4,
+      "city": "Shenzhen",
+      "population": 17619000,
+      "share_pct": 1.3
+    },
+    {
+      "rank": 5,
+      "city": "Chengdu",
+      "population": 14645000,
+      "share_pct": 1.1
+    }
+  ],
+  "top5_combined_share": 7.6,
+  "narration": {
+    "concentration": {
+      "headline": "Highly distributed urban network",
+      "body": "No single city overwhelms China's urban landscape. Guangzhou holds 2.0% of tracked urban population across 1714 cities — characteristic of federal or historically polycentric countries with multiple strong economic centers.",
+      "comparison": "Similar to: United States, Germany, Switzerland",
+      "contrast": "Unlike: France, Thailand, Argentina",
+      "pattern": "polycentric",
+      "insight_confidence": "high"
+    },
+    "gravity": {
+      "headline": "Dense gravitational cluster — Guangzhou & Dongguan",
+      "body": "The strongest gravitational pull exists between Guangzhou and Dongguan (52 km apart, combined population 37,586,000). Cities form a tight gravitational cluster with top pairs averaging 73 km apart. This dense sub-regional network often functions as a single megalopolitan economy.",
+      "top_pair": "Guangzhou → Dongguan",
+      "network_type": "clustered",
+      "avg_distance_top5": 72.9
+    },
+    "synthesis": "China presents a classic polycentric structure: no primate city, with Guangzhou holding just 2.0% of tracked urban population. Gravity is strongest within a tight sub-regional cluster (Guangzhou → Dongguan, 73 km average separation) rather than radiating from a single capital — typical of federal economies with distributed industrial heritage."
+  }
+}

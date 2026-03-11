@@ -1,0 +1,64 @@
+{
+  "country": "Russia",
+  "total_cities": 1053,
+  "total_population": 101867797,
+  "primacy_index": 0.1701,
+  "confidence": "high",
+  "confidence_note": "",
+  "largest_city": {
+    "city": "Moscow",
+    "population": 17332000,
+    "share_pct": 17.0
+  },
+  "top5": [
+    {
+      "rank": 1,
+      "city": "Moscow",
+      "population": 17332000,
+      "share_pct": 17.0
+    },
+    {
+      "rank": 2,
+      "city": "Saint Petersburg",
+      "population": 5597763,
+      "share_pct": 5.5
+    },
+    {
+      "rank": 3,
+      "city": "Novosibirsk",
+      "population": 1633851,
+      "share_pct": 1.6
+    },
+    {
+      "rank": 4,
+      "city": "Yekaterinburg",
+      "population": 1468833,
+      "share_pct": 1.4
+    },
+    {
+      "rank": 5,
+      "city": "Kazan",
+      "population": 1259173,
+      "share_pct": 1.2
+    }
+  ],
+  "top5_combined_share": 26.7,
+  "narration": {
+    "concentration": {
+      "headline": "Moderately concentrated — one leading city",
+      "body": "Moscow leads Russia's urban system with 17.0% of tracked urban population across 1053 cities — significant but not overwhelming. Secondary cities retain meaningful economic weight alongside the capital.",
+      "comparison": "Similar to: United Kingdom, Italy, Canada",
+      "contrast": "Unlike: USA, Japan (more distributed) or Thailand, Argentina (more dominant)",
+      "pattern": "transitional",
+      "insight_confidence": "high"
+    },
+    "gravity": {
+      "headline": "Long-distance gravitational poles — Moscow & Saint Petersburg",
+      "body": "The strongest gravitational pull exists between Moscow and Saint Petersburg (635 km apart, combined population 22,929,763). Long-distance connections dominate, with top pairs averaging 487 km apart — characteristic of large countries with geographically separated economic poles.",
+      "top_pair": "Moscow → Saint Petersburg",
+      "network_type": "dispersed",
+      "avg_distance_top5": 486.8
+    },
+    "synthesis": "Russia shows moderate urban concentration: Moscow holds 17.0% of tracked population — significant but not overwhelming. The gravity network (Moscow → Saint Petersburg, avg 487 km) shows secondary cities maintaining real economic weight alongside the leading city."
+  }
+}

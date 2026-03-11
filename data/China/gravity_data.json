@@ -1,0 +1,119 @@
+{
+  "country": "China",
+  "cities": [
+    {
+      "city": "Guangzhou",
+      "lat": 23.13,
+      "lng": 113.26,
+      "population": 26940000,
+      "rank": 1
+    },
+    {
+      "city": "Shanghai",
+      "lat": 31.2286,
+      "lng": 121.4747,
+      "population": 24073000,
+      "rank": 2
+    },
+    {
+      "city": "Beijing",
+      "lat": 39.9067,
+      "lng": 116.3975,
+      "population": 18522000,
+      "rank": 3
+    },
+    {
+      "city": "Shenzhen",
+      "lat": 22.5415,
+      "lng": 114.0596,
+      "population": 17619000,
+      "rank": 4
+    },
+    {
+      "city": "Chengdu",
+      "lat": 30.66,
+      "lng": 104.0633,
+      "population": 14645000,
+      "rank": 5
+    },
+    {
+      "city": "Xi’an",
+      "lat": 34.2611,
+      "lng": 108.9422,
+      "population": 12328000,
+      "rank": 6
+    },
+    {
+      "city": "Chongqing",
+      "lat": 29.5637,
+      "lng": 106.5504,
+      "population": 12135000,
+      "rank": 7
+    },
+    {
+      "city": "Linyi",
+      "lat": 35.1038,
+      "lng": 118.3564,
+      "population": 10820000,
+      "rank": 8
+    },
+    {
+      "city": "Dongguan",
+      "lat": 23.021,
+      "lng": 113.752,
+      "population": 10646000,
+      "rank": 9
+    },
+    {
+      "city": "Baoding",
+      "lat": 38.874,
+      "lng": 115.464,
+      "population": 10546831,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Guangzhou",
+      "city_b": "Dongguan",
+      "distance_km": 51.8,
+      "gravity": 1.0,
+      "pop_a": 26940000,
+      "pop_b": 10646000,
+      "lat_a": 23.13,
+      "lng_a": 113.26,
+      "lat_b": 23.021,
+      "lng_b": 113.752
+    },
+    {
+      "city_a": "Shenzhen",
+      "city_b": "Dongguan",
+      "distance_km": 61.9,
+      "gravity": 0.4566,
+      "pop_a": 17619000,
+      "pop_b": 10646000,
+      "lat_a": 22.5415,
+      "lng_a": 114.0596,
+      "lat_b": 23.021,
+      "lng_b": 113.752
+    },
+    {
+      "city_a": "Guangzhou",
+      "city_b": "Shenzhen",
+      "distance_km": 104.9,
+      "gravity": 0.4031,
+      "pop_a": 26940000,
+      "pop_b": 17619000,
+      "lat_a": 23.13,
+      "lng_a": 113.26,
+      "lat_b": 22.5415,
+      "lng_b": 114.0596
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 3,
+    "strongest_pair": "Guangzhou → Dongguan",
+    "generated_at": "2026-03-12"
+  }
+}

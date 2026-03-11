@@ -1,0 +1,203 @@
+{
+  "country": "Germany",
+  "cities": [
+    {
+      "city": "Berlin",
+      "lat": 52.52,
+      "lng": 13.405,
+      "population": 4679500,
+      "rank": 1
+    },
+    {
+      "city": "Stuttgart",
+      "lat": 48.7775,
+      "lng": 9.18,
+      "population": 2787724,
+      "rank": 2
+    },
+    {
+      "city": "Munich",
+      "lat": 48.1375,
+      "lng": 11.575,
+      "population": 2606021,
+      "rank": 3
+    },
+    {
+      "city": "Hamburg",
+      "lat": 53.55,
+      "lng": 10.0,
+      "population": 2496600,
+      "rank": 4
+    },
+    {
+      "city": "Cologne",
+      "lat": 50.9364,
+      "lng": 6.9528,
+      "population": 1087353,
+      "rank": 5
+    },
+    {
+      "city": "Frankfurt",
+      "lat": 50.1106,
+      "lng": 8.6822,
+      "population": 775790,
+      "rank": 6
+    },
+    {
+      "city": "Düsseldorf",
+      "lat": 51.2256,
+      "lng": 6.7767,
+      "population": 631217,
+      "rank": 7
+    },
+    {
+      "city": "Leipzig",
+      "lat": 51.34,
+      "lng": 12.375,
+      "population": 619879,
+      "rank": 8
+    },
+    {
+      "city": "Dortmund",
+      "lat": 51.5139,
+      "lng": 7.4653,
+      "population": 595471,
+      "rank": 9
+    },
+    {
+      "city": "Essen",
+      "lat": 51.4508,
+      "lng": 7.0131,
+      "population": 586608,
+      "rank": 10
+    }
+  ],
+  "pairs": [
+    {
+      "city_a": "Cologne",
+      "city_b": "Düsseldorf",
+      "distance_km": 34.4,
+      "gravity": 1.0,
+      "pop_a": 1087353,
+      "pop_b": 631217,
+      "lat_a": 50.9364,
+      "lng_a": 6.9528,
+      "lat_b": 51.2256,
+      "lng_b": 6.7767
+    },
+    {
+      "city_a": "Düsseldorf",
+      "city_b": "Essen",
+      "distance_km": 29.9,
+      "gravity": 0.7119,
+      "pop_a": 631217,
+      "pop_b": 586608,
+      "lat_a": 51.2256,
+      "lng_a": 6.7767,
+      "lat_b": 51.4508,
+      "lng_b": 7.0131
+    },
+    {
+      "city_a": "Dortmund",
+      "city_b": "Essen",
+      "distance_km": 32.1,
+      "gravity": 0.584,
+      "pop_a": 595471,
+      "pop_b": 586608,
+      "lat_a": 51.5139,
+      "lng_a": 7.4653,
+      "lat_b": 51.4508,
+      "lng_b": 7.0131
+    },
+    {
+      "city_a": "Stuttgart",
+      "city_b": "Munich",
+      "distance_km": 190.4,
+      "gravity": 0.3432,
+      "pop_a": 2787724,
+      "pop_b": 2606021,
+      "lat_a": 48.7775,
+      "lng_a": 9.18,
+      "lat_b": 48.1375,
+      "lng_b": 11.575
+    },
+    {
+      "city_a": "Cologne",
+      "city_b": "Essen",
+      "distance_km": 57.4,
+      "gravity": 0.3319,
+      "pop_a": 1087353,
+      "pop_b": 586608,
+      "lat_a": 50.9364,
+      "lng_a": 6.9528,
+      "lat_b": 51.4508,
+      "lng_b": 7.0131
+    },
+    {
+      "city_a": "Berlin",
+      "city_b": "Hamburg",
+      "distance_km": 254.8,
+      "gravity": 0.3077,
+      "pop_a": 4679500,
+      "pop_b": 2496600,
+      "lat_a": 52.52,
+      "lng_a": 13.405,
+      "lat_b": 53.55,
+      "lng_b": 10.0
+    },
+    {
+      "city_a": "Berlin",
+      "city_b": "Leipzig",
+      "distance_km": 149.0,
+      "gravity": 0.2222,
+      "pop_a": 4679500,
+      "pop_b": 619879,
+      "lat_a": 52.52,
+      "lng_a": 13.405,
+      "lat_b": 51.34,
+      "lng_b": 12.375
+    },
+    {
+      "city_a": "Cologne",
+      "city_b": "Dortmund",
+      "distance_km": 73.5,
+      "gravity": 0.2037,
+      "pop_a": 1087353,
+      "pop_b": 595471,
+      "lat_a": 50.9364,
+      "lng_a": 6.9528,
+      "lat_b": 51.5139,
+      "lng_b": 7.4653
+    },
+    {
+      "city_a": "Düsseldorf",
+      "city_b": "Dortmund",
+      "distance_km": 57.6,
+      "gravity": 0.1924,
+      "pop_a": 631217,
+      "pop_b": 595471,
+      "lat_a": 51.2256,
+      "lng_a": 6.7767,
+      "lat_b": 51.5139,
+      "lng_b": 7.4653
+    },
+    {
+      "city_a": "Stuttgart",
+      "city_b": "Frankfurt",
+      "distance_km": 152.5,
+      "gravity": 0.1568,
+      "pop_a": 2787724,
+      "pop_b": 775790,
+      "lat_a": 48.7775,
+      "lng_a": 9.18,
+      "lat_b": 50.1106,
+      "lng_b": 8.6822
+    }
+  ],
+  "meta": {
+    "total_cities": 10,
+    "total_pairs": 10,
+    "strongest_pair": "Cologne → Düsseldorf",
+    "generated_at": "2026-03-12"
+  }
+}

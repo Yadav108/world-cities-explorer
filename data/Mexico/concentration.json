@@ -1,0 +1,64 @@
+{
+  "country": "Mexico",
+  "total_cities": 1013,
+  "total_population": 117363046,
+  "primacy_index": 0.1858,
+  "confidence": "high",
+  "confidence_note": "",
+  "largest_city": {
+    "city": "Mexico City",
+    "population": 21804000,
+    "share_pct": 18.6
+  },
+  "top5": [
+    {
+      "rank": 1,
+      "city": "Mexico City",
+      "population": 21804000,
+      "share_pct": 18.6
+    },
+    {
+      "rank": 2,
+      "city": "Guadalajara",
+      "population": 5525000,
+      "share_pct": 4.7
+    },
+    {
+      "rank": 3,
+      "city": "Monterrey",
+      "population": 5324281,
+      "share_pct": 4.5
+    },
+    {
+      "rank": 4,
+      "city": "Toluca",
+      "population": 2476689,
+      "share_pct": 2.1
+    },
+    {
+      "rank": 5,
+      "city": "Tijuana",
+      "population": 2002000,
+      "share_pct": 1.7
+    }
+  ],
+  "top5_combined_share": 31.6,
+  "narration": {
+    "concentration": {
+      "headline": "Moderately concentrated — one leading city",
+      "body": "Mexico City leads Mexico's urban system with 18.6% of tracked urban population across 1013 cities — significant but not overwhelming. Secondary cities retain meaningful economic weight alongside the capital.",
+      "comparison": "Similar to: United Kingdom, Italy, Canada",
+      "contrast": "Unlike: USA, Japan (more distributed) or Thailand, Argentina (more dominant)",
+      "pattern": "transitional",
+      "insight_confidence": "high"
+    },
+    "gravity": {
+      "headline": "Dense gravitational cluster — Guadalajara & Zapopan",
+      "body": "The strongest gravitational pull exists between Guadalajara and Zapopan (7 km apart, combined population 7,001,491). Cities form a tight gravitational cluster with top pairs averaging 14 km apart. This dense sub-regional network often functions as a single megalopolitan economy.",
+      "top_pair": "Guadalajara → Zapopan",
+      "network_type": "clustered",
+      "avg_distance_top5": 14.1
+    },
+    "synthesis": "Mexico sits between distributed and dominant: Mexico City leads with 18.6% but doesn't overwhelm. Gravity clusters tightly around Guadalajara → Zapopan (14 km avg) — a strong sub-regional core coexists with the national leader, creating a layered urban hierarchy."
+  }
+}

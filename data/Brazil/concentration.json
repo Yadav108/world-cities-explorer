@@ -1,0 +1,64 @@
+{
+  "country": "Brazil",
+  "total_cities": 2957,
+  "total_population": 191184513,
+  "primacy_index": 0.1208,
+  "confidence": "high",
+  "confidence_note": "",
+  "largest_city": {
+    "city": "São Paulo",
+    "population": 23086000,
+    "share_pct": 12.1
+  },
+  "top5": [
+    {
+      "rank": 1,
+      "city": "São Paulo",
+      "population": 23086000,
+      "share_pct": 12.1
+    },
+    {
+      "rank": 2,
+      "city": "Rio de Janeiro",
+      "population": 12592000,
+      "share_pct": 6.6
+    },
+    {
+      "rank": 3,
+      "city": "Belo Horizonte",
+      "population": 5328000,
+      "share_pct": 2.8
+    },
+    {
+      "rank": 4,
+      "city": "Fortaleza",
+      "population": 4167996,
+      "share_pct": 2.2
+    },
+    {
+      "rank": 5,
+      "city": "Salvador",
+      "population": 2417678,
+      "share_pct": 1.3
+    }
+  ],
+  "top5_combined_share": 25.0,
+  "narration": {
+    "concentration": {
+      "headline": "Highly distributed urban network",
+      "body": "No single city overwhelms Brazil's urban landscape. São Paulo holds 12.1% of tracked urban population across 2957 cities — characteristic of federal or historically polycentric countries with multiple strong economic centers.",
+      "comparison": "Similar to: United States, Germany, Switzerland",
+      "contrast": "Unlike: France, Thailand, Argentina",
+      "pattern": "polycentric",
+      "insight_confidence": "high"
+    },
+    "gravity": {
+      "headline": "Dense gravitational cluster — São Paulo & Guarulhos",
+      "body": "The strongest gravitational pull exists between São Paulo and Guarulhos (14 km apart, combined population 24,410,781). Cities form a tight gravitational cluster with top pairs averaging 14 km apart. This dense sub-regional network often functions as a single megalopolitan economy.",
+      "top_pair": "São Paulo → Guarulhos",
+      "network_type": "clustered",
+      "avg_distance_top5": 13.9
+    },
+    "synthesis": "Brazil presents a classic polycentric structure: no primate city, with São Paulo holding just 12.1% of tracked urban population. Gravity is strongest within a tight sub-regional cluster (São Paulo → Guarulhos, 14 km average separation) rather than radiating from a single capital — typical of federal economies with distributed industrial heritage."
+  }
+}
