@@ -192,6 +192,108 @@
     body.nl-active #status-overlay { top: calc(var(--header-h) + 72px); }
     body.nl-active #panel          { top: calc(var(--header-h) + 72px); }
 
+    /* ── NL Answer Box ────────────────────────────── */
+    #nl-answer-box {
+      display: none;
+      position: fixed;
+      top: calc(var(--header-h) + 74px);
+      left: 16px;
+      width: 380px;
+      max-height: 55vh;
+      overflow-y: auto;
+      z-index: 1798;
+      animation: fadeIn 0.2s ease;
+    }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:translateY(0); } }
+    .nl-answer {
+      background: #060d1a;
+      border: 1px solid #1e3a5f;
+      border-left: 3px solid #00cfff;
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+    }
+    .nl-answer.error       { border-left-color: #ff4757; }
+    .nl-answer.explanation { border-left-color: #ff9f43; }
+    .nl-answer.navigation  { border-left-color: #2ed573; }
+    .nl-answer-headline {
+      font-size: 13px; font-weight: 700;
+      color: #00cfff; margin-bottom: 12px;
+    }
+    .nl-answer-text { color: #aaa; font-size: 12px; line-height: 1.6; }
+    .nl-facts { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
+    .nl-fact  { display: flex; justify-content: space-between; align-items: center; }
+    .nl-fact-label { color: #6b8cae; }
+    .nl-fact-value { color: #fff; font-weight: 600; }
+    .nl-insight {
+      font-size: 11px; color: #aaa; line-height: 1.7;
+      margin: 10px 0; padding-top: 10px;
+      border-top: 1px solid #1e3a5f;
+    }
+    .nl-action-btn {
+      margin-top: 10px; padding: 6px 14px;
+      background: #00cfff20; border: 1px solid #00cfff44;
+      color: #00cfff; border-radius: 5px;
+      cursor: pointer; font-size: 11px;
+      transition: background 0.2s; display: block; width: 100%;
+    }
+    .nl-action-btn:hover { background: #00cfff35; }
+    /* Compare */
+    .nl-compare-grid {
+      display: flex; align-items: stretch;
+      gap: 8px; margin: 10px 0;
+    }
+    .nl-compare-col {
+      flex: 1; padding: 10px;
+      background: #0d1f33; border-radius: 6px;
+      border: 1px solid #1e3a5f; cursor: pointer;
+      text-align: center; transition: border-color 0.2s;
+    }
+    .nl-compare-col:hover  { border-color: #00cfff44; }
+    .nl-compare-col.winner { border-color: #ff9f43; }
+    .nl-compare-country { font-size: 12px; font-weight: 700; color: #fff; }
+    .nl-compare-value   { font-size: 22px; font-weight: 700; color: #ff9f43; margin: 4px 0; }
+    .nl-compare-pattern { font-size: 9px; text-transform:uppercase; letter-spacing:1px; }
+    .nl-compare-pattern.monocentric  { color: #ff4757; }
+    .nl-compare-pattern.polycentric  { color: #00cfff; }
+    .nl-compare-pattern.transitional { color: #ff9f43; }
+    .nl-compare-rank    { font-size: 10px; color: #4a6a8a; margin-top: 4px; }
+    .nl-compare-vs      { font-size: 11px; color: #4a6a8a; align-self: center; flex-shrink: 0; }
+    .nl-verdict {
+      font-size: 11px; color: #ccc; line-height: 1.6;
+      padding-top: 10px; border-top: 1px solid #1e3a5f;
+    }
+    /* Recommendation */
+    .nl-rec-list { display: flex; flex-direction: column; gap: 4px; margin: 8px 0; }
+    .nl-rec-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 10px; background: #0d1f33; border-radius: 5px;
+      border: 1px solid #1e3a5f; cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .nl-rec-item:hover { border-color: #00cfff44; }
+    .nl-rec-rank  { font-size: 10px; color: #4a6a8a; width: 20px; }
+    .nl-rec-name  { flex: 1; font-size: 12px; color: #ddd; }
+    .nl-rec-val   { font-size: 12px; font-weight: 700; color: #ff9f43; }
+    /* Explanation */
+    .nl-expl-def     { color: #ccc; font-size: 12px; line-height: 1.7; margin-bottom: 10px; }
+    .nl-expl-formula {
+      background: #0d1f33; border: 1px solid #1e3a5f;
+      border-radius: 4px; padding: 8px 12px; margin-bottom: 8px;
+      font-family: monospace; font-size: 11px; color: #00cfff;
+    }
+    .nl-expl-example { font-size: 11px; color: #aaa; line-height: 1.6; }
+    /* Suggestions */
+    .nl-suggestions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .nl-suggestion  {
+      font-size: 10px; padding: 4px 8px;
+      background: #0d1f33; border: 1px solid #1e3a5f;
+      border-radius: 4px; cursor: pointer; color: #aaa;
+      transition: all 0.15s;
+    }
+    .nl-suggestion:hover { border-color: #00cfff; color: #00cfff; }
+
     /* ── Math Transparency Layer ──────────────────── */
     .show-math-btn {
       font-size: 9px; padding: 2px 6px;
@@ -250,10 +352,13 @@
 
 <!-- NL Query bar (shown after data loads) -->
 <div id="nl-bar" style="display:none;">
-  <input id="nl-input" type="text" placeholder='Ask anything — e.g. "which city dominates France?" or "gravity network in Japan"' />
-  <button id="nl-ask-btn" onclick="handleNLQuery()">🧠 Ask</button>
+  <input id="nl-input" type="text"
+         placeholder='Ask anything — e.g. "Is France more concentrated than Germany?" or "Most distributed in Europe"'
+         onkeydown="if(event.key==='Enter') NLEngine.process(this.value)" />
+  <button id="nl-ask-btn" onclick="NLEngine.process(document.getElementById('nl-input').value)">🧠 Ask</button>
 </div>
 <div id="nl-status" class="hidden"></div>
+<div id="nl-answer-box"></div>
 
 <div id="map"></div>
 <div id="panel"></div>
@@ -1247,15 +1352,14 @@ const MathTransparency = {
 <script src="nav.js"></script>
 <script>Nav.augmentHeader();</script>
 <script src="country-switcher.js"></script>
+<script src="nl-engine.js"></script>
 <script>
-// ── Initialize CountrySwitcher ────────────────────────────────
-// Called after DOMContentLoaded so #header exists.
-// Uses _applyData from the main script block.
+// ── Initialize CountrySwitcher + NLEngine ─────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   CountrySwitcher.init(({ gravity, concentration, country }) => {
     _applyData(gravity, concentration);
-    // _applyData handles overlay hide, status update, and switchMode
   });
+  NLEngine.init();
 });
 </script>
 </body>
