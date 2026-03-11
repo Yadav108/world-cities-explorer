@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🌍 World Cities Explorer</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <style>
+    /* ── Reset & base ───────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #0d0d1a;
+      color: #cdd6f4;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header ─────────────────────────────────────── */
+    #header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 56px;
+      background: #0d0d1a;
+      border-bottom: 1px solid #1e1e3a;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 14px;
+      z-index: 1000;
+    }
+
+    #header h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #00cfff;
+      white-space: nowrap;
+      letter-spacing: 0.03em;
+    }
+
+    #country-input {
+      flex: 1;
+      max-width: 260px;
+      padding: 7px 12px;
+      border-radius: 6px;
+      border: 1px solid #2a2a4a;
+      background: #12122a;
+      color: #e0e0ff;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    #country-input:focus { border-color: #00cfff; }
+    #country-input::placeholder { color: #555577; }
+
+    /* Suggestions dropdown */
+    #suggestions {
+      position: fixed;
+      top: 56px;
+      background: #12122a;
+      border: 1px solid #2a2a4a;
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      z-index: 2000;
+      display: none;
+      min-width: 200px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      max-height: 220px;
+      overflow-y: auto;
+    }
+    .suggestion-item {
+      padding: 8px 14px;
+      font-size: 0.88rem;
+      color: #cdd6f4;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .suggestion-item:hover,
+    .suggestion-item.active { background: #1e1e3a; color: #00cfff; }
+
+    #explore-btn {
+      padding: 7px 18px;
+      border-radius: 6px;
+      border: none;
+      background: #00cfff;
+      color: #0d0d1a;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    #explore-btn:hover  { background: #33daff; }
+    #explore-btn:active { transform: scale(0.97); }
+
+    #status {
+      font-size: 0.82rem;
+      color: #7799bb;
+      white-space: nowrap;
+    }
+
+    /* ── Main layout ────────────────────────────────── */
+    #main {
+      display: flex;
+      margin-top: 56px;
+      height: calc(100vh - 56px);
+    }
+
+    /* ── Map ────────────────────────────────────────── */
+    #map {
+      flex: 1;
+      margin-right: 280px;
+      background: #060612;
+    }
+
+    /* ── Right panel ────────────────────────────────── */
+    #panel {
+      position: fixed;
+      top: 56px; right: 0;
+      width: 280px;
+      height: calc(100vh - 56px);
+      background: #0d0d1a;
+      border-left: 1px solid #1e1e3a;
+      padding: 18px 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    #panel h2 {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #00cfff;
+      margin-bottom: 10px;
+    }
+
+    /* Legend */
+    #legend-items { display: flex; flex-direction: column; gap: 8px; }
+
+    .legend-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .legend-circle {
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .legend-label { font-size: 0.82rem; color: #aab0cc; }
+
+    /* Top cities */
+    #top-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+
+    .top-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 7px;
+      background: #12122a;
+      border: 1px solid #1e1e3a;
+    }
+
+    .top-rank {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #00cfff;
+      min-width: 18px;
+      padding-top: 1px;
+    }
+
+    .top-info { flex: 1; }
+    .top-city { font-size: 0.88rem; font-weight: 600; color: #e0e0ff; }
+    .top-pop  { font-size: 0.78rem; color: #7799bb; margin-top: 2px; }
+
+    .capital-badge {
+      font-size: 0.65rem;
+      background: #00cfff22;
+      color: #00cfff;
+      border: 1px solid #00cfff55;
+      border-radius: 4px;
+      padding: 1px 5px;
+      margin-left: 5px;
+      vertical-align: middle;
+    }
+
+    /* ── Tooltip ────────────────────────────────────── */
+    #tooltip {
+      position: fixed;
+      pointer-events: none;
+      background: rgba(13, 13, 26, 0.93);
+      border: 1px solid #2a2a4a;
+      border-radius: 8px;
+      padding: 9px 13px;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: #cdd6f4;
+      display: none;
+      z-index: 9999;
+      max-width: 200px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    #tooltip .tt-city { font-weight: 700; color: #00cfff; font-size: 0.9rem; }
+
+    /* ── Leaflet SVG overlay fix ────────────────────── */
+    .leaflet-overlay-pane svg { overflow: visible; }
+
+    /* ── Empty state ────────────────────────────────── */
+    .empty-msg {
+      color: #555577;
+      font-size: 0.82rem;
+      font-style: italic;
+    }
+
+    /* ── All-cities scrollable list ─────────────────── */
+    #top-list {
+      max-height: calc(100vh - 340px);
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #2a2a4a transparent;
+    }
+    #top-list::-webkit-scrollbar { width: 4px; }
+    #top-list::-webkit-scrollbar-thumb { background: #2a2a4a; border-radius: 4px; }
+
+    .cities-count {
+      font-size: 0.72rem;
+      color: #555577;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Header ──────────────────────────────────────── -->
+<header id="header">
+  <h1>🌍 World Cities Explorer</h1>
+  <input id="country-input" type="text" placeholder="e.g. Japan, Brazil, Germany…" autocomplete="off" />
+  <div id="suggestions"></div>
+  <button id="explore-btn">Explore</button>
+  <span id="status">Enter a country to begin</span>
+</header>
+
+<!-- ── Main ────────────────────────────────────────── -->
+<div id="main">
+  <div id="map"></div>
+
+  <aside id="panel">
+    <div id="legend-section">
+      <h2>Population Scale</h2>
+      <div id="legend-items"><p class="empty-msg">Load a country first</p></div>
+    </div>
+
+    <div id="top-section">
+      <h2>All Cities</h2>
+      <p class="cities-count" id="cities-count"></p>
+      <ul id="top-list"><li class="empty-msg">Load a country first</li></ul>
+    </div>
+  </aside>
+</div>
+
+<!-- ── Tooltip ──────────────────────────────────────── -->
+<div id="tooltip"></div>
+
+<!-- ── Scripts (load order: Leaflet → D3 → inline) ── -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+<script>
+// ════════════════════════════════════════════════════
+//  Map initialisation
+// ════════════════════════════════════════════════════
+const map = L.map('map', { zoomControl: true }).setView([20, 0], 2);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
+  subdomains:  'abcd',
+  maxZoom:     19,
+}).addTo(map);
+
+// Add Leaflet SVG layer and grab it with D3
+L.svg().addTo(map);
+const svg = d3.select('#map').select('svg');
+const g   = svg.append('g').attr('class', 'leaflet-zoom-hide');
+
+// ════════════════════════════════════════════════════
+//  Scales (updated each load)
+// ════════════════════════════════════════════════════
+let radiusScale = d3.scaleSqrt().range([3, 26]);
+let colorScale  = d3.scaleSequential(d3.interpolateYlOrRd);
+
+// ════════════════════════════════════════════════════
+//  Reproject circles to current map zoom/pan
+// ════════════════════════════════════════════════════
+function project(d) {
+  return map.latLngToLayerPoint(new L.LatLng(d.lat, d.lng));
+}
+
+function reproject() {
+  g.selectAll('circle')
+    .attr('cx', d => project(d).x)
+    .attr('cy', d => project(d).y);
+
+  g.selectAll('text.city-label')
+    .attr('x', d => project(d).x)
+    .attr('y', d => project(d).y - (d.population ? radiusScale(d.population) : 4) - 5);
+
+  updateLabelVisibility();
+}
+
+const MIN_LABEL_ZOOM = 5;
+
+function updateLabelVisibility() {
+  const visible = map.getZoom() >= MIN_LABEL_ZOOM;
+  g.selectAll('text.city-label').style('display', visible ? null : 'none');
+}
+
+map.on('zoomend viewreset moveend', reproject);
+
+// ════════════════════════════════════════════════════
+//  Tooltip
+// ════════════════════════════════════════════════════
+const tooltip = document.getElementById('tooltip');
+const fmt      = d3.format(',');
+
+// Abbreviated population label (e.g. 37.8M, 850K, 4200)
+function fmtLabel(pop) {
+  if (!pop) return '';
+  if (pop >= 1e6) return (pop / 1e6).toFixed(1) + 'M';
+  if (pop >= 1e3) return Math.round(pop / 1e3) + 'K';
+  return String(pop);
+}
+
+function showTooltip(event, d) {
+  tooltip.innerHTML =
+    `<div class="tt-city">${d.city}</div>` +
+    `<div>Population: ${d.population ? fmt(d.population) : 'N/A'}</div>` +
+    (d.capital === 'primary' ? '<div>🏛 Capital city</div>' : '');
+  tooltip.style.display = 'block';
+  moveTooltip(event);
+}
+
+function moveTooltip(event) {
+  const offset = 14;
+  const tw = tooltip.offsetWidth, th = tooltip.offsetHeight;
+  let x = event.clientX + offset;
+  let y = event.clientY + offset;
+  if (x + tw > window.innerWidth)  x = event.clientX - tw - offset;
+  if (y + th > window.innerHeight) y = event.clientY - th - offset;
+  tooltip.style.left = x + 'px';
+  tooltip.style.top  = y + 'px';
+}
+
+function hideTooltip() {
+  tooltip.style.display = 'none';
+}
+
+// ════════════════════════════════════════════════════
+//  Render circles (D3 enter/update/exit)
+// ════════════════════════════════════════════════════
+function renderCircles(data) {
+  const popExtent = d3.extent(data, d => d.population);
+  radiusScale.domain(popExtent);
+  colorScale.domain(popExtent);
+
+  // ── EXIT ──────────────────────────────────────────
+  g.selectAll('circle')
+    .data(data, d => d.city + d.lat + d.lng)
+    .exit()
+    .transition().duration(300)
+    .attr('r', 0)
+    .remove();
+
+  // Remove old labels before re-rendering
+  g.selectAll('text.city-label').remove();
+
+  // ── ENTER ─────────────────────────────────────────
+  const entered = g.selectAll('circle')
+    .data(data, d => d.city + d.lat + d.lng)
+    .enter()
+    .append('circle')
+    .attr('cx', d => project(d).x)
+    .attr('cy', d => project(d).y)
+    .attr('r', 0)
+    .attr('fill-opacity', 0.82)
+    .attr('cursor', 'pointer')
+    .on('mouseover', showTooltip)
+    .on('mousemove', moveTooltip)
+    .on('mouseout',  hideTooltip);
+
+  // ── ENTER + UPDATE merge → final styling + transition ──
+  entered.merge(g.selectAll('circle'))
+    .attr('fill',         d => d.population ? colorScale(d.population) : '#4a4a6a')
+    .attr('stroke',       d => d.capital === 'primary' ? '#ffffff' : 'none')
+    .attr('stroke-width', d => d.capital === 'primary' ? 1.5 : 0)
+    .transition().duration(500)
+    .attr('r', d => d.population ? radiusScale(d.population) : 4);
+
+  // ── Population labels (appear at zoom >= MIN_LABEL_ZOOM) ──
+  g.selectAll('text.city-label')
+    .data(data, d => d.city + d.lat + d.lng)
+    .enter()
+    .append('text')
+    .attr('class', 'city-label')
+    .attr('x', d => project(d).x)
+    .attr('y', d => project(d).y - (d.population ? radiusScale(d.population) : 4) - 5)
+    .attr('text-anchor', 'middle')
+    .attr('font-size', '10px')
+    .attr('font-family', "'Segoe UI', Arial, sans-serif")
+    .attr('font-weight', '600')
+    .attr('fill', '#e0e0ff')
+    .attr('paint-order', 'stroke')
+    .attr('stroke', '#0d0d1a')
+    .attr('stroke-width', 2.5)
+    .attr('stroke-linejoin', 'round')
+    .attr('pointer-events', 'none')
+    .text(d => fmtLabel(d.population));
+
+  updateLabelVisibility();
+}
+
+// ════════════════════════════════════════════════════
+//  Legend
+// ════════════════════════════════════════════════════
+function renderLegend(data) {
+  const container = document.getElementById('legend-items');
+  container.innerHTML = '';
+
+  const popExtent = d3.extent(data, d => d.population);
+  const steps = [0.05, 0.25, 0.50, 0.75, 1.00];
+
+  steps.forEach(t => {
+    const pop = popExtent[0] + t * (popExtent[1] - popExtent[0]);
+    const r   = radiusScale(pop);
+    const col = colorScale(pop);
+    const dia = Math.round(r * 2);
+
+    const row = document.createElement('div');
+    row.className = 'legend-row';
+    row.innerHTML =
+      `<div class="legend-circle" style="width:${dia}px;height:${dia}px;background:${col};opacity:0.85;"></div>` +
+      `<span class="legend-label">${fmt(Math.round(pop))}</span>`;
+    container.appendChild(row);
+  });
+}
+
+// ════════════════════════════════════════════════════
+//  All cities list (sorted by population)
+// ════════════════════════════════════════════════════
+function renderCitiesList(data) {
+  const ul    = document.getElementById('top-list');
+  const count = document.getElementById('cities-count');
+  ul.innerHTML = '';
+
+  const sorted = [...data].sort((a, b) => b.population - a.population);
+  count.textContent = `${sorted.length} cities — sorted by population`;
+
+  sorted.forEach((d, i) => {
+    const li = document.createElement('li');
+    li.className = 'top-item';
+    li.innerHTML =
+      `<span class="top-rank">#${i + 1}</span>` +
+      `<div class="top-info">
+        <div class="top-city">${d.city}${d.capital === 'primary' ? '<span class="capital-badge">Capital</span>' : ''}</div>
+        <div class="top-pop">${d.population ? fmt(d.population) : 'N/A'}</div>
+      </div>`;
+    ul.appendChild(li);
+  });
+}
+
+// ════════════════════════════════════════════════════
+//  Fit map to data bounds
+// ════════════════════════════════════════════════════
+function fitBounds(data) {
+  if (!data.length) return;
+  const lats = data.map(d => d.lat);
+  const lngs = data.map(d => d.lng);
+  map.fitBounds(
+    [[Math.min(...lats), Math.min(...lngs)],
+     [Math.max(...lats), Math.max(...lngs)]],
+    { padding: [40, 40] }
+  );
+}
+
+// ════════════════════════════════════════════════════
+//  In-memory world data (loaded once from CSV)
+// ════════════════════════════════════════════════════
+let allCitiesData  = null;   // full parsed CSV
+let countryNames   = [];     // unique sorted country list
+
+async function initData() {
+  const status = document.getElementById('status');
+  const input  = document.getElementById('country-input');
+  const btn    = document.getElementById('explore-btn');
+
+  status.textContent = '⏳ Loading world cities data…';
+  input.disabled = true;
+  btn.disabled   = true;
+
+  try {
+    const raw = await d3.csv('worldcities.csv');
+
+    allCitiesData = raw
+      .filter(r => r.lat && r.lng && r.lat.trim() !== '' && r.lng.trim() !== '')
+      .map(r => ({
+        city:       (r.city       || '').trim(),
+        lat:        parseFloat(r.lat),
+        lng:        parseFloat(r.lng),
+        country:    (r.country    || '').trim(),
+        population: parseInt(r.population) || 0,
+        capital:    (r.capital    || '').trim(),
+      }))
+      .filter(r => !isNaN(r.lat) && !isNaN(r.lng));
+
+    countryNames = [...new Set(allCitiesData.map(d => d.country))].sort();
+
+    status.textContent = `✅ ${allCitiesData.length.toLocaleString()} cities across ${countryNames.length} countries — type to explore`;
+    input.disabled = false;
+    btn.disabled   = false;
+    input.focus();
+  } catch (e) {
+    status.textContent = '❌ worldcities.csv not found — place it in this folder and restart the server.';
+  }
+}
+
+// ════════════════════════════════════════════════════
+//  Autocomplete suggestions
+// ════════════════════════════════════════════════════
+const suggestionsEl = document.getElementById('suggestions');
+let activeIdx = -1;
+
+function showSuggestions(query) {
+  if (!query || !allCitiesData) { hideSuggestions(); return; }
+  const lower = query.toLowerCase();
+  const matches = countryNames.filter(c => c.toLowerCase().startsWith(lower)).slice(0, 8);
+
+  if (!matches.length) { hideSuggestions(); return; }
+
+  // Position under the input
+  const inputEl = document.getElementById('country-input');
+  const rect     = inputEl.getBoundingClientRect();
+  suggestionsEl.style.left  = rect.left + 'px';
+  suggestionsEl.style.width = rect.width + 'px';
+
+  suggestionsEl.innerHTML = matches
+    .map((c, i) => `<div class="suggestion-item" data-idx="${i}" data-name="${c}">${c}</div>`)
+    .join('');
+  suggestionsEl.style.display = 'block';
+  activeIdx = -1;
+
+  suggestionsEl.querySelectorAll('.suggestion-item').forEach(el => {
+    el.addEventListener('mousedown', e => {
+      e.preventDefault();
+      document.getElementById('country-input').value = el.dataset.name;
+      hideSuggestions();
+      loadCountry();
+    });
+  });
+}
+
+function hideSuggestions() {
+  suggestionsEl.style.display = 'none';
+  activeIdx = -1;
+}
+
+function navigateSuggestions(dir) {
+  const items = suggestionsEl.querySelectorAll('.suggestion-item');
+  if (!items.length) return;
+  items.forEach(el => el.classList.remove('active'));
+  activeIdx = (activeIdx + dir + items.length) % items.length;
+  items[activeIdx].classList.add('active');
+  document.getElementById('country-input').value = items[activeIdx].dataset.name;
+}
+
+// ════════════════════════════════════════════════════
+//  Load / switch country
+// ════════════════════════════════════════════════════
+function loadCountry() {
+  const input  = document.getElementById('country-input').value.trim();
+  const status = document.getElementById('status');
+
+  hideSuggestions();
+
+  if (!input) { status.textContent = '⚠ Please enter a country name.'; return; }
+  if (!allCitiesData) { status.textContent = '⏳ Still loading data, please wait…'; return; }
+
+  const lower    = input.toLowerCase();
+  const filtered = allCitiesData.filter(d => d.country.toLowerCase() === lower);
+
+  if (!filtered.length) {
+    const partials = countryNames.filter(c => c.toLowerCase().includes(lower)).slice(0, 5);
+    status.textContent = partials.length
+      ? `No exact match for "${input}". Did you mean: ${partials.join(', ')}?`
+      : `No cities found for "${input}". Check spelling.`;
+    return;
+  }
+
+  // Clear old circles + labels
+  g.selectAll('circle').remove();
+  g.selectAll('text.city-label').remove();
+
+  status.textContent = `✅ ${filtered.length} cities — ${filtered[0].country}`;
+
+  renderCircles(filtered);
+  renderLegend(filtered);
+  renderCitiesList(filtered);
+  fitBounds(filtered);
+}
+
+// ════════════════════════════════════════════════════
+//  Event listeners
+// ════════════════════════════════════════════════════
+const countryInputEl = document.getElementById('country-input');
+
+countryInputEl.addEventListener('input', e => showSuggestions(e.target.value));
+countryInputEl.addEventListener('keydown', e => {
+  if (e.key === 'ArrowDown') { e.preventDefault(); navigateSuggestions(1); }
+  else if (e.key === 'ArrowUp') { e.preventDefault(); navigateSuggestions(-1); }
+  else if (e.key === 'Enter')  { loadCountry(); }
+  else if (e.key === 'Escape') { hideSuggestions(); }
+});
+countryInputEl.addEventListener('blur', () => setTimeout(hideSuggestions, 150));
+
+document.getElementById('explore-btn').addEventListener('click', loadCountry);
+
+// Boot — load CSV on page open
+initData();
+</script>
+</body>
+</html>
