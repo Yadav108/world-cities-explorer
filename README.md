@@ -1,52 +1,76 @@
 # 🌍 World Cities Explorer
 
-An interactive map that lets you explore cities of any country in the world — with population data visualised as colour-coded circles on a dark Leaflet + D3.js map.
+An interactive, population-scaled world cities map built with **D3.js v7 + Leaflet.js**, powered by a **Bash/Python data pipeline** processing 43,000+ cities globally.
 
-![World Cities Explorer](https://img.shields.io/badge/D3.js-v7-orange) ![Leaflet](https://img.shields.io/badge/Leaflet-1.9.4-green) ![Python](https://img.shields.io/badge/Python-3.x-blue)
+> Built as part of a Computer Science data processing pipeline project — from raw CSV to interactive browser visualization, with zero backend dependencies.
+
+---
+
+## 🖥️ Live Demo
+
+🔗 [world-cities-explorer](https://github.com/Yadav108/world-cities-explorer)
+
+---
+
+## 🏗️ Architecture
+
+```
+worldcities.csv (43K rows)
+       │
+       ├──▶ pipeline.py / pipeline.sh   ← pre-filter → cities.json
+       │
+       └──▶ index.html  ←── d3.csv() loads CSV directly in browser
+                              │
+                    ┌─────────┴──────────┐
+               Leaflet.js           D3.js v7
+              (tile basemap)    (SVG circles overlay)
+```
 
 ---
 
 ## ✨ Features
 
-- 🔍 **Live country search** with autocomplete dropdown — switch countries instantly, no reload needed
-- 🗺️ **Interactive dark map** (CartoDB Dark Matter tiles) with zoom, pan, and scroll
-- 📊 **Population circles** — size and colour scaled with `d3.scaleSqrt` + `YlOrRd` palette
-- 🔢 **Population labels** on circles, visible when zoomed in (zoom ≥ 5)
-- 🏛️ **Capital cities** highlighted with a white stroke
-- 🖱️ **Hover tooltips** showing city name, population, and capital status
-- 📋 **Full cities list** in the right panel — all cities sorted by population
+### 🗺️ Interactive Map
+- Dark CartoDB basemap with D3 SVG circles overlaid via Leaflet's `L.svg()` layer
+- Population-scaled circles using `d3.scaleSqrt()` — prevents large cities from dominating
+- Color gradient via `d3.interpolateYlOrRd` (yellow → red by population)
+- Capital city markers highlighted with white stroke ring
+- Zoom-based culling — only cities >1M shown at world zoom; reveals more on zoom-in
+- Smooth enter/exit transitions when switching countries
+
+### 🔍 Search & Navigation
+- Autocomplete dropdown with keyboard navigation (↑ ↓ Enter Esc)
+- Instant country switching — CSV loaded once in memory, no re-pipeline needed
+- City highlight search — matching circle pulses on the map
+- Auto-fit bounds — map zooms to fit selected country
+
+### ⚖️ Compare Mode
+- Side-by-side overlay of two countries on the same map
+- Country A: `YlOrRd` scale (cyan accent)
+- Country B: `BuPu` scale (orange accent)
+- Tooltip shows colored dot + country label in compare mode
+
+### 🎚️ Population Filter
+- Slider with power-curve scaling (`val^2.5`) for resolution at low populations
+- Live filtering — drag to remove circles below threshold instantly
+- Combines with zoom-level culling
+
+### 📊 Stats Panel
+- City count, total population, largest city, capital name
+- Population scale legend with 5 color-coded steps
+- Scrollable cities list sorted by population — click any to pan the map
 
 ---
 
-## 🚀 Quick Start
+## 🛠️ Tech Stack
 
-### Option A — Browse directly (no pipeline needed)
-
-The app loads `worldcities.csv` directly in the browser.
-
-```bash
-# 1. Start local server (required for file access)
-python -m http.server 8080
-
-# 2. Open browser
-http://localhost:8080
-
-# 3. Type any country name → press Enter or click Explore
-```
-
-### Option B — Pre-filter with the pipeline
-
-Use this if you want a lightweight `cities.json` for a specific country.
-
-```bash
-# Python (Windows / any OS)
-python pipeline.py
-
-# Bash (Git Bash / Linux / macOS)
-bash pipeline.sh
-```
-
-Then start the server and open the browser as above.
+| Tool | Version | Role |
+|---|---|---|
+| Leaflet.js | 1.9.4 | Tile basemap + SVG layer host |
+| D3.js | v7 | Data binding, scales, transitions, SVG |
+| pandas | 2.x | CSV processing in Python pipeline |
+| awk / bash | — | Bash pipeline for filtering |
+| Python http.server | built-in | Local development server |
 
 ---
 
@@ -54,39 +78,78 @@ Then start the server and open the browser as above.
 
 ```
 world-cities-explorer/
-├── worldcities.csv       ← Dataset (from simplemaps.com/data/world-cities)
-├── index.html            ← D3 + Leaflet interactive map (main app)
-├── pipeline.py           ← Python data pipeline (generates cities.json)
-├── pipeline.sh           ← Bash data pipeline (generates cities.json)
+├── index.html          # Main app — interactive map UI
+├── pipeline.py         # Python data pipeline (Windows-native)
+├── pipeline.sh         # Bash data pipeline (Git Bash / WSL)
+├── worldcities.csv     # Source dataset — 43,645 cities globally
+├── cities.json         # Pipeline output — filtered country subset
+├── .gitignore
 └── README.md
 ```
 
 ---
 
-## 📦 Dataset
+## 🚀 How to Run
 
-- **Source:** [SimpleMaps World Cities Database](https://simplemaps.com/data/world-cities) (free tier)
-- **File:** `worldcities.csv`
-- **Size:** ~43,000 cities across 200+ countries
-- **Columns used:** `city`, `lat`, `lng`, `country`, `population`, `capital`
+### 1. Get the dataset
+Download `worldcities.csv` from [SimpleMaps](https://simplemaps.com/data/world-cities) and place it in the project root.
+
+### 2. Start local server
+```bash
+cd world-cities-explorer
+python -m http.server 8080
+```
+
+### 3. Open in browser
+```
+http://localhost:8080
+```
+
+### 4. Explore
+Type any country → press **Enter** or click **Explore**
+```
+Examples: Germany · India · Japan · Brazil · United States
+```
+
+### Optional: Pre-generate cities.json via pipeline
+```bash
+# Windows (PyCharm terminal)
+python pipeline.py
+
+# Git Bash / WSL
+bash pipeline.sh
+```
 
 ---
 
-## 🛠️ Dependencies
+## 🧠 Key Design Decisions
 
-| Tool | Version | Purpose |
-|---|---|---|
-| [Leaflet.js](https://leafletjs.com/) | 1.9.4 | Tile map base layer |
-| [D3.js](https://d3js.org/) | v7 | Data binding + SVG circles |
-| [pandas](https://pandas.pydata.org/) | latest | Python CSV processing (pipeline only) |
-| Python `http.server` | built-in | Local dev server |
+**Why `d3.scaleSqrt()` for radius?**
+Population values span 4 orders of magnitude (50K → 38M). Linear scaling makes small cities invisible. Square root compression keeps all cities visually meaningful.
+
+**Why D3 over Folium?**
+Folium generates static HTML. D3 gives direct control over every SVG element — enabling live transitions, compare mode, and zoom-based culling that Folium cannot do.
+
+**Why Leaflet + D3 together?**
+Leaflet handles tile loading and map interaction. D3 handles data-to-visual binding. Together they cover what neither does alone.
 
 ---
 
-## 🖼️ How It Works
+## 📊 Dataset
 
-1. On page load, `worldcities.csv` is fetched and parsed entirely in the browser with `d3.csv()`
-2. All ~43K city records are held in memory
-3. When you type a country name, the data is filtered client-side in milliseconds
-4. D3 binds the filtered data to SVG `<circle>` elements overlaid on the Leaflet map via `L.svg()`
-5. On every zoom/pan event, circles are reprojected using `map.latLngToLayerPoint()`
+- **Source:** [SimpleMaps World Cities Basic](https://simplemaps.com/data/world-cities)
+- **Size:** 43,645 cities across 233 countries
+- **Fields used:** `city`, `lat`, `lng`, `country`, `population`, `capital`
+
+---
+
+## 👤 Author
+
+**Aryan Yadav**
+Mechatronics Engineering Student — THWS, Germany
+[GitHub: Yadav108](https://github.com/Yadav108)
+
+---
+
+## 📄 License
+MIT
